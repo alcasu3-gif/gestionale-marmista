@@ -2000,6 +2000,10 @@ function tornaFase(){
     document.getElementById('sc-badge').innerHTML=`<span class="badge ${FASI_BADGE[c.fase]||'bv'}">${FASI_LBL[FASI.indexOf(c.fase)]}</span>`;
     renderCommList(commesse);
     updateFaseActionBtns(idx-1);
+    // apri automaticamente il tab corrispondente alla fase precedente
+    const tabDest=FASE_TAB[c.fase]||'anagrafica';
+    const tabBtn=document.querySelector(`.stab[onclick*="showStab('${tabDest}'"]`);
+    showStab(tabDest, tabBtn);
     botMsg('↩ Commessa riportata a: '+FASI_LBL[idx-1]+'.');
   } else {
     botMsg('La commessa è già alla prima fase ('+FASI_LBL[0]+').');
