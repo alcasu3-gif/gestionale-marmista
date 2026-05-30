@@ -1943,6 +1943,18 @@ function calcAcconto(){
   document.getElementById('sc-ac-acc').value=Math.round(imp*perc/100);
 }
 
+// mappa fase → tab da aprire
+const FASE_TAB={
+  'richiesta':'anagrafica',
+  'sopralluogo':'sopralluogo',
+  'preventivo':'preventivo',
+  'trattativa':'preventivo',
+  'confermata':'accordo',
+  'lavorazione':'accordo',
+  'consegnata':'pagamenti',
+  'fatturata':'pagamenti'
+};
+
 function avanzaFase(){
   if(!activeCommId){
     botMsg('⚠ Seleziona prima una commessa dalla lista a sinistra, poi clicca "Avanza fase".');
@@ -1959,6 +1971,10 @@ function avanzaFase(){
     document.getElementById('sc-badge').innerHTML=`<span class="badge ${FASI_BADGE[c.fase]||'bv'}">${FASI_LBL[FASI.indexOf(c.fase)]}</span>`;
     renderCommList(commesse);
     updateFaseActionBtns(idx+1);
+    // apri automaticamente il tab corrispondente alla nuova fase
+    const tabDest=FASE_TAB[c.fase]||'anagrafica';
+    const tabBtn=document.querySelector(`.stab[onclick*="showStab('${tabDest}'"]`);
+    showStab(tabDest, tabBtn);
     botMsg('✓ Commessa avanzata a: '+FASI_LBL[idx+1]+'. '+getSuggestFase(c.fase),getSugsFase(c.fase));
   } else {
     botMsg('La commessa è già all\'ultima fase ('+FASI_LBL[idx]+').');
