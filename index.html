@@ -1,0 +1,2667 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestionale Marmista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --stone:#1c1917;--stone2:#292524;--stone3:#44403c;--stone4:#78716c;
+  --stone5:#a8a29e;--stone6:#d6d3d1;--stone7:#f5f5f4;--stone8:#fafaf9;
+  --cream:#fffbf5;
+  --gold:#b45309;--gold2:#d97706;--gold3:#fbbf24;--gold4:#fef3c7;
+  --teal:#0f766e;--teal2:#14b8a6;--teal3:#ccfbf1;
+  --red:#b91c1c;--red2:#fecaca;
+  --r:8px;--r2:12px;--r3:16px;
+  --shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.08);
+  --shadow2:0 4px 16px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--stone7);color:var(--stone);min-height:100vh;font-size:14px}
+.app{display:grid;grid-template-rows:auto 1fr;height:100vh;overflow:hidden}
+
+/* TOP BAR */
+.topbar{background:var(--stone);color:var(--cream);display:flex;align-items:center;gap:0;padding:0;border-bottom:3px solid var(--gold)}
+.topbar-logo{padding:12px 20px;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.05em;color:var(--gold3);border-right:1px solid var(--stone3);white-space:nowrap}
+.topbar-logo span{color:var(--stone5);font-weight:400}
+.topnav{display:flex;flex:1;overflow-x:auto}
+.tnb{padding:14px 18px;font-size:13px;font-weight:400;cursor:pointer;border:none;background:transparent;color:var(--stone5);letter-spacing:.02em;transition:all .15s;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px}
+.tnb:hover{color:var(--cream);background:var(--stone2)}
+.tnb.active{color:var(--gold3);border-bottom-color:var(--gold3);background:var(--stone2)}
+.topbar-user{padding:0 16px;display:flex;align-items:center;gap:8px;border-left:1px solid var(--stone3);margin-left:auto;font-size:12px;color:var(--stone5)}
+.avatar-sm{width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--stone);font-family:'DM Mono',monospace}
+
+/* MAIN LAYOUT */
+.main{display:grid;grid-template-columns:1fr 320px;overflow:hidden}
+.content{overflow-y:auto;padding:24px}
+.sidebar{border-left:1px solid var(--stone6);background:var(--cream);display:flex;flex-direction:column;overflow:hidden}
+
+/* PAGES */
+.page{display:none}.page.active{display:block}
+h2{font-size:18px;font-weight:500;color:var(--stone);margin-bottom:4px;font-family:'DM Sans',sans-serif}
+.page-sub{font-size:12px;color:var(--stone4);margin-bottom:20px;font-family:'DM Mono',monospace}
+
+/* CARDS */
+.card{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:16px 18px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card-title{font-size:12px;font-weight:500;color:var(--stone3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:6px}
+.card-title::before{content:'';display:block;width:3px;height:12px;background:var(--gold2);border-radius:2px}
+
+/* FORM */
+.fl{font-size:11px;color:var(--stone4);margin-bottom:4px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em}
+input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--stone6);border-radius:var(--r);font-size:13px;background:#fff;color:var(--stone);font-family:'DM Sans',sans-serif;transition:border-color .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold2);box-shadow:0 0 0 3px var(--gold4)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.mb{margin-bottom:12px}
+
+/* BUTTONS */
+.btn{padding:8px 14px;border-radius:var(--r);border:1px solid var(--stone6);font-size:13px;cursor:pointer;background:#fff;color:var(--stone);font-family:'DM Sans',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{background:var(--stone7);border-color:var(--stone5)}
+.btn-gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-gold:hover{background:var(--gold2);border-color:var(--gold2)}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-ghost{border-color:transparent;background:transparent;color:var(--stone4)}
+.btn-ghost:hover{background:var(--stone7);color:var(--stone)}
+.btn-danger{border-color:var(--red2);color:var(--red);background:#fff}
+.btn-danger:hover{background:var(--red2)}
+
+/* BADGES */
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500;font-family:'DM Mono',monospace}
+.bv{background:var(--stone7);color:var(--stone4)} /* vuoto */
+.bg2{background:#dcfce7;color:#166534}
+.ba2{background:#fef3c7;color:#92400e}
+.bb2{background:#dbeafe;color:#1e40af}
+.br2{background:#fee2e2;color:#991b1b}
+.bt{background:var(--teal3);color:var(--teal)}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 10px;font-size:11px;color:var(--stone4);border-bottom:1px solid var(--stone6);font-family:'DM Mono',monospace;font-weight:400;text-transform:uppercase;letter-spacing:.05em}
+td{padding:9px 10px;border-bottom:1px solid var(--stone7);vertical-align:middle}
+tr:hover td{background:var(--stone8)}
+tr:last-child td{border-bottom:none}
+.tnum{font-family:'DM Mono',monospace;font-size:13px}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.metric{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:14px 16px;box-shadow:var(--shadow)}
+.metric-val{font-size:22px;font-weight:500;color:var(--stone);font-family:'DM Mono',monospace}
+.metric-lbl{font-size:11px;color:var(--stone4);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+.metric-warn .metric-val{color:var(--gold)}
+.metric-danger .metric-val{color:var(--red)}
+
+/* STEPS */
+.steps{display:flex;gap:0;margin-bottom:16px}
+.step{flex:1;padding:6px 4px;font-size:10px;text-align:center;background:var(--stone7);color:var(--stone5);border:1px solid var(--stone6);font-family:'DM Mono',monospace}
+.step:first-child{border-radius:var(--r) 0 0 var(--r)}
+.step:last-child{border-radius:0 var(--r) var(--r) 0}
+.step+.step{border-left:none}
+.step.done{background:#dcfce7;color:#166534;border-color:#bbf7d0}
+.step.cur{background:var(--gold4);color:var(--gold);border-color:var(--gold3);font-weight:500}
+
+/* TAGS */
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+
+/* SEP */
+.sep{height:1px;background:var(--stone7);margin:14px 0}
+
+/* CANVAS */
+.cw{border:1px solid var(--stone6);border-radius:var(--r);background:var(--stone8);overflow:hidden}
+canvas{display:block;cursor:crosshair;width:100%}
+.area-bar{background:var(--stone);color:var(--cream);border-radius:var(--r2);padding:12px 16px;margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.area-val{font-size:22px;font-weight:500;font-family:'DM Mono',monospace;color:var(--gold3)}
+.area-lbl{font-size:10px;color:var(--stone5);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+
+/* LASTRE GRID */
+.lastra-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.lcard{border:1px solid var(--stone6);border-radius:var(--r2);padding:10px;background:#fff;cursor:pointer;transition:all .15s;box-shadow:var(--shadow)}
+.lcard:hover{border-color:var(--gold2);transform:translateY(-1px);box-shadow:var(--shadow2)}
+.lrect{border-radius:var(--r);margin-bottom:8px;height:52px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;font-family:'DM Mono',monospace}
+.lcard-info{font-size:11px;color:var(--stone4);line-height:1.6}
+.lcard-name{font-size:12px;font-weight:500;color:var(--stone);margin-bottom:2px}
+.lcard-add{border:1px dashed var(--stone6);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;color:var(--stone5);font-size:11px;cursor:pointer}
+.lcard-add:hover{border-color:var(--gold2);color:var(--gold);background:var(--gold4)}
+.lcard-danger{border-color:#fca5a5}
+
+/* SIDEBAR CHAT */
+.chat-head{padding:14px 16px;border-bottom:1px solid var(--stone6);display:flex;align-items:center;gap:10px;background:#fff}
+.chat-avatar{width:32px;height:32px;border-radius:50%;background:var(--stone);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--gold3);flex-shrink:0}
+.chat-title{font-size:13px;font-weight:500;color:var(--stone)}
+.chat-sub{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace}
+.online-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;margin-left:auto}
+.messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:92%}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end}
+.bubble{padding:9px 12px;border-radius:var(--r2);font-size:12px;line-height:1.6}
+.msg.bot .bubble{background:#fff;border:1px solid var(--stone6);color:var(--stone)}
+.msg.user .bubble{background:var(--stone);color:var(--cream)}
+.msg-time{font-size:10px;color:var(--stone5);margin-top:3px;font-family:'DM Mono',monospace}
+.msg.user .msg-time{text-align:right}
+.sugs{display:flex;flex-direction:column;gap:3px;margin-top:6px}
+.sug{text-align:left;padding:5px 9px;border-radius:var(--r);border:1px solid var(--stone6);font-size:11px;cursor:pointer;background:#fff;color:var(--stone4);font-family:'DM Mono',monospace;transition:all .15s}
+.sug:hover{border-color:var(--gold2);color:var(--gold);background:var(--gold4)}
+.alert-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:20px;font-size:11px;background:var(--gold4);color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:6px}
+.typing{display:flex;gap:4px;align-items:center;padding:9px 12px;background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);width:fit-content}
+.tdot{width:5px;height:5px;border-radius:50%;background:var(--stone5);animation:bl 1.2s infinite}
+.tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
+@keyframes bl{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.chat-input{padding:12px;border-top:1px solid var(--stone6);display:flex;gap:6px;background:#fff}
+.chat-input input{font-size:12px}
+.send-btn{padding:8px 12px;border-radius:var(--r);border:none;background:var(--stone);color:var(--gold3);cursor:pointer;font-size:13px;flex-shrink:0;transition:all .15s}
+.send-btn:hover{background:var(--stone2)}
+
+/* FOGLIO OPERAIO */
+.fo-header{background:var(--stone);color:var(--cream);border-radius:var(--r2) var(--r2) 0 0;padding:16px 20px;display:flex;justify-content:space-between;align-items:flex-start}
+.fo-body{border:1px solid var(--stone3);border-top:none;border-radius:0 0 var(--r2) var(--r2);overflow:hidden}
+.fo-section{padding:14px 18px;border-bottom:1px solid var(--stone6)}
+.fo-section:last-child{border-bottom:none}
+.fo-label{font-size:10px;color:var(--stone4);text-transform:uppercase;letter-spacing:.06em;font-family:'DM Mono',monospace;margin-bottom:6px}
+
+/* TOOLBAR */
+.toolbar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.tbtn{padding:6px 11px;border-radius:var(--r);border:1px solid var(--stone6);font-size:12px;cursor:pointer;background:#fff;color:var(--stone4);font-family:'DM Mono',monospace;transition:all .15s}
+.tbtn:hover{border-color:var(--stone5);color:var(--stone)}
+.tbtn.active{background:var(--stone);color:var(--gold3);border-color:var(--stone)}
+
+/* SEARCH ROW */
+.search-row{display:flex;gap:8px;margin-bottom:16px;align-items:center}
+.search-row input{flex:1}
+
+/* COMMESSE */
+.fase-track{display:flex;gap:0;margin:14px 0 0}
+.fase-node{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.fase-node:not(:last-child)::after{content:'';position:absolute;top:14px;left:50%;width:100%;height:2px;background:var(--stone6);z-index:0}
+.fase-node.done::after{background:var(--teal2)}
+.fase-node.cur::after{background:linear-gradient(90deg,var(--teal2),var(--stone6))}
+.fase-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--stone6);background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'DM Mono',monospace;z-index:1;position:relative;transition:all .2s}
+.fase-node.done .fase-dot{background:var(--teal2);border-color:var(--teal2);color:#fff}
+.fase-node.cur .fase-dot{background:var(--gold);border-color:var(--gold);color:#fff;box-shadow:0 0 0 4px var(--gold4)}
+.fase-node.todo .fase-dot{background:var(--stone7);border-color:var(--stone6);color:var(--stone5)}
+.fase-lbl{font-size:9px;margin-top:5px;text-align:center;color:var(--stone5);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;max-width:56px}
+.fase-node.done .fase-lbl{color:var(--teal)}
+.fase-node.cur .fase-lbl{color:var(--gold);font-weight:500}
+
+.comm-row{display:flex;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--stone6);border-radius:var(--r2);background:#fff;cursor:pointer;transition:all .15s;margin-bottom:8px}
+.comm-row:hover{border-color:var(--gold2);box-shadow:var(--shadow)}
+.comm-row.selected{border-color:var(--gold);background:var(--gold4)}
+.comm-avatar{width:38px;height:38px;border-radius:var(--r);background:var(--stone);color:var(--gold3);display:flex;align-items:center;justify-content:center;font-size:13px;font-family:'DM Mono',monospace;font-weight:500;flex-shrink:0}
+.comm-info{flex:1;min-width:0}
+.comm-name{font-size:13px;font-weight:500;color:var(--stone);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.comm-sub{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace;margin-top:1px}
+.comm-meta{text-align:right;flex-shrink:0}
+.comm-imp{font-size:13px;font-weight:500;font-family:'DM Mono',monospace;color:var(--stone)}
+.comm-date{font-size:10px;color:var(--stone5);margin-top:1px}
+
+.scheda-wrap{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);overflow:hidden}
+.scheda-head{background:var(--stone);color:var(--cream);padding:16px 20px;display:flex;justify-content:space-between;align-items:flex-start}
+.scheda-tabs{display:flex;border-bottom:1px solid var(--stone6)}
+.stab{padding:10px 16px;font-size:12px;cursor:pointer;border:none;background:transparent;color:var(--stone4);font-family:'DM Mono',monospace;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+.stab:hover{color:var(--stone)}
+.stab.active{color:var(--gold);border-bottom-color:var(--gold);background:var(--gold4)}
+.stab-panel{display:none;padding:16px 18px}
+.stab-panel.active{display:block}
+
+.sopral-foto{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:8px}
+.foto-slot{height:80px;border:1px dashed var(--stone6);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:10px;color:var(--stone5);transition:all .15s;background:var(--stone8)}
+.foto-slot:hover{border-color:var(--gold2);color:var(--gold);background:var(--gold4)}
+.foto-slot img{width:100%;height:100%;object-fit:cover;border-radius:var(--r)}
+
+.canale-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border:1px solid var(--stone6);border-radius:20px;font-size:11px;cursor:pointer;background:#fff;color:var(--stone4);font-family:'DM Mono',monospace;transition:all .15s}
+.canale-btn:hover,.canale-btn.sel{background:var(--stone);color:var(--gold3);border-color:var(--stone)}
+
+.pag-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--stone7);font-size:13px}
+.pag-row:last-child{border-bottom:none}
+.pag-stato{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.pag-stato.ok{background:#22c55e}
+.pag-stato.att{background:var(--gold2)}
+.pag-stato.no{background:var(--stone6)}
+
+/* CONFIGURATORE PEZZI */
+.pezzo-card{border:1px solid var(--stone6);border-radius:var(--r2);margin-bottom:10px;background:#fff;overflow:hidden}
+.pezzo-head{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--stone8);border-bottom:1px solid var(--stone6);cursor:pointer}
+.pezzo-num{width:22px;height:22px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;font-family:'DM Mono',monospace;flex-shrink:0}
+.pezzo-titolo{flex:1;font-size:12px;font-weight:500;color:var(--stone)}
+.pezzo-mq-badge{font-size:11px;font-family:'DM Mono',monospace;color:var(--teal);background:var(--teal3);padding:2px 8px;border-radius:10px}
+.pezzo-body{padding:12px 14px}
+.lati-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.lato-row{display:flex;align-items:center;gap:6px;padding:6px 8px;border:1px solid var(--stone6);border-radius:var(--r);background:var(--stone8)}
+.lato-check{accent-color:var(--gold);width:14px;height:14px;flex-shrink:0;cursor:pointer}
+.lato-lbl{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace;min-width:40px}
+.lato-mis{width:72px;padding:3px 6px;font-size:12px;font-family:'DM Mono',monospace;border:1px solid var(--stone6);border-radius:4px;background:#fff}
+.lato-mis:focus{outline:none;border-color:var(--gold2)}
+.lato-lav{flex:1;padding:3px 6px;font-size:11px;border:1px solid var(--stone6);border-radius:4px;background:#fff}
+.lato-lav:disabled{background:var(--stone7);color:var(--stone5)}
+.for-grid{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.for-btn{padding:4px 10px;border:1px solid var(--stone6);border-radius:20px;font-size:11px;cursor:pointer;background:#fff;color:var(--stone4);font-family:'DM Mono',monospace;transition:all .15s;display:flex;align-items:center;gap:4px}
+.for-btn:hover{border-color:var(--gold2);color:var(--gold)}
+.for-btn.sel{background:var(--gold);color:#fff;border-color:var(--gold)}
+.pezzo-schema{width:100%;height:90px;border:1px solid var(--stone6);border-radius:var(--r);background:var(--stone8);margin-bottom:8px}
+
+/* PRINT STYLES */
+@media print{
+  .topbar,.sidebar,.toolbar,.btn,.chat-panel{display:none!important}
+  .main{grid-template-columns:1fr!important}
+  .content{overflow:visible!important}
+  body{background:#fff}
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--stone6);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--stone5)}
+
+/* ── RESPONSIVE MOBILE / TABLET ── */
+@media (max-width:900px){
+  /* Layout principale: togli sidebar chat */
+  .main{grid-template-columns:1fr!important}
+  .sidebar{display:none!important}
+
+  /* Topbar: comprimi logo, abilita scroll nav */
+  .topbar-logo{padding:10px 12px;font-size:12px}
+  .topbar-user span:not(#user-name){display:none}
+  .topnav{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tnb{padding:12px 12px;font-size:12px}
+
+  /* Metriche: 2 colonne */
+  .metrics{grid-template-columns:repeat(2,1fr)!important}
+
+  /* Griglie form */
+  .g2,.g3,.g4{grid-template-columns:1fr!important}
+
+  /* Commesse: stacked layout */
+  .comm-layout{
+    display:block!important
+  }
+  #page-commesse .comm-list-col{width:100%}
+  .scheda-wrap{margin-top:12px}
+  .scheda-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap}
+  .stab{white-space:nowrap;min-width:auto;padding:10px 12px;font-size:11px}
+
+  /* Fase tracker: testo più piccolo */
+  .fase-lbl{font-size:8px;max-width:40px}
+  .fase-dot{width:24px;height:24px;font-size:10px}
+
+  /* Pulsanti azioni fase: full-width */
+  .fase-actions{flex-direction:column!important}
+  .fase-actions .btn{width:100%;justify-content:center}
+
+  /* Lavorazioni pezzi */
+  .lati-grid{grid-template-columns:1fr!important}
+
+  /* Lastre grid */
+  .lastra-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
+
+  /* Canvas */
+  canvas{height:240px!important}
+
+  /* Tabella preventivi: scroll orizzontale */
+  #elementi-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+
+@media (max-width:600px){
+  .topbar-logo{display:none}
+  body{font-size:13px}
+  .content{padding:12px}
+  .metrics{grid-template-columns:repeat(2,1fr)!important;gap:8px}
+  .metric{padding:10px 12px}
+  .metric-val{font-size:18px}
+  .card{padding:12px 14px}
+  .scheda-head{padding:12px 14px}
+  .scheda-head > div:first-child + div{display:none} /* nasconde importo nell'header su mobile piccolo */
+  .fase-track{overflow-x:auto;padding-bottom:6px}
+  .btn{padding:7px 12px}
+  .btn-gold{padding:10px 16px} /* più facile da toccare */
+
+  /* Commessa: il pulsante avanza fase sticky in fondo */
+  .fase-action-row{
+    position:sticky;bottom:0;background:#fff;padding:10px 0;border-top:1px solid var(--stone6);margin-top:12px;z-index:10
+  }
+  .fase-action-row .btn{width:100%;justify-content:center}
+
+  /* Riepilogo quantità: 2 col */
+  #riepilogo-qta > div[style*="repeat(3,1fr)"]{
+    grid-template-columns:1fr 1fr!important
+  }
+
+  /* Nasconde colonne meno importanti nella tabella preventivi */
+  #elementi-table th:nth-child(4),
+  #elementi-table td:nth-child(4),
+  #elementi-table th:nth-child(7),
+  #elementi-table td:nth-child(7){display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-logo">⬡ MARMISTA<span>.app</span></div>
+  <nav class="topnav">
+    <button class="tnb active" onclick="showPage('preventivo')">Preventivi</button>
+    <button class="tnb" onclick="showPage('commesse')">Commesse</button>
+    <button class="tnb" onclick="showPage('sagoma')">Sagome</button>
+    <button class="tnb" onclick="showPage('foglio')">Foglio operaio</button>
+    <button class="tnb" onclick="showPage('magazzino')">Magazzino lastre</button>
+    <button class="tnb" onclick="showPage('listino')">Listino</button>
+  </nav>
+  <div class="topbar-user">
+    <div class="avatar-sm" id="user-avatar">T</div>
+    <span id="user-name">Titolare</span>
+    <span style="color:var(--stone3)">|</span>
+    <span style="cursor:pointer;font-size:11px" onclick="switchUser()">cambia →</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+<div class="content">
+
+<!-- ══════════════════════════════════════════════════════ PREVENTIVI -->
+<div id="page-preventivo" class="page active">
+  <h2>Preventivi</h2>
+  <div class="page-sub">Gestione offerte clienti</div>
+
+  <div class="metrics">
+    <div class="metric"><div class="metric-val">3</div><div class="metric-lbl">Aperti</div></div>
+    <div class="metric"><div class="metric-val">€ 4.280</div><div class="metric-lbl">In attesa</div></div>
+    <div class="metric metric-warn"><div class="metric-val">1</div><div class="metric-lbl">In scadenza</div></div>
+    <div class="metric"><div class="metric-val">€ 12.600</div><div class="metric-lbl">Mese corrente</div></div>
+  </div>
+
+  <!-- FORM NUOVO PREVENTIVO -->
+  <div class="card">
+    <div class="card-title">Nuovo preventivo — #2024-019</div>
+    <div class="g2">
+      <div><div class="fl">Cliente</div><input id="cli" value="" placeholder="Nome cliente..." oninput="checkComplete()" /></div>
+      <div><div class="fl">Cantiere / Indirizzo</div><input id="cant" value="" placeholder="Via, città..." /></div>
+    </div>
+    <div class="g3">
+      <div><div class="fl">N° Preventivo</div><input value="2024-019" /></div>
+      <div><div class="fl">Data</div><input type="date" id="data-prev" /></div>
+      <div><div class="fl">Validità</div><select><option>30 giorni</option><option>60 giorni</option><option>90 giorni</option></select></div>
+    </div>
+
+    <!-- ELEMENTI -->
+    <div class="fl" style="margin-bottom:6px">Elementi da preventivare</div>
+    <table id="elementi-table">
+      <thead>
+        <tr>
+          <th>Descrizione</th><th>Materiale</th><th>m²</th><th>Bordi</th><th>Forature</th><th>Importo €</th><th>Sagoma</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="elementi-body">
+        <tr id="el-1">
+          <td><input style="font-size:12px;padding:4px 6px" placeholder="es. Piano cucina..." /></td>
+          <td>
+            <select style="font-size:12px;padding:4px 6px" onchange="updateEl(1)">
+              <option value="">— scegli —</option>
+              <option value="140">Granito Nero Assoluto — €140/m²</option>
+              <option value="180">Marmo Bianco Carrara — €180/m²</option>
+              <option value="160">Marmo Botticino — €160/m²</option>
+              <option value="110">Travertino Romano — €110/m²</option>
+              <option value="170">Quarzite — €170/m²</option>
+              <option value="90">Pietra Serena — €90/m²</option>
+            </select>
+          </td>
+          <td><span id="el1-mq" class="tnum" style="color:var(--stone5)">—</span></td>
+          <td>
+            <select style="font-size:12px;padding:4px 6px" onchange="updateEl(1)">
+              <option value="0">Nessuno</option>
+              <option value="8">Filo lucido — €8/ml</option>
+              <option value="12">Bisello 45° — €12/ml</option>
+              <option value="15">Toro — €15/ml</option>
+              <option value="20">Toro grande — €20/ml</option>
+              <option value="18">Sguscia — €18/ml</option>
+            </select>
+          </td>
+          <td>
+            <select style="font-size:12px;padding:4px 6px" onchange="updateEl(1)" id="el1-for">
+              <option value="0">Nessuna</option>
+              <option value="45">Foro lavabo ovale — €45</option>
+              <option value="55">Foro lavabo rett. — €55</option>
+              <option value="50">Piano cottura 4F — €50</option>
+              <option value="35">Piano cottura 2F — €35</option>
+              <option value="12">Foro rubinetto — €12</option>
+            </select>
+          </td>
+          <td><span id="el1-imp" class="tnum" style="font-weight:500">—</span></td>
+          <td><button class="btn btn-sm btn-ghost" onclick="showPage('sagoma');botMsg('Stai per disegnare la sagoma. Carica l\'esempio L o traccia i punti della forma, poi fai doppio clic per chiudere.')">↗ Sagoma</button></td>
+          <td><button class="btn btn-sm btn-ghost" style="color:var(--red)" onclick="this.closest('tr').remove();ricalcTot()">✕</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-sm btn-ghost" style="margin-top:8px" onclick="addElemento()">+ Aggiungi elemento</button>
+  </div>
+
+  <!-- TOTALI -->
+  <div class="g2" style="margin-bottom:0">
+    <div class="card" style="margin-bottom:0">
+      <div class="card-title">Maggiorazioni</div>
+      <div class="g2">
+        <div><div class="fl">Manodopera / posa %</div><input type="number" id="perc-mdo" value="20" min="0" max="100" oninput="ricalcTot()" /></div>
+        <div><div class="fl">Trasporto €</div><input type="number" id="imp-tras" value="0" min="0" oninput="ricalcTot()" /></div>
+      </div>
+      <div><div class="fl">Note preventivo</div><textarea rows="2" style="resize:none;font-size:12px" placeholder="Note aggiuntive per il cliente..."></textarea></div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="card-title">Riepilogo</div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="color:var(--stone4)">Materiali + lavorazioni</span><span class="tnum" id="tot-mat">€ 0</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="color:var(--stone4)">Manodopera</span><span class="tnum" id="tot-mdo">€ 0</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="color:var(--stone4)">Trasporto</span><span class="tnum" id="tot-tras">€ 0</span></div>
+      <div style="height:1px;background:var(--stone6);margin:8px 0"></div>
+      <div style="display:flex;justify-content:space-between;font-size:17px;font-weight:500"><span>Totale IVA escl.</span><span class="tnum" id="tot-finale" style="color:var(--gold)">€ 0</span></div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn btn-gold" style="flex:1" onclick="showPage('foglio');botMsg('Perfetto! Il foglio operaio è stato generato per Carlo. Verifica che la sagoma sia confermata e la lastra magazzino abbinata.')">↗ Foglio operaio</button>
+        <button class="btn btn-sm" onclick="window.print()" title="Stampa PDF">⎙</button>
+      </div>
+      <div id="warn-incomplete" style="margin-top:8px;font-size:11px;color:var(--gold);display:none">⚠ Compila cliente e almeno un elemento per completare</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ COMMESSE -->
+<div id="page-commesse" class="page">
+  <h2>Commesse</h2>
+  <div class="page-sub">Dal primo contatto alla consegna</div>
+
+  <div class="metrics">
+    <div class="metric"><div class="metric-val" id="cm-tot">0</div><div class="metric-lbl">Totale attive</div></div>
+    <div class="metric metric-warn"><div class="metric-val" id="cm-lav">0</div><div class="metric-lbl">In lavorazione</div></div>
+    <div class="metric"><div class="metric-val" id="cm-prev">0</div><div class="metric-lbl">In attesa conferma</div></div>
+    <div class="metric"><div class="metric-val" id="cm-val">€ 0</div><div class="metric-lbl">Valore totale</div></div>
+  </div>
+
+  <div style="display:flex;gap:10px;margin-bottom:14px;align-items:center">
+    <input type="text" placeholder="Cerca cliente, cantiere..." style="flex:1" id="comm-search" oninput="filterComm()" />
+    <select id="comm-filter" onchange="filterComm()" style="width:auto;min-width:170px">
+      <option value="">Tutte le fasi</option>
+      <option value="richiesta">Richiesta</option>
+      <option value="sopralluogo">Sopralluogo</option>
+      <option value="preventivo">Preventivo</option>
+      <option value="trattativa">Trattativa</option>
+      <option value="confermata">Confermata</option>
+      <option value="lavorazione">In lavorazione</option>
+      <option value="consegnata">Consegnata</option>
+    </select>
+    <button class="btn btn-gold" onclick="newCommessa()">+ Nuova commessa</button>
+  </div>
+
+  <div class="comm-layout" style="display:grid;grid-template-columns:340px 1fr;gap:16px;align-items:start">
+
+    <!-- LISTA -->
+    <div>
+      <div id="comm-list"></div>
+    </div>
+
+    <!-- SCHEDA -->
+    <div id="scheda-commessa" style="display:none">
+      <div class="scheda-wrap">
+
+        <!-- HEADER scheda -->
+        <div class="scheda-head">
+          <div>
+            <div style="font-size:10px;color:var(--stone5);font-family:'DM Mono',monospace;margin-bottom:4px">COMMESSA <span id="sc-num">#—</span></div>
+            <div style="font-size:20px;font-weight:500" id="sc-nome">—</div>
+            <div style="font-size:12px;color:var(--stone5);margin-top:3px" id="sc-luogo">—</div>
+          </div>
+          <div style="text-align:right">
+            <div id="sc-badge"></div>
+            <div style="font-size:22px;font-weight:500;font-family:'DM Mono',monospace;color:var(--gold3);margin-top:6px" id="sc-imp">—</div>
+          </div>
+        </div>
+
+        <!-- TRACKER FASI -->
+        <div style="padding:14px 18px;border-bottom:1px solid var(--stone6);background:var(--stone8)">
+          <div style="font-size:10px;color:var(--stone4);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Fase corrente</div>
+          <div class="fase-track" id="sc-tracker"></div>
+        </div>
+
+        <!-- TABS -->
+        <div class="scheda-tabs">
+          <button class="stab active" onclick="showStab('anagrafica',this)">Anagrafica</button>
+          <button class="stab" onclick="showStab('sopralluogo',this)">Sopralluogo</button>
+          <button class="stab" onclick="showStab('preventivo',this)">Preventivo</button>
+          <button class="stab" onclick="showStab('accordo',this)">Accordo</button>
+          <button class="stab" onclick="showStab('pagamenti',this)">Pagamenti</button>
+          <button class="stab" onclick="showStab('note',this)">Note</button>
+        </div>
+
+        <!-- TAB: Anagrafica -->
+        <div class="stab-panel active" id="stab-anagrafica">
+          <div class="g2">
+            <div><div class="fl">Nome</div><input id="sc-an-nome" placeholder="Nome cliente..." oninput="syncSchedaHeader()" /></div>
+            <div><div class="fl">Cognome</div><input id="sc-an-cogn" placeholder="Cognome..." oninput="syncSchedaHeader()" /></div>
+          </div>
+          <div class="g2">
+            <div><div class="fl">Telefono</div><input id="sc-an-tel" placeholder="+39 ..." type="tel" /></div>
+            <div><div class="fl">Email</div><input id="sc-an-email" placeholder="email@..." type="email" /></div>
+          </div>
+          <div class="g2">
+            <div><div class="fl">Luogo sopralluogo / cantiere</div><input id="sc-an-luogo" placeholder="Via, città..." oninput="syncSchedaHeader()" /></div>
+            <div><div class="fl">Tipo cliente</div>
+              <select id="sc-an-tipo">
+                <option>Privato</option>
+                <option>Impresa edile</option>
+                <option>Geometra</option>
+                <option>Architetto</option>
+                <option>Altro</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb">
+            <div class="fl">Canale di contatto</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px" id="canali-wrap">
+              <button class="canale-btn" onclick="selCanale(this,'whatsapp')">💬 WhatsApp</button>
+              <button class="canale-btn" onclick="selCanale(this,'telefono')">📞 Telefono</button>
+              <button class="canale-btn" onclick="selCanale(this,'email')">✉ Email</button>
+              <button class="canale-btn" onclick="selCanale(this,'passaparola')">🤝 Passaparola</button>
+              <button class="canale-btn" onclick="selCanale(this,'altro')">+ Altro</button>
+            </div>
+          </div>
+          <div class="g2">
+            <div><div class="fl">Data richiesta</div><input type="date" id="sc-an-data" /></div>
+            <div><div class="fl">Tags</div><input id="sc-an-tags" placeholder="es. urgente, bagno, scala..." /></div>
+          </div>
+          <div class="mb"><div class="fl">Note richiesta iniziale</div><textarea rows="2" id="sc-an-note" style="resize:none;font-size:12px" placeholder="Cosa vuole il cliente, esigenze particolari..."></textarea></div>
+          <div style="display:flex;gap:8px;margin-top:4px" class="fase-action-row">
+            <button class="btn btn-ghost btn-sm btn-torna-fase" onclick="tornaFase()" title="Torna fase precedente">← Torna</button>
+            <button class="btn btn-gold btn-avanza-fase" onclick="avanzaFase()">↓ Avanza fase</button>
+            <button class="btn btn-sm btn-ghost" onclick="saveCommessa()">Salva</button>
+          </div>
+        </div>
+
+        <!-- TAB: Sopralluogo -->
+        <div class="stab-panel" id="stab-sopralluogo">
+
+          <!-- INFO BASE -->
+          <div class="g2" style="margin-bottom:10px">
+            <div><div class="fl">Data sopralluogo</div><input type="date" id="sc-so-data" /></div>
+            <div><div class="fl">Materiale proposto</div>
+              <select id="sc-so-mat" onchange="ricalcTotale()">
+                <option value="">— da definire —</option>
+                <option value="Granito Nero Assoluto">Granito Nero Assoluto</option>
+                <option value="Marmo Bianco Carrara">Marmo Bianco Carrara</option>
+                <option value="Marmo Botticino">Marmo Botticino</option>
+                <option value="Travertino Romano">Travertino Romano</option>
+                <option value="Pietra Serena">Pietra Serena</option>
+                <option value="Quarzite">Quarzite</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- CONFIGURATORE PEZZI -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div class="fl" style="margin:0">Pezzi da realizzare</div>
+            <button class="btn btn-sm btn-ghost" onclick="addPezzo()">+ Aggiungi pezzo</button>
+          </div>
+
+          <!-- DIRECTORY TIPO LAVORO -->
+          <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:12px;padding:12px;background:var(--stone8);border-radius:var(--r2);border:1px solid var(--stone6)">
+            <div style="flex:1">
+              <div class="fl">Tipo di lavoro</div>
+              <select id="dir-cat" onchange="onCategoriaChange(this.value)" style="font-size:13px">
+                <option value="">— seleziona categoria —</option>
+                <option value="davanzali">▬ Davanzali</option>
+                <option value="scale">▲ Scale</option>
+                <option value="top">▭ Top (cucina, bagno, bancone)</option>
+                <option value="rivestimenti">▪ Rivestimenti generici</option>
+                <option value="coprimuri">⬒ Coprimuri</option>
+              </select>
+            </div>
+            <div style="flex:1">
+              <div class="fl">Sottotipo</div>
+              <select id="dir-sub" disabled onchange="onSottotipoChange(this.value)" style="font-size:13px">
+                <option value="">— prima scegli categoria —</option>
+              </select>
+            </div>
+            <div>
+              <div class="fl" style="visibility:hidden">x</div>
+              <button class="btn btn-gold btn-sm" onclick="addPezzo()">+ Aggiungi pezzo</button>
+            </div>
+          </div>
+
+          <div id="pezzi-container"></div>
+
+          <!-- RIEPILOGO QUANTITÀ -->
+          <div id="riepilogo-qta" style="display:none;margin:12px 0;background:var(--stone);color:var(--cream);border-radius:var(--r2);padding:14px 18px">
+            <div style="font-size:10px;color:var(--stone5);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Riepilogo quantità</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:10px">
+              <div>
+                <div style="font-size:11px;color:var(--stone5);margin-bottom:2px">m² netti</div>
+                <div style="font-size:22px;font-weight:500;font-family:'DM Mono',monospace;color:var(--gold3)" id="rq-mq-netti">0.000</div>
+              </div>
+              <div>
+                <div style="font-size:11px;color:var(--stone5);margin-bottom:2px">m² con scarto <span id="rq-scarto-perc" style="color:var(--stone4)">+12%</span></div>
+                <div style="font-size:22px;font-weight:500;font-family:'DM Mono',monospace;color:var(--gold3)" id="rq-mq-scarto">0.000</div>
+              </div>
+              <div>
+                <div style="font-size:11px;color:var(--stone5);margin-bottom:2px">ml bordi totali</div>
+                <div style="font-size:22px;font-weight:500;font-family:'DM Mono',monospace;color:var(--teal2)" id="rq-ml-bordi">0.00</div>
+              </div>
+            </div>
+            <div style="border-top:1px solid var(--stone3);padding-top:10px;display:flex;gap:20px;flex-wrap:wrap" id="rq-forature-wrap">
+            </div>
+          </div>
+
+          <!-- FOTO + NOTE -->
+          <div class="g2">
+            <div>
+              <div class="fl">Foto sopralluogo</div>
+              <div class="sopral-foto" id="foto-grid">
+                <label class="foto-slot" for="foto-upload-1">
+                  <span style="font-size:20px">📷</span>
+                  <span>Aggiungi foto</span>
+                  <input type="file" id="foto-upload-1" accept="image/*" style="display:none" onchange="addFoto(this)" multiple />
+                </label>
+              </div>
+            </div>
+            <div>
+              <div class="mb"><div class="fl">Note ambiente / vincoli</div><textarea rows="3" id="sc-so-note" style="resize:none;font-size:12px" placeholder="es. cucina già posata, spazio stretto, colore pareti grigio..."></textarea></div>
+              <div><div class="fl">Sagoma digitale complessa</div>
+                <button class="btn btn-sm" onclick="showPage('sagoma');botMsg('Disegna la sagoma, poi clicca Usa questa sagoma per collegarla.')">↗ Apri disegnatore</button>
+                <div id="sc-so-sagoma-status" style="font-size:11px;color:var(--stone5);font-family:'DM Mono',monospace;margin-top:4px">Nessuna sagoma collegata</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-top:12px" class="fase-action-row">
+            <button class="btn btn-ghost btn-sm btn-torna-fase" onclick="tornaFase()" title="Torna fase precedente">← Torna</button>
+            <button class="btn btn-gold btn-avanza-fase" onclick="avanzaFase()">↓ Avanza a preventivo</button>
+            <button class="btn btn-sm btn-ghost" onclick="saveCommessa()">Salva</button>
+          </div>
+        </div>
+
+        <!-- TAB: Preventivo -->
+        <div class="stab-panel" id="stab-preventivo">
+          <div style="font-size:12px;color:var(--stone4);margin-bottom:12px">Collega il preventivo calcolato nella sezione Preventivi a questa commessa.</div>
+          <div class="g2">
+            <div><div class="fl">N° Preventivo collegato</div><input id="sc-pr-num" placeholder="es. 2024-019" /></div>
+            <div><div class="fl">Importo preventivo €</div><input type="number" id="sc-pr-imp" placeholder="0" oninput="syncSchedaHeader()" /></div>
+          </div>
+          <div class="g2">
+            <div><div class="fl">Data invio al cliente</div><input type="date" id="sc-pr-data" /></div>
+            <div><div class="fl">Validità</div><select id="sc-pr-val"><option>30 giorni</option><option>60 giorni</option><option>90 giorni</option></select></div>
+          </div>
+          <div class="mb"><div class="fl">Versioni preventivo</div>
+            <div id="versioni-list" style="font-size:12px;color:var(--stone4);font-family:'DM Mono',monospace;line-height:2">
+              <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--stone7)"><span>v1 — originale</span><span id="sc-pr-v1-imp">—</span></div>
+            </div>
+            <button class="btn btn-sm btn-ghost" style="margin-top:6px" onclick="addVersione()">+ Aggiungi versione (dopo trattativa)</button>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px" class="fase-action-row">
+            <button class="btn btn-ghost btn-sm btn-torna-fase" onclick="tornaFase()">← Torna</button>
+            <button class="btn btn-gold btn-avanza-fase" onclick="avanzaFase()">↓ Avanza a trattativa</button>
+            <button class="btn btn-sm btn-ghost" onclick="showPage('preventivo');botMsg('Vai nella sezione Preventivi per modificare o creare il preventivo, poi torna qui per collegarlo.')">↗ Apri preventivatore</button>
+          </div>
+        </div>
+
+        <!-- TAB: Accordo -->
+        <div class="stab-panel" id="stab-accordo">
+          <div class="g2">
+            <div><div class="fl">Importo accordato €</div><input type="number" id="sc-ac-imp" placeholder="0" oninput="syncSchedaHeader()" /></div>
+            <div><div class="fl">Data conferma</div><input type="date" id="sc-ac-data" /></div>
+          </div>
+          <div class="g2">
+            <div><div class="fl">Modalità pagamento</div>
+              <select id="sc-ac-modpag">
+                <option>Acconto + saldo consegna</option>
+                <option>Bonifico anticipato</option>
+                <option>Contanti</option>
+                <option>Rate</option>
+                <option>30 giorni fattura</option>
+                <option>60 giorni fattura</option>
+                <option>90 giorni fattura</option>
+              </select>
+            </div>
+            <div><div class="fl">% Acconto richiesto</div><input type="number" id="sc-ac-perc" value="30" min="0" max="100" oninput="calcAcconto()" /></div>
+          </div>
+          <div class="g2">
+            <div><div class="fl">Acconto € (calcolato)</div><input type="number" id="sc-ac-acc" placeholder="0" readonly style="background:var(--stone7)" /></div>
+            <div><div class="fl">Data consegna prevista</div><input type="date" id="sc-ac-cons" /></div>
+          </div>
+          <div class="mb"><div class="fl">Condizioni particolari</div><textarea rows="2" id="sc-ac-note" style="resize:none;font-size:12px" placeholder="es. consegna entro fine mese, cliente porta via, posa inclusa..."></textarea></div>
+          <div style="display:flex;gap:8px;margin-top:4px" class="fase-action-row">
+            <button class="btn btn-ghost btn-sm btn-torna-fase" onclick="tornaFase()">← Torna</button>
+            <button class="btn btn-gold btn-avanza-fase" onclick="avanzaFase()">↓ Conferma e avanza a lavorazione</button>
+            <button class="btn btn-sm btn-ghost" onclick="saveCommessa()">Salva</button>
+          </div>
+        </div>
+
+        <!-- TAB: Pagamenti -->
+        <div class="stab-panel" id="stab-pagamenti">
+          <div style="font-size:12px;color:var(--stone4);margin-bottom:12px">Traccia ogni movimento relativo a questa commessa.</div>
+          <div id="pag-list"></div>
+          <div class="card" style="margin-top:10px">
+            <div class="card-title">Registra pagamento</div>
+            <div class="g3">
+              <div><div class="fl">Tipo</div>
+                <select id="pag-tipo">
+                  <option>Acconto</option>
+                  <option>Saldo</option>
+                  <option>Rata</option>
+                  <option>Altro</option>
+                </select>
+              </div>
+              <div><div class="fl">Importo €</div><input type="number" id="pag-imp" placeholder="0" /></div>
+              <div><div class="fl">Data</div><input type="date" id="pag-data" /></div>
+            </div>
+            <div class="g2">
+              <div><div class="fl">Metodo</div>
+                <select id="pag-metodo">
+                  <option>Bonifico</option>
+                  <option>Contanti</option>
+                  <option>Assegno</option>
+                  <option>POS</option>
+                </select>
+              </div>
+              <div><div class="fl">Note</div><input id="pag-note" placeholder="Riferimento, note..." /></div>
+            </div>
+            <button class="btn btn-gold btn-sm" onclick="addPagamento()">+ Registra</button>
+          </div>
+          <div id="pag-riepilogo" style="margin-top:10px;padding:12px;background:var(--stone8);border-radius:var(--r);font-size:13px"></div>
+        </div>
+
+        <!-- TAB: Note -->
+        <div class="stab-panel" id="stab-note">
+          <div class="mb"><div class="fl">Note interne (non visibili al cliente)</div><textarea rows="4" id="sc-note-int" style="resize:vertical;font-size:12px" placeholder="Appunti, osservazioni, cose da ricordare..."></textarea></div>
+          <div class="mb"><div class="fl">Log attività</div>
+            <div id="comm-log" style="font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace;line-height:2;max-height:180px;overflow-y:auto;background:var(--stone8);padding:10px;border-radius:var(--r)">
+              — nessuna attività registrata —
+            </div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-sm btn-ghost" onclick="saveCommessa()">Salva note</button>
+            <button class="btn btn-sm btn-danger" onclick="if(confirm('Eliminare questa commessa?'))deleteCommessa()">Elimina commessa</button>
+          </div>
+        </div>
+
+      </div><!-- /scheda-wrap -->
+    </div><!-- /scheda-commessa -->
+
+  </div><!-- /grid -->
+</div>
+
+<!-- ══════════════════════════════════════════════════════ SAGOMA -->
+<div id="page-sagoma" class="page">
+  <h2>Disegno sagoma</h2>
+  <div class="page-sub">Traccia la forma, inserisci le misure reali</div>
+
+  <div class="toolbar">
+    <button class="tbtn active" id="tbtn-poly" onclick="setTool('poly')">◈ Poligono libero</button>
+    <button class="tbtn" id="tbtn-rect" onclick="setTool('rect')">▭ Rettangolo</button>
+    <button class="tbtn" onclick="clearCanvas()">✕ Cancella</button>
+    <button class="tbtn" onclick="loadExL()">⬇ Carica esempio L</button>
+    <button class="tbtn" onclick="loadExU()">⬇ Carica esempio U</button>
+    <button class="tbtn" onclick="undoLast()">↩ Annulla ultimo punto</button>
+  </div>
+
+  <div class="cw">
+    <canvas id="sagoma-canvas" height="320"></canvas>
+  </div>
+
+  <div class="area-bar">
+    <div>
+      <div class="area-lbl">Area netta</div>
+      <div class="area-val" id="av">—</div>
+    </div>
+    <div>
+      <div class="area-lbl">Con scarto (12%)</div>
+      <div style="font-size:16px;font-weight:500;font-family:'DM Mono',monospace;color:var(--stone5)" id="asv">—</div>
+    </div>
+    <div id="quotes-block" style="display:none">
+      <div class="area-lbl">Quote lati (cm)</div>
+      <div id="quotes-list" style="font-size:11px;color:var(--stone5);font-family:'DM Mono',monospace;line-height:1.8"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <button class="btn btn-gold" onclick="confirmSagoma()">✓ Usa questa sagoma</button>
+      <button class="btn btn-sm btn-ghost" onclick="showQuotaDialog()">✎ Modifica quote</button>
+    </div>
+  </div>
+
+  <!-- MODIFICA QUOTE -->
+  <div id="quota-panel" style="display:none" class="card" style="margin-top:12px">
+    <div class="card-title">Modifica quote reali (cm)</div>
+    <div id="quota-inputs" class="g2" style="margin-bottom:0"></div>
+  </div>
+
+  <div style="margin-top:8px;font-size:11px;color:var(--stone5);font-family:'DM Mono',monospace">
+    Clicca per aggiungere punti · Doppio clic per chiudere la forma · Scala: 1px = 1cm
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ FOGLIO OPERAIO -->
+<div id="page-foglio" class="page">
+  <h2>Foglio esecutivo operaio</h2>
+  <div class="page-sub">Da stampare e consegnare a Carlo</div>
+
+  <div style="display:flex;gap:8px;margin-bottom:14px">
+    <button class="btn btn-gold" onclick="printFoglio()">⎙ Stampa PDF</button>
+    <button class="btn btn-ghost">✉ Invia a Carlo</button>
+  </div>
+
+  <div id="foglio-content">
+    <div class="fo-header">
+      <div>
+        <div style="font-size:11px;color:var(--stone5);font-family:'DM Mono',monospace;margin-bottom:4px">FOGLIO ESECUTIVO · <span id="fo-num">#2024-019</span></div>
+        <div style="font-size:18px;font-weight:500" id="fo-cliente">— cliente —</div>
+        <div style="font-size:12px;color:var(--stone5);margin-top:2px" id="fo-cantiere">—</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px;color:var(--stone5);font-family:'DM Mono',monospace">SCADENZA</div>
+        <div style="font-size:16px;font-weight:500;color:var(--gold3)" id="fo-scad">—</div>
+        <div style="margin-top:8px"><span class="badge ba2" id="fo-stato">In lavorazione</span></div>
+      </div>
+    </div>
+
+    <div class="fo-body">
+      <div class="steps" style="margin:0;border-radius:0">
+        <div class="step done">Preventivo</div>
+        <div class="step done">Confermato</div>
+        <div class="step cur" id="step-cur">In lavorazione</div>
+        <div class="step">Consegnato</div>
+        <div class="step">Fatturato</div>
+        <div class="step">Pagato</div>
+      </div>
+
+      <div class="fo-section">
+        <div class="g2">
+          <div>
+            <div class="fo-label">Materiale</div>
+            <table>
+              <tr><td style="color:var(--stone4);font-size:12px;padding:4px 0">Materiale</td><td style="font-weight:500;font-size:12px;padding:4px 0" id="fo-mat">—</td></tr>
+              <tr><td style="color:var(--stone4);font-size:12px;padding:4px 0">Lastra madre</td><td style="font-size:12px;padding:4px 0" id="fo-lastra">—</td></tr>
+              <tr><td style="color:var(--stone4);font-size:12px;padding:4px 0">Spessore</td><td style="font-size:12px;padding:4px 0">2 cm</td></tr>
+              <tr><td style="color:var(--stone4);font-size:12px;padding:4px 0">Finitura</td><td style="font-size:12px;padding:4px 0">Lucido</td></tr>
+              <tr><td style="color:var(--stone4);font-size:12px;padding:4px 0">m² necessari</td><td style="font-weight:500;font-size:12px;padding:4px 0;color:var(--gold)" id="fo-mq">—</td></tr>
+            </table>
+          </div>
+          <div>
+            <div class="fo-label">Quote principali</div>
+            <div id="fo-quotes" style="font-size:12px;color:var(--stone4);font-family:'DM Mono',monospace;line-height:2">
+              Sagoma non ancora tracciata.
+            </div>
+            <div id="fo-canvas-wrap" style="margin-top:10px;display:none">
+              <canvas id="fo-canvas" width="240" height="140" style="border:1px solid var(--stone6);border-radius:var(--r);width:100%;background:var(--stone8)"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fo-section">
+        <div class="fo-label">Lavorazioni richieste</div>
+        <div class="tags" id="fo-tags">
+          <span class="badge bb2">Bordo toro — frontale</span>
+          <span class="badge ba2">Foro lavabo ovale</span>
+          <span class="badge ba2">Piano cottura 4 fuochi</span>
+          <span class="badge bv">Filo lucido — lato murale</span>
+        </div>
+      </div>
+
+      <div class="fo-section">
+        <div class="fo-label">Sequenza operazioni</div>
+        <table id="ops-table">
+          <thead><tr><th>#</th><th>Operazione</th><th>Operaio</th><th>Fatto ✓</th></tr></thead>
+          <tbody>
+            <tr><td class="tnum">1</td><td>Tracciare sagoma su lastra</td><td>Carlo</td><td><input type="checkbox" onchange="updateOps()" /></td></tr>
+            <tr><td class="tnum">2</td><td>Taglio a filo d'acqua / sega</td><td>Carlo</td><td><input type="checkbox" onchange="updateOps()" /></td></tr>
+            <tr><td class="tnum">3</td><td>Foratura lavabo (Ø48cm ovale)</td><td>Carlo</td><td><input type="checkbox" onchange="updateOps()" /></td></tr>
+            <tr><td class="tnum">4</td><td>Foratura piano cottura (60×38cm)</td><td>Carlo</td><td><input type="checkbox" onchange="updateOps()" /></td></tr>
+            <tr><td class="tnum">5</td><td>Lavorazione bordo toro — lati frontali</td><td>Carlo</td><td><input type="checkbox" onchange="updateOps()" /></td></tr>
+            <tr><td class="tnum">6</td><td>Filo lucido — lato murale</td><td>Carlo</td><td><input type="checkbox" onchange="updateOps()" /></td></tr>
+            <tr><td class="tnum">7</td><td>Lucidatura generale</td><td>Carlo</td><td><input type="checkbox" onchange="updateOps()" /></td></tr>
+            <tr><td class="tnum">8</td><td>Controllo qualità + foto</td><td>Titolare</td><td><input type="checkbox" onchange="updateOps()" /></td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;font-size:12px;color:var(--stone4)" id="ops-status">0 / 8 operazioni completate</div>
+      </div>
+
+      <div class="fo-section">
+        <div class="fo-label">Note speciali per Carlo</div>
+        <textarea rows="2" style="resize:none;font-size:12px" placeholder="Es: orientare vena, cliente vuole foto prima consegna...">Attenzione vena del granito: orientare lastra con vena orizzontale. Cliente vuole vedere foto prima della consegna.</textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ MAGAZZINO -->
+<div id="page-magazzino" class="page">
+  <h2>Magazzino lastre</h2>
+  <div class="page-sub">Lastre madri e lastre figlie (avanzi)</div>
+
+  <div class="metrics">
+    <div class="metric"><div class="metric-val">47</div><div class="metric-lbl">Lastre madri</div></div>
+    <div class="metric"><div class="metric-val">18</div><div class="metric-lbl">Lastre figlie</div></div>
+    <div class="metric metric-warn"><div class="metric-val">3</div><div class="metric-lbl">Sotto scorta</div></div>
+    <div class="metric"><div class="metric-val">124 m²</div><div class="metric-lbl">Stock totale</div></div>
+  </div>
+
+  <div class="search-row">
+    <input type="text" placeholder="Cerca codice, materiale..." id="mag-search" oninput="filterLastre()" />
+    <select id="mag-filter" onchange="filterLastre()" style="width:auto;min-width:160px">
+      <option value="">Tutti i materiali</option>
+      <option value="granito">Granito</option>
+      <option value="marmo">Marmo</option>
+      <option value="travertino">Travertino</option>
+    </select>
+    <button class="btn btn-gold" onclick="addLastra()">+ Nuova lastra</button>
+  </div>
+
+  <div style="font-size:11px;color:var(--stone4);margin-bottom:10px;font-family:'DM Mono',monospace">
+    <span class="badge bb2">Madri</span> lastra intera originale &nbsp;·&nbsp;
+    <span class="badge bt">Figlie</span> avanzo da lavorazione &nbsp;·&nbsp;
+    <span class="badge br2">⚠ Scorta bassa</span> sotto soglia minima
+  </div>
+
+  <div class="lastra-grid" id="lastra-grid">
+    <div class="lcard" onclick="selectLastra('GNA-042')">
+      <div class="lrect" style="background:#1c1917;color:#a8a29e">GNA-042</div>
+      <div class="lcard-name">Granito Nero Assoluto</div>
+      <div class="lcard-info">320×180 cm · sp. 2cm<br>Disp: <b style="color:#166534">5.12 m²</b></div>
+      <div style="margin-top:5px"><span class="badge bb2">Madre</span> <span class="badge ba2">1 figlia</span></div>
+    </div>
+    <div class="lcard" onclick="selectLastra('BOT-017')">
+      <div class="lrect" style="background:#e7c99a;color:#6b5b3e">BOT-017</div>
+      <div class="lcard-name">Marmo Botticino</div>
+      <div class="lcard-info">300×160 cm · sp. 2cm<br>Disp: <b style="color:#166534">4.80 m²</b></div>
+      <div style="margin-top:5px"><span class="badge bb2">Madre</span></div>
+    </div>
+    <div class="lcard lcard-danger" onclick="selectLastra('CAR-003')">
+      <div class="lrect" style="background:#f5f0e8;color:#8b7355">CAR-003</div>
+      <div class="lcard-name">Marmo Carrara</div>
+      <div class="lcard-info">280×155 cm · sp. 2cm<br>Disp: <b style="color:#991b1b">1.20 m²</b></div>
+      <div style="margin-top:5px"><span class="badge br2">⚠ Scorta bassa</span></div>
+    </div>
+    <div class="lcard" onclick="selectLastra('GNA-F01')" style="border-left:3px solid var(--teal2)">
+      <div class="lrect" style="background:#2d3030;color:#9FE1CB">GNA-F01</div>
+      <div class="lcard-name">Granito Nero — figlia</div>
+      <div class="lcard-info">da GNA-041 · 120×80cm<br>Disp: <b style="color:#166534">0.96 m²</b></div>
+      <div style="margin-top:5px"><span class="badge bt">Figlia</span></div>
+    </div>
+    <div class="lcard" onclick="selectLastra('TRA-009')">
+      <div class="lrect" style="background:#c4a882;color:#4a3728">TRA-009</div>
+      <div class="lcard-name">Travertino Romano</div>
+      <div class="lcard-info">260×140 cm · sp. 3cm<br>Disp: <b style="color:#166534">3.64 m²</b></div>
+      <div style="margin-top:5px"><span class="badge bb2">Madre</span></div>
+    </div>
+    <div class="lcard" onclick="selectLastra('SER-005')">
+      <div class="lrect" style="background:#7c8a8e;color:#dde4e6">SER-005</div>
+      <div class="lcard-name">Pietra Serena</div>
+      <div class="lcard-info">240×130 cm · sp. 3cm<br>Disp: <b style="color:#166534">2.80 m²</b></div>
+      <div style="margin-top:5px"><span class="badge bb2">Madre</span></div>
+    </div>
+    <div class="lcard lcard-add" onclick="addLastra()">
+      <div style="font-size:22px;color:var(--stone5)">+</div>
+      <div style="font-size:11px">Aggiungi lastra</div>
+    </div>
+  </div>
+
+  <!-- DETTAGLIO LASTRA -->
+  <div id="lastra-detail" style="display:none" class="card" style="margin-top:14px">
+    <div class="card-title" id="ld-title">Dettaglio lastra</div>
+    <div class="g3">
+      <div><div class="fl">Codice</div><input id="ld-cod" /></div>
+      <div><div class="fl">Materiale</div><input id="ld-mat" /></div>
+      <div><div class="fl">Tipo</div><select id="ld-tipo"><option>Madre</option><option>Figlia</option></select></div>
+    </div>
+    <div class="g4">
+      <div><div class="fl">Lunghezza (cm)</div><input type="number" id="ld-l" /></div>
+      <div><div class="fl">Larghezza (cm)</div><input type="number" id="ld-la" /></div>
+      <div><div class="fl">Spessore (cm)</div><input type="number" id="ld-sp" value="2" /></div>
+      <div><div class="fl">m² disponibili</div><input type="number" id="ld-mq" /></div>
+    </div>
+    <div class="g2">
+      <div><div class="fl">Finitura</div><select id="ld-fin"><option>Lucido</option><option>Levigato</option><option>Grezzo</option><option>Bocciardato</option><option>Spazzolato</option></select></div>
+      <div><div class="fl">Posizione magazzino</div><input id="ld-pos" placeholder="es. Scaffale A3, fila 2..." /></div>
+    </div>
+    <div class="mb"><div class="fl">Note / difetti</div><textarea rows="2" style="resize:none;font-size:12px" id="ld-note" placeholder="es. Piccola venatura laterale, ok per bagni..."></textarea></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-gold" onclick="saveLastra()">Salva lastra</button>
+      <button class="btn btn-sm btn-ghost" onclick="printQR()">⊡ Stampa QR code</button>
+      <button class="btn btn-sm btn-ghost" onclick="registraFiglia()">+ Registra lastra figlia</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ LISTINO -->
+<div id="page-listino" class="page">
+  <h2>Listino prezzi</h2>
+  <div class="page-sub">Modifica i prezzi base — si aggiornano in tutti i preventivi</div>
+
+  <div class="card">
+    <div class="card-title">Materiali — €/m²</div>
+    <table>
+      <thead><tr><th>Materiale</th><th>€/m²</th><th>Scarto %</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>Granito Nero Assoluto</td><td><input type="number" value="140" style="width:80px;padding:4px 6px;font-size:12px" /></td><td><input type="number" value="12" style="width:60px;padding:4px 6px;font-size:12px" /></td><td><input value="Molto compatto" style="font-size:12px;padding:4px 6px" /></td></tr>
+        <tr><td>Marmo Bianco Carrara</td><td><input type="number" value="180" style="width:80px;padding:4px 6px;font-size:12px" /></td><td><input type="number" value="15" style="width:60px;padding:4px 6px;font-size:12px" /></td><td><input value="Lastre std 2cm" style="font-size:12px;padding:4px 6px" /></td></tr>
+        <tr><td>Marmo Botticino</td><td><input type="number" value="160" style="width:80px;padding:4px 6px;font-size:12px" /></td><td><input type="number" value="14" style="width:60px;padding:4px 6px;font-size:12px" /></td><td><input value="" style="font-size:12px;padding:4px 6px" /></td></tr>
+        <tr><td>Travertino Romano</td><td><input type="number" value="110" style="width:80px;padding:4px 6px;font-size:12px" /></td><td><input type="number" value="14" style="width:60px;padding:4px 6px;font-size:12px" /></td><td><input value="" style="font-size:12px;padding:4px 6px" /></td></tr>
+        <tr><td>Pietra Serena</td><td><input type="number" value="90" style="width:80px;padding:4px 6px;font-size:12px" /></td><td><input type="number" value="12" style="width:60px;padding:4px 6px;font-size:12px" /></td><td><input value="" style="font-size:12px;padding:4px 6px" /></td></tr>
+        <tr><td>Quarzite</td><td><input type="number" value="170" style="width:80px;padding:4px 6px;font-size:12px" /></td><td><input type="number" value="15" style="width:60px;padding:4px 6px;font-size:12px" /></td><td><input value="" style="font-size:12px;padding:4px 6px" /></td></tr>
+      </tbody>
+    </table>
+    <button class="btn btn-sm btn-ghost" style="margin-top:8px">+ Aggiungi materiale</button>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Bordi — €/metro lineare</div>
+      <table>
+        <thead><tr><th>Lavorazione</th><th>€/ml</th></tr></thead>
+        <tbody>
+          <tr><td>Filo lucido</td><td><input type="number" value="8" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+          <tr><td>Bisello 45°</td><td><input type="number" value="12" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+          <tr><td>Toro (mezza matita)</td><td><input type="number" value="15" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+          <tr><td>Toro grande</td><td><input type="number" value="20" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+          <tr><td>Sguscia</td><td><input type="number" value="18" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+          <tr><td>Bocciardato</td><td><input type="number" value="22" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Forature — €/pezzo</div>
+      <table>
+        <thead><tr><th>Tipo</th><th>€/pz</th></tr></thead>
+        <tbody>
+          <tr><td>Foro lavabo ovale</td><td><input type="number" value="45" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+          <tr><td>Foro lavabo rettangolare</td><td><input type="number" value="55" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+          <tr><td>Piano cottura 4 fuochi</td><td><input type="number" value="50" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+          <tr><td>Piano cottura 2 fuochi</td><td><input type="number" value="35" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+          <tr><td>Foro rubinetteria</td><td><input type="number" value="12" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+          <tr><td>Scasso incasso</td><td><input type="number" value="60" style="width:70px;padding:4px 6px;font-size:12px" /></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Dati aziendali (intestazione documenti)</div>
+    <div class="g2">
+      <div><div class="fl">Nome azienda</div><input value="Lavorazione Pietre — Mario Rossi" /></div>
+      <div><div class="fl">P.IVA / C.F.</div><input value="" placeholder="IT00000000000" /></div>
+    </div>
+    <div class="g2">
+      <div><div class="fl">Indirizzo</div><input value="" placeholder="Via, CAP, Città" /></div>
+      <div><div class="fl">Telefono / Email</div><input value="" placeholder="331 000 0000 · info@..." /></div>
+    </div>
+    <div class="mb"><div class="fl">Logo aziendale</div><input type="file" accept="image/*" onchange="loadLogo(this)" style="font-size:12px;padding:6px" /></div>
+    <button class="btn btn-gold">Salva impostazioni</button>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<!-- ══════════════════════════════════════════════════════ SIDEBAR CHAT -->
+<div class="sidebar">
+  <div class="chat-head">
+    <div class="chat-avatar">⬡</div>
+    <div>
+      <div class="chat-title">Assistente</div>
+      <div class="chat-sub">Guida flusso lavoro</div>
+    </div>
+    <div class="online-dot"></div>
+  </div>
+  <div class="messages" id="msgs"></div>
+  <div class="chat-input">
+    <input type="text" id="chat-in" placeholder="Chiedi qualcosa..." onkeydown="if(event.key==='Enter')sendMsg()" />
+    <button class="send-btn" onclick="sendMsg()">↑</button>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+// ── STATE
+let currentUser='titolare';
+let pts=[], ctx, cv, sagomaConfirmed=false;
+let lastArea=null, lastAreaScarto=null, lastQuotes=[];
+let elCount=1;
+let logoData=null;
+
+// ── CONFIGURATORE QUANTITÀ SOPRALLUOGO
+
+// ── DIRECTORY: struttura completa categoria → sottocategoria → lavorazioni
+const DIRECTORY = {
+  davanzali: {
+    lbl: 'Davanzali',
+    icon: '▬',
+    sub: {
+      'Davanzale int/est': {
+        lbl: 'Davanzale interno/esterno',
+        costiDefault: ['costa_int','costa_est'],
+        for: [],
+        extra: ['gocciolatoio']
+      },
+      'Soglia porta': {
+        lbl: 'Soglia porta',
+        costiDefault: ['costa_int','costa_est'],
+        for: [],
+        extra: ['gocciolatoio']
+      }
+    },
+    lavorazioni: [
+      {id:'costa_int',  lbl:'Costa interna',          tipo:'bordo'},
+      {id:'costa_est',  lbl:'Costa esterna',           tipo:'bordo'},
+      {id:'gocciolatoio',lbl:'Gocciolatoio (scanalatura sotto)', tipo:'extra'},
+    ],
+    forature: []
+  },
+
+  scale: {
+    lbl: 'Scale',
+    icon: '▲',
+    sub: {
+      'Gradino rettilineo': {
+        lbl: 'Gradino rettilineo (pezzi uguali)',
+        costiDefault: ['costa_front'],
+        for: [],
+        extra: []
+      },
+      'Gradino a ventaglio': {
+        lbl: 'Gradino a ventaglio (misure diverse)',
+        costiDefault: ['costa_front','costa_lat_sx','costa_lat_dx'],
+        for: [],
+        extra: []
+      },
+      'Pianerottolo': {
+        lbl: 'Pianerottolo',
+        costiDefault: ['costa_front'],
+        for: [],
+        extra: []
+      },
+      'Alzata': {
+        lbl: 'Alzata',
+        costiDefault: [],
+        for: [],
+        extra: []
+      }
+    },
+    lavorazioni: [
+      {id:'costa_front',   lbl:'Costa frontale (lato a vista)',  tipo:'bordo'},
+      {id:'costa_lat_sx',  lbl:'Costa laterale sx',              tipo:'bordo'},
+      {id:'costa_lat_dx',  lbl:'Costa laterale dx',              tipo:'bordo'},
+      {id:'toro_front',    lbl:'Toro frontale',                  tipo:'bordo'},
+      {id:'antiscivolo',   lbl:'Scanalatura antiscivolo',        tipo:'extra'},
+      {id:'smusso_sup',    lbl:'Smussatura spigolo superiore',   tipo:'extra'},
+    ],
+    forature: [
+      {id:'foro_corrimano', lbl:'Foro corrimano/ringhiera'},
+    ]
+  },
+
+  top: {
+    lbl: 'Top',
+    icon: '▭',
+    sub: {
+      'Piano cucina': {
+        lbl: 'Piano cucina',
+        costiDefault: ['costa_front','costa_lat'],
+        for: ['cottura_4','rubinetto'],
+        extra: []
+      },
+      'Piano bagno / lavabo': {
+        lbl: 'Piano bagno / lavabo',
+        costiDefault: ['costa_front','costa_lat'],
+        for: ['lavabo_ov','rubinetto'],
+        extra: []
+      },
+      'Bancone': {
+        lbl: 'Bancone negozio / ufficio',
+        costiDefault: ['costa_front','costa_lat'],
+        for: [],
+        extra: []
+      }
+    },
+    lavorazioni: [
+      {id:'costa_front', lbl:'Costa frontale',   tipo:'bordo'},
+      {id:'costa_lat',   lbl:'Costa laterale',   tipo:'bordo'},
+      {id:'costa_post',  lbl:'Costa posteriore (murale)', tipo:'bordo'},
+    ],
+    forature: [
+      {id:'lavabo_ov',  lbl:'Foro lavabo ovale'},
+      {id:'lavabo_re',  lbl:'Foro lavabo rettangolare'},
+      {id:'cottura_4',  lbl:'Piano cottura 4 fuochi'},
+      {id:'cottura_2',  lbl:'Piano cottura 2 fuochi'},
+      {id:'rubinetto',  lbl:'Foro rubinetteria'},
+      {id:'scasso',     lbl:'Scasso incasso elettrodomestico'},
+      {id:'vasca',      lbl:'Vasca integrata nel piano'},
+    ]
+  },
+
+  rivestimenti: {
+    lbl: 'Rivestimenti',
+    icon: '▪',
+    sub: {
+      'Pavimentazione interna': { lbl:'Pavimentazione interna', costiDefault:[], for:[], extra:[] },
+      'Pavimentazione esterna': { lbl:'Pavimentazione esterna', costiDefault:[], for:[], extra:[] },
+      'Rivestimento parete':    { lbl:'Rivestimento parete',    costiDefault:['costa_vista'], for:[], extra:[] },
+      'Bordo piscina':          { lbl:'Bordo piscina',          costiDefault:['costa_vista'], for:[], extra:[] },
+      'Funeraria':              { lbl:'Funeraria',              costiDefault:[], for:[], extra:[] },
+    },
+    lavorazioni: [
+      {id:'costa_vista', lbl:'Costa a vista (bordo finito)', tipo:'bordo'},
+      {id:'taglio_mis',  lbl:'Taglio a misura',              tipo:'extra'},
+    ],
+    forature: []
+  },
+
+  coprimuri: {
+    lbl: 'Coprimuri',
+    icon: '⬒',
+    sub: {
+      'Coprimuro piano': {
+        lbl: 'Coprimuro piano (piatto)',
+        costiDefault: ['costa_front_est','costa_front_int'],
+        for: [], extra: []
+      },
+      'Coprimuro con gocciolatoio': {
+        lbl: 'Coprimuro con gocciolatoio',
+        costiDefault: ['costa_front_est','costa_front_int','gocciolatoio'],
+        for: [], extra: []
+      },
+      'Coprimuro a sella': {
+        lbl: 'Coprimuro a sella (due falde)',
+        costiDefault: ['costa_front_est','costa_front_int','gocciolatoio'],
+        for: [], extra: []
+      },
+      'Lavorazione 3 lati': {
+        lbl: 'Lavorazione su 3 lati (est + int + lat)',
+        costiDefault: ['costa_front_est','costa_front_int','costa_lat_sx'],
+        for: [], extra: []
+      },
+      'Lavorazione 4 lati': {
+        lbl: 'Lavorazione su 4 lati (completo)',
+        costiDefault: ['costa_front_est','costa_front_int','costa_lat_sx','costa_lat_dx'],
+        for: [], extra: []
+      },
+    },
+    lavorazioni: [
+      {id:'costa_front_est', lbl:'Costa frontale esterna',        tipo:'bordo'},
+      {id:'costa_front_int', lbl:'Costa frontale interna',        tipo:'bordo'},
+      {id:'costa_lat_sx',    lbl:'Costa laterale sx',             tipo:'bordo'},
+      {id:'costa_lat_dx',    lbl:'Costa laterale dx',             tipo:'bordo'},
+      {id:'gocciolatoio',    lbl:'Gocciolatoio (scanalatura sotto)', tipo:'extra'},
+      {id:'smusso_sp',       lbl:'Smussatura spigoli',            tipo:'extra'},
+    ],
+    forature: []
+  }
+};
+
+const BORDI_OPT = ['Filo lucido','Bisello 45°','Toro','Toro grande','Sguscia','Bocciardato'];
+
+const SCARTI = {
+  'Granito Nero Assoluto':12,'Marmo Bianco Carrara':15,'Marmo Botticino':14,
+  'Travertino Romano':14,'Pietra Serena':12,'Quarzite':15,'':12
+};
+
+let pezziCounter = 0;
+let pezzi = [];
+let currentCategoria = '';
+
+// Aggiorna menu sottocategoria quando cambia categoria
+function onCategoriaChange(val){
+  currentCategoria = val;
+  const subSel = document.getElementById('dir-sub');
+  subSel.innerHTML = '<option value="">— sottotipo —</option>';
+  if(!val){ subSel.disabled=true; return; }
+  const cat = DIRECTORY[val];
+  Object.keys(cat.sub).forEach(k=>{
+    const o=document.createElement('option'); o.value=k; o.textContent=cat.sub[k].lbl; subSel.appendChild(o);
+  });
+  subSel.disabled=false;
+  // aggiorna tutti i pezzi esistenti con le nuove lavorazioni
+  pezzi.forEach(p=>{ p.categoria=val; p.sottotipo=''; aggiornaPezzoLavorazioni(p); });
+}
+
+function onSottotipoChange(val){
+  pezzi.forEach(p=>{ p.sottotipo=val; aggiornaPezzoLavorazioni(p); });
+}
+
+// Ricostruisce la sezione lavorazioni di un pezzo in base alla categoria
+function aggiornaPezzoLavorazioni(p){
+  const lavWrap = document.getElementById('lav-wrap-'+p.id);
+  const forWrap2 = document.getElementById('for-'+p.id);
+  if(!lavWrap||!forWrap2) return;
+  const cat = DIRECTORY[p.categoria];
+  if(!cat){ lavWrap.innerHTML=''; forWrap2.innerHTML=''; return; }
+
+  const sub = cat.sub[p.sottotipo];
+  const defaultBordi = sub?.costiDefault||[];
+  const defaultFor   = sub?.for||[];
+
+  // lavorazioni bordo/extra
+  lavWrap.innerHTML = cat.lavorazioni.length ? cat.lavorazioni.map(l=>`
+    <div class="lato-row" id="lavRow-${p.id}-${l.id}" style="${defaultBordi.includes(l.id)?'background:var(--gold4);border-color:var(--gold2)':''}">
+      <input type="checkbox" class="lato-check" id="chk-${p.id}-${l.id}"
+        ${defaultBordi.includes(l.id)?'checked':''} 
+        onchange="toggleLav('${p.id}','${l.id}',this.checked)" />
+      <span class="lato-lbl" style="min-width:0;flex:1;font-size:11px">${l.lbl}</span>
+      <input type="number" class="lato-mis" id="mis-${p.id}-${l.id}"
+        placeholder="ml" min="0" style="width:60px"
+        onchange="setLavMisura('${p.id}','${l.id}',+this.value)"
+        title="Metri lineari. Lascia vuoto = calcolato da L o la." />
+      ${l.tipo==='bordo'?`<select class="lato-lav" id="brd-${p.id}-${l.id}" ${defaultBordi.includes(l.id)?'':'disabled'}
+        onchange="setLavBordo('${p.id}','${l.id}',this.value)" style="width:110px">
+        ${BORDI_OPT.map(b=>`<option>${b}</option>`).join('')}
+      </select>`:'<span style="font-size:10px;color:var(--stone5);font-family:DM Mono,monospace;padding:0 4px">lavorazione</span>'}
+    </div>`).join('')
+  : '<div style="font-size:11px;color:var(--stone5);padding:4px 0">Nessuna lavorazione bordo per questa categoria.</div>';
+
+  // aggiorna stato interno lavorazioni
+  p.lavorazioni = cat.lavorazioni.map(l=>({
+    id:l.id, lbl:l.lbl, tipo:l.tipo,
+    attivo: defaultBordi.includes(l.id),
+    cm:0, bordo: BORDI_OPT[0]
+  }));
+
+  // forature
+  if(cat.forature.length){
+    forWrap2.innerHTML = cat.forature.map(f=>`
+      <button class="for-btn ${defaultFor.includes(f.id)?'sel':''}" id="for-${p.id}-${f.id}"
+        onclick="toggleFor('${p.id}','${f.id}',this)">${f.lbl}</button>`).join('');
+    p.forature = defaultFor.slice();
+  } else {
+    forWrap2.innerHTML = '<span style="font-size:11px;color:var(--stone5)">Nessuna foratura per questa categoria.</span>';
+    p.forature = [];
+  }
+
+  ricalcPezzo(p);
+  ricalcTotale();
+}
+
+function addPezzo(desc='', qta=1, L=0, la=0){
+  pezziCounter++;
+  const id = 'p'+pezziCounter;
+  const pezzo = {
+    id, desc: desc||'Pezzo '+pezziCounter, qta, L, la,
+    categoria: currentCategoria,
+    sottotipo: document.getElementById('dir-sub')?.value||'',
+    lavorazioni:[], forature:[], mq:0, ml:0
+  };
+  pezzi.push(pezzo);
+  renderPezzoCard(pezzo);
+  aggiornaPezzoLavorazioni(pezzo);
+  ricalcTotale();
+}
+
+function renderPezzoCard(p){
+  const wrap = document.getElementById('pezzi-container');
+  const card = document.createElement('div');
+  card.className = 'pezzo-card';
+  card.id = 'card-'+p.id;
+  card.innerHTML = `
+    <div class="pezzo-head" onclick="togglePezzo('${p.id}')">
+      <div class="pezzo-num">${pezzi.indexOf(p)+1}</div>
+      <input class="pezzo-titolo" style="border:none;background:transparent;font-size:12px;font-weight:500;padding:0;flex:1"
+        value="${p.desc}" onchange="p_set('${p.id}','desc',this.value)" onclick="event.stopPropagation()" placeholder="Nome pezzo..." />
+      <span class="pezzo-mq-badge" id="badge-mq-${p.id}">—</span>
+      <button class="btn btn-sm btn-ghost" style="color:var(--red);padding:2px 8px;margin-left:4px"
+        onclick="event.stopPropagation();deletePezzo('${p.id}')">✕</button>
+    </div>
+    <div class="pezzo-body" id="body-${p.id}">
+
+      <!-- MISURE -->
+      <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
+        <div>
+          <div class="fl">Quantità pezzi uguali</div>
+          <input type="number" min="1" value="${p.qta}"
+            style="width:70px;padding:5px 8px;font-size:13px;font-family:'DM Mono',monospace;border:1px solid var(--stone6);border-radius:var(--r)"
+            onchange="p_set('${p.id}','qta',+this.value)" />
+        </div>
+        <div>
+          <div class="fl">Lunghezza (cm)</div>
+          <input type="number" min="0" value="${p.L||''}" placeholder="es. 280"
+            style="width:90px;padding:5px 8px;font-size:13px;font-family:'DM Mono',monospace;border:1px solid var(--stone6);border-radius:var(--r)"
+            onchange="p_set('${p.id}','L',+this.value)" />
+        </div>
+        <div>
+          <div class="fl">Larghezza (cm)</div>
+          <input type="number" min="0" value="${p.la||''}" placeholder="es. 62"
+            style="width:90px;padding:5px 8px;font-size:13px;font-family:'DM Mono',monospace;border:1px solid var(--stone6);border-radius:var(--r)"
+            onchange="p_set('${p.id}','la',+this.value)" />
+        </div>
+        <div style="padding-bottom:2px">
+          <div class="fl">m² pezzo × qta</div>
+          <div style="font-size:16px;font-weight:500;font-family:'DM Mono',monospace;color:var(--gold)" id="mq-pezzo-${p.id}">—</div>
+        </div>
+      </div>
+
+      <!-- SCHEMA -->
+      <canvas class="pezzo-schema" id="schema-${p.id}" width="440" height="88"></canvas>
+
+      <!-- LAVORAZIONI (riempite da aggiornaPezzoLavorazioni) -->
+      <div class="fl" style="margin:8px 0 4px">Lavorazioni — spunta quelle richieste, specifica ml se diversi da L/la</div>
+      <div id="lav-wrap-${p.id}" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"></div>
+      <div style="font-size:10px;color:var(--stone5);font-family:'DM Mono',monospace;margin-bottom:8px">
+        ml: lascia vuoto → calcolato automaticamente da Lunghezza o Larghezza del pezzo.
+      </div>
+
+      <!-- FORATURE -->
+      <div class="fl" style="margin-bottom:4px">Forature</div>
+      <div class="for-grid" id="for-${p.id}"></div>
+
+      <!-- NOTA -->
+      <div style="margin-top:8px">
+        <input placeholder="Note su questo pezzo..." style="font-size:11px;padding:5px 8px"
+          onchange="p_set('${p.id}','nota',this.value)" />
+      </div>
+    </div>`;
+  wrap.appendChild(card);
+  drawSchema(p);
+}
+
+function togglePezzo(id){
+  const body = document.getElementById('body-'+id);
+  body.style.display = body.style.display==='none'?'block':'none';
+}
+
+function p_set(id, key, val){
+  const p = pezzi.find(x=>x.id===id); if(!p) return;
+  p[key]=val;
+  if(['L','la','qta'].includes(key)){ aggiornaMisureLav(p); drawSchema(p); }
+  ricalcPezzo(p); ricalcTotale();
+}
+
+function aggiornaMisureLav(p){
+  if(!p.lavorazioni) return;
+  p.lavorazioni.forEach(l=>{
+    const mis = document.getElementById('mis-'+p.id+'-'+l.id);
+    if(!mis) return;
+    // placeholder mostra valore auto in base all'id della lavorazione
+    const cat = DIRECTORY[p.categoria];
+    const lavDef = cat?.lavorazioni.find(x=>x.id===l.id);
+    // stima: costa frontale/esterna/interna = L, laterale = la, altri = L
+    const auto = (l.id.includes('lat')) ? p.la : p.L;
+    mis.placeholder = auto ? auto+' cm' : 'ml';
+  });
+}
+
+function toggleLav(pid, lid, checked){
+  const p = pezzi.find(x=>x.id===pid); if(!p) return;
+  const lav = p.lavorazioni?.find(l=>l.id===lid);
+  if(lav) lav.attivo=checked;
+  const brd = document.getElementById('brd-'+pid+'-'+lid);
+  const row = document.getElementById('lavRow-'+pid+'-'+lid);
+  if(brd) brd.disabled=!checked;
+  if(row){ row.style.background=checked?'var(--gold4)':''; row.style.borderColor=checked?'var(--gold2)':''; }
+  ricalcPezzo(p); ricalcTotale();
+}
+
+function setLavMisura(pid, lid, val){
+  const p = pezzi.find(x=>x.id===pid); if(!p) return;
+  const lav = p.lavorazioni?.find(l=>l.id===lid);
+  if(lav) lav.cm=val||0;
+  ricalcPezzo(p); ricalcTotale();
+}
+
+function setLavBordo(pid, lid, val){
+  const p = pezzi.find(x=>x.id===pid); if(!p) return;
+  const lav = p.lavorazioni?.find(l=>l.id===lid);
+  if(lav) lav.bordo=val;
+}
+
+function toggleFor(pid, fid, btn){
+  const p = pezzi.find(x=>x.id===pid); if(!p) return;
+  const idx=p.forature.indexOf(fid);
+  if(idx>=0){ p.forature.splice(idx,1); btn.classList.remove('sel'); }
+  else { p.forature.push(fid); btn.classList.add('sel'); }
+  ricalcPezzo(p); ricalcTotale();
+}
+
+function deletePezzo(id){
+  pezzi=pezzi.filter(x=>x.id!==id);
+  document.getElementById('card-'+id)?.remove();
+  ricalcTotale();
+}
+
+function ricalcPezzo(p){
+  const L=p.L/100, la=p.la/100;
+  const mqPezzo=L*la;
+  p.mq=mqPezzo*p.qta;
+  // ml: somma lavorazioni attive
+  let ml=0;
+  (p.lavorazioni||[]).forEach(l=>{
+    if(!l.attivo) return;
+    // cm specifico o stima da L/la
+    let cm = l.cm || (l.id.includes('lat') ? p.la : p.L);
+    ml += (cm/100)*p.qta;
+  });
+  p.ml=ml;
+  const badge=document.getElementById('badge-mq-'+p.id);
+  if(badge) badge.textContent=p.mq>0?p.mq.toFixed(3)+' m²':'—';
+  const mqEl=document.getElementById('mq-pezzo-'+p.id);
+  if(mqEl) mqEl.textContent=mqPezzo>0?mqPezzo.toFixed(3)+' m² × '+p.qta:'—';
+  drawSchema(p);
+}
+
+function ricalcTotale(){
+  const mqTot=pezzi.reduce((s,p)=>s+p.mq,0);
+  const mlTot=pezzi.reduce((s,p)=>s+p.ml,0);
+  const mat=document.getElementById('sc-so-mat')?.value||'';
+  const scarto=SCARTI[mat]||12;
+  const mqScarto=mqTot*(1+scarto/100);
+
+  // forature aggregate
+  const forCount={};
+  pezzi.forEach(p=>p.forature.forEach(f=>{ forCount[f]=(forCount[f]||0)+p.qta; }));
+
+  const riq=document.getElementById('riepilogo-qta');
+  if(pezzi.length>0){
+    riq.style.display='block';
+    document.getElementById('rq-mq-netti').textContent=mqTot.toFixed(3);
+    document.getElementById('rq-mq-scarto').textContent=mqScarto.toFixed(3);
+    document.getElementById('rq-scarto-perc').textContent='+'+scarto+'%';
+    document.getElementById('rq-ml-bordi').textContent=mlTot.toFixed(2);
+    const fw=document.getElementById('rq-forature-wrap');
+    if(Object.keys(forCount).length){
+      // raggruppa per categoria per mostrare nome leggibile
+      fw.innerHTML=Object.entries(forCount).map(([fid,n])=>{
+        let lbl=fid;
+        Object.values(DIRECTORY).forEach(cat=>{ const f=cat.forature.find(x=>x.id===fid); if(f) lbl=f.lbl; });
+        return `<div style="font-size:12px"><span style="color:var(--stone5)">${lbl}</span> <span style="font-family:'DM Mono',monospace;color:var(--gold3);font-weight:500">${n} pz</span></div>`;
+      }).join('');
+    } else {
+      fw.innerHTML='<div style="font-size:11px;color:var(--stone5)">Nessuna foratura</div>';
+    }
+  } else { riq.style.display='none'; }
+}
+
+function drawSchema(p){
+  const cv=document.getElementById('schema-'+p.id); if(!cv) return;
+  const ctx2=cv.getContext('2d');
+  const W=cv.width, H=cv.height;
+  ctx2.clearRect(0,0,W,H);
+  if(!p.L||!p.la) return;
+  const pad=20, maxW=W-pad*2, maxH=H-pad*2;
+  const scale=Math.min(maxW/p.L, maxH/p.la);
+  const rw=p.L*scale, rh=p.la*scale;
+  const ox=(W-rw)/2, oy=(H-rh)/2;
+  // rettangolo
+  ctx2.fillStyle='rgba(180,83,9,0.07)';
+  ctx2.strokeStyle='#b45309'; ctx2.lineWidth=1.5;
+  ctx2.beginPath(); ctx2.rect(ox,oy,rw,rh); ctx2.fill(); ctx2.stroke();
+  // lavorazioni attive evidenziate
+  const CAT = DIRECTORY[p.categoria];
+  if(CAT){
+    (p.lavorazioni||[]).forEach(l=>{
+      if(!l.attivo) return;
+      // mapping id → lato visivo approssimativo
+      let x1,y1,x2,y2;
+      if(l.id.includes('front')||l.id.includes('est')||l.id==='costa_vista'||l.id==='taglio_mis'||l.id==='costa_int'&&!l.id.includes('lat')){
+        [x1,y1,x2,y2]=[ox,oy+rh,ox+rw,oy+rh]; // sud = frontale
+      } else if(l.id.includes('post')||l.id.includes('int')){
+        [x1,y1,x2,y2]=[ox,oy,ox+rw,oy]; // nord = murale
+      } else if(l.id.includes('lat_sx')){
+        [x1,y1,x2,y2]=[ox,oy,ox,oy+rh];
+      } else if(l.id.includes('lat_dx')||l.id.includes('lat')){
+        [x1,y1,x2,y2]=[ox+rw,oy,ox+rw,oy+rh];
+      } else {
+        [x1,y1,x2,y2]=[ox,oy+rh,ox+rw,oy+rh];
+      }
+      ctx2.strokeStyle='#d97706'; ctx2.lineWidth=5;
+      ctx2.beginPath(); ctx2.moveTo(x1,y1); ctx2.lineTo(x2,y2); ctx2.stroke();
+      const mx=(x1+x2)/2, my=(y1+y2)/2;
+      const etiq=l.bordo&&l.bordo!=='Nessuno'?l.bordo.substring(0,7):l.lbl.substring(0,7);
+      ctx2.fillStyle='#d97706'; ctx2.font='bold 8px DM Mono,monospace';
+      ctx2.fillText(etiq, mx-16, my+(y1===oy+rh?12:-3));
+    });
+  }
+  // misure
+  ctx2.fillStyle='rgba(68,64,60,0.65)'; ctx2.font='9px DM Mono,monospace';
+  ctx2.fillText(p.L+' cm', ox+rw/2-14, oy-4);
+  ctx2.save(); ctx2.translate(ox-5,oy+rh/2); ctx2.rotate(-Math.PI/2);
+  ctx2.fillText(p.la+' cm',-10,0); ctx2.restore();
+  // m² centro
+  ctx2.fillStyle='rgba(180,83,9,0.55)'; ctx2.font='bold 10px DM Mono,monospace';
+  ctx2.fillText(((p.L/100)*(p.la/100)).toFixed(3)+' m²', ox+rw/2-22, oy+rh/2+4);
+}
+
+// ── COMMESSE
+const FASI = ['richiesta','sopralluogo','preventivo','trattativa','confermata','lavorazione','consegnata','fatturata'];
+const FASI_LBL = ['Richiesta','Sopral.','Preventivo','Trattativa','Confermata','Lavoraz.','Consegnata','Fatturata'];
+const FASI_BADGE = {
+  richiesta:'bv',sopralluogo:'bb2',preventivo:'ba2',trattativa:'ba2',
+  confermata:'bg2',lavorazione:'bt',consegnata:'bg2',fatturata:'bg2'
+};
+
+// ── SUPABASE CONFIG
+const SUPABASE_URL = 'https://rytepcntbpxrtrdhqplp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dGVwY250YnB4cnRyZGhxcGxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTQ4OTgsImV4cCI6MjA5NTY3MDg5OH0.p16KF7oUErDsoOWcLKh2h-DfWR8y72OIyGi4lcMb3_Y';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ── DATI DEMO (usati solo se il database è vuoto)
+const COMMESSE_DEMO = [
+  {id:'C001',nome:'Marco Bianchi',cognome:'',tel:'333 1234567',email:'',luogo:'Via Roma 12, Nuoro',tipo:'Privato',canale:'whatsapp',
+   dataRichiesta:'2025-05-10',tags:'piano cucina, urgente',noteRichiesta:'Vuole piano cucina in granito, cucina già montata',
+   fase:'lavorazione',importo:2800,
+   sopralluogo:{data:'2025-05-12',tipoEl:'Piano cucina',misure:'280×62 cm + lato sx 45×62 cm, L-shape',note:'Cucina IKEA, spessore piano esistente 3cm'},
+   preventivo:{num:'2024-017',imp:2800,dataInvio:'2025-05-14'},
+   accordo:{imp:2800,data:'2025-05-16',modpag:'Acconto + saldo consegna',percAcc:30,acconto:840,consegna:'2025-06-10',note:''},
+   pagamenti:[{tipo:'Acconto',imp:840,data:'2025-05-16',metodo:'Bonifico',note:'Rif. COM001'}],
+   noteInt:'Attenzione vena granito: cliente vuole vena orizzontale'},
+  {id:'C002',nome:'Anna',cognome:'Ferrari',tel:'347 9876543',email:'anna@email.com',luogo:'Via Sassari 8, Macomer',tipo:'Privato',canale:'passaparola',
+   dataRichiesta:'2025-05-20',tags:'scala',noteRichiesta:'Scala interna 12 gradini, marmo bianco',
+   fase:'preventivo',importo:4200,
+   sopralluogo:{data:'2025-05-22',tipoEl:'Scala',misure:'12 gradini 120×30 cm, alzate incluse',note:'Scala esistente in legno da sostituire'},
+   preventivo:{num:'2024-018',imp:4200,dataInvio:'2025-05-24'},
+   accordo:{imp:0,data:'',modpag:'',percAcc:30,acconto:0,consegna:'',note:''},
+   pagamenti:[],noteInt:''},
+  {id:'C003',nome:'Edilcostruzioni',cognome:'Srl',tel:'0784 123456',email:'info@edilcostruzioni.it',luogo:'Zona Ind. Bolotana',tipo:'Impresa edile',canale:'telefono',
+   dataRichiesta:'2025-05-25',tags:'davanzali, fornitura',noteRichiesta:'40 davanzali 150×25 cm granito grigio',
+   fase:'richiesta',importo:0,
+   sopralluogo:{data:'',tipoEl:'',misure:'',note:''},
+   preventivo:{num:'',imp:0,dataInvio:''},
+   accordo:{imp:0,data:'',modpag:'60 giorni fattura',percAcc:0,acconto:0,consegna:'',note:''},
+   pagamenti:[],noteInt:'Contattare lunedì per sopralluogo'},
+];
+
+const LASTRE_DEMO = [
+  {cod:'GNA-042',mat:'Granito Nero Assoluto',tipo:'Madre',l:320,la:180,sp:2,mq:5.12,fin:'Lucido',pos:'Scaffale A1',note:''},
+  {cod:'BOT-017',mat:'Marmo Botticino',tipo:'Madre',l:300,la:160,sp:2,mq:4.80,fin:'Lucido',pos:'Scaffale B2',note:''},
+  {cod:'CAR-003',mat:'Marmo Carrara',tipo:'Madre',l:280,la:155,sp:2,mq:1.20,fin:'Lucido',pos:'Scaffale C1',note:'Scorta bassa — riordinare'},
+  {cod:'GNA-F01',mat:'Granito Nero (figlia)',tipo:'Figlia',l:120,la:80,sp:2,mq:0.96,fin:'Lucido',pos:'Scaffale A1b',note:'Avanzo da GNA-041'},
+  {cod:'TRA-009',mat:'Travertino Romano',tipo:'Madre',l:260,la:140,sp:3,mq:3.64,fin:'Levigato',pos:'Scaffale D1',note:''},
+  {cod:'SER-005',mat:'Pietra Serena',tipo:'Madre',l:240,la:130,sp:3,mq:2.80,fin:'Grezzo',pos:'Scaffale E2',note:''},
+];
+
+let commesse = [];
+let lastrasDb = [];
+let activeCommId = null;
+
+// ── SUPABASE: carica commesse dal database
+async function loadCommesse() {
+  try {
+    const { data, error } = await sb.from('commesse').select('*').order('created_at', { ascending: false });
+    if (error) throw error;
+    if (data && data.length > 0) {
+      commesse = data.map(row => ({
+        id: row.id,
+        nome: row.nome || '',
+        cognome: row.cognome || '',
+        tel: row.tel || '',
+        email: row.email || '',
+        luogo: row.luogo || '',
+        tipo: row.tipo || 'Privato',
+        canale: row.canale || '',
+        dataRichiesta: row.data_richiesta || '',
+        tags: row.tags || '',
+        noteRichiesta: row.note_richiesta || '',
+        fase: row.fase || 'richiesta',
+        importo: row.importo || 0,
+        sopralluogo: row.sopralluogo || {data:'',tipoEl:'',misure:'',note:''},
+        preventivo: row.preventivo || {num:'',imp:0,dataInvio:''},
+        accordo: row.accordo || {imp:0,data:'',modpag:'Acconto + saldo consegna',percAcc:30,acconto:0,consegna:'',note:''},
+        pagamenti: row.pagamenti || [],
+        noteInt: row.note_interne || '',
+        log: row.log || [],
+        versioni: row.versioni || [],
+        sagoma: row.sagoma || null,
+      }));
+    } else {
+      // Prima volta: carica i dati demo
+      commesse = JSON.parse(JSON.stringify(COMMESSE_DEMO));
+      for (const c of commesse) {
+        await sbSaveCommessa(c);
+      }
+    }
+  } catch (e) {
+    console.error('Supabase load commesse error:', e);
+    commesse = JSON.parse(JSON.stringify(COMMESSE_DEMO));
+  }
+  renderCommList(commesse);
+}
+
+// ── SUPABASE: salva/aggiorna una commessa
+async function sbSaveCommessa(c) {
+  const row = {
+    id: c.id,
+    nome: c.nome,
+    cognome: c.cognome,
+    tel: c.tel,
+    email: c.email,
+    luogo: c.luogo,
+    tipo: c.tipo,
+    canale: c.canale,
+    data_richiesta: c.dataRichiesta,
+    tags: c.tags,
+    note_richiesta: c.noteRichiesta,
+    fase: c.fase,
+    importo: c.importo || 0,
+    sopralluogo: c.sopralluogo,
+    preventivo: c.preventivo,
+    accordo: c.accordo,
+    pagamenti: c.pagamenti || [],
+    note_interne: c.noteInt || '',
+    log: c.log || [],
+    versioni: c.versioni || [],
+    sagoma: c.sagoma || null,
+  };
+  try {
+    const { error } = await sb.from('commesse').upsert(row, { onConflict: 'id' });
+    if (error) throw error;
+  } catch (e) {
+    console.error('Supabase save commessa error:', e);
+    botMsg('⚠ Errore salvataggio: ' + e.message);
+  }
+}
+
+// ── SUPABASE: elimina commessa
+async function sbDeleteCommessa(id) {
+  try {
+    const { error } = await sb.from('commesse').delete().eq('id', id);
+    if (error) throw error;
+  } catch (e) {
+    console.error('Supabase delete commessa error:', e);
+  }
+}
+
+// ── SUPABASE: carica lastre
+async function loadLastre() {
+  try {
+    const { data, error } = await sb.from('lastre').select('*').order('cod');
+    if (error) throw error;
+    if (data && data.length > 0) {
+      lastrasDb = data;
+    } else {
+      // Prima volta: carica dati demo
+      lastrasDb = JSON.parse(JSON.stringify(LASTRE_DEMO));
+      for (const l of lastrasDb) {
+        await sbSaveLastra(l);
+      }
+    }
+  } catch (e) {
+    console.error('Supabase load lastre error:', e);
+    lastrasDb = JSON.parse(JSON.stringify(LASTRE_DEMO));
+  }
+  renderLastreGrid();
+}
+
+// ── SUPABASE: salva lastra
+async function sbSaveLastra(l) {
+  try {
+    const { error } = await sb.from('lastre').upsert(l, { onConflict: 'cod' });
+    if (error) throw error;
+  } catch (e) {
+    console.error('Supabase save lastra error:', e);
+    botMsg('⚠ Errore salvataggio lastra: ' + e.message);
+  }
+}
+
+// ── SUPABASE: elimina lastra
+async function sbDeleteLastra(cod) {
+  try {
+    const { error } = await sb.from('lastre').delete().eq('cod', cod);
+    if (error) throw error;
+  } catch (e) {
+    console.error('Supabase delete lastra error:', e);
+  }
+}
+
+function renderCommList(list){
+  const el = document.getElementById('comm-list');
+  if(!list.length){el.innerHTML='<div style="font-size:12px;color:var(--stone5);text-align:center;padding:20px">Nessuna commessa trovata</div>';return;}
+  el.innerHTML = list.map(c=>`
+    <div class="comm-row ${c.id===activeCommId?'selected':''}" onclick="openCommessa('${c.id}')">
+      <div class="comm-avatar">${c.nome[0]}${c.cognome?c.cognome[0]:''}</div>
+      <div class="comm-info">
+        <div class="comm-name">${c.nome} ${c.cognome||''}</div>
+        <div class="comm-sub">${c.luogo||'—'} · <span class="badge ${FASI_BADGE[c.fase]||'bv'}">${FASI_LBL[FASI.indexOf(c.fase)]||c.fase}</span></div>
+      </div>
+      <div class="comm-meta">
+        <div class="comm-imp">${c.importo?'€ '+c.importo.toLocaleString('it-IT'):'—'}</div>
+        <div class="comm-date">${c.dataRichiesta||''}</div>
+      </div>
+    </div>`).join('');
+  // update metrics
+  const attive = commesse.filter(c=>c.fase!=='fatturata');
+  const inLav = commesse.filter(c=>c.fase==='lavorazione').length;
+  const inAtt = commesse.filter(c=>['preventivo','trattativa'].includes(c.fase)).length;
+  const val = commesse.reduce((s,c)=>s+(c.accordo?.imp||c.importo||0),0);
+  document.getElementById('cm-tot').textContent=attive.length;
+  document.getElementById('cm-lav').textContent=inLav;
+  document.getElementById('cm-prev').textContent=inAtt;
+  document.getElementById('cm-val').textContent='€ '+val.toLocaleString('it-IT');
+}
+
+function filterComm(){
+  const q = document.getElementById('comm-search').value.toLowerCase();
+  const f = document.getElementById('comm-filter').value;
+  const res = commesse.filter(c=>{
+    const txt = (c.nome+' '+c.cognome+' '+c.luogo+' '+c.tags).toLowerCase();
+    return (!q||txt.includes(q))&&(!f||c.fase===f);
+  });
+  renderCommList(res);
+}
+
+function openCommessa(id){
+  activeCommId = id;
+  const c = commesse.find(x=>x.id===id);
+  if(!c)return;
+  renderCommList(commesse); // refresh selection
+  document.getElementById('scheda-commessa').style.display='block';
+  // header
+  document.getElementById('sc-num').textContent=c.id;
+  document.getElementById('sc-nome').textContent=c.nome+' '+(c.cognome||'');
+  document.getElementById('sc-luogo').textContent=c.luogo||'—';
+  document.getElementById('sc-badge').innerHTML=`<span class="badge ${FASI_BADGE[c.fase]||'bv'}">${FASI_LBL[FASI.indexOf(c.fase)]||c.fase}</span>`;
+  document.getElementById('sc-imp').textContent=c.accordo?.imp?'€ '+c.accordo.imp.toLocaleString('it-IT'):(c.importo?'€ '+c.importo.toLocaleString('it-IT'):'—');
+  // tracker
+  renderTracker(c.fase);
+  updateFaseActionBtns(FASI.indexOf(c.fase));
+  // anagrafica
+  document.getElementById('sc-an-nome').value=c.nome||'';
+  document.getElementById('sc-an-cogn').value=c.cognome||'';
+  document.getElementById('sc-an-tel').value=c.tel||'';
+  document.getElementById('sc-an-email').value=c.email||'';
+  document.getElementById('sc-an-luogo').value=c.luogo||'';
+  document.getElementById('sc-an-tipo').value=c.tipo||'Privato';
+  document.getElementById('sc-an-data').value=c.dataRichiesta||'';
+  document.getElementById('sc-an-tags').value=c.tags||'';
+  document.getElementById('sc-an-note').value=c.noteRichiesta||'';
+  document.querySelectorAll('#canali-wrap .canale-btn').forEach(b=>b.classList.toggle('sel',b.getAttribute('onclick').includes("'"+c.canale+"'")));
+  // sopralluogo
+  document.getElementById('sc-so-data').value=c.sopralluogo?.data||'';
+  document.getElementById('sc-so-mat').value=c.sopralluogo?.mat||'';
+  document.getElementById('sc-so-note').value=c.sopralluogo?.note||'';
+  document.getElementById('sc-so-sagoma-status').textContent=c.sagoma?'✓ Sagoma collegata ('+c.sagoma+' m²)':'Nessuna sagoma collegata';
+  // ripristina pezzi
+  pezzi=[]; pezziCounter=0;
+  document.getElementById('pezzi-container').innerHTML='';
+  document.getElementById('riepilogo-qta').style.display='none';
+  if(c.sopralluogo?.pezzi&&c.sopralluogo.pezzi.length){
+    c.sopralluogo.pezzi.forEach(p=>addPezzo(p.desc,p.qta,p.L,p.la));
+  } else {
+    addPezzo(); // pezzo vuoto di default
+  }
+  // preventivo
+  document.getElementById('sc-pr-num').value=c.preventivo?.num||'';
+  document.getElementById('sc-pr-imp').value=c.preventivo?.imp||'';
+  document.getElementById('sc-pr-data').value=c.preventivo?.dataInvio||'';
+  document.getElementById('sc-pr-v1-imp').textContent=c.preventivo?.imp?'€ '+c.preventivo.imp.toLocaleString('it-IT'):'—';
+  // accordo
+  document.getElementById('sc-ac-imp').value=c.accordo?.imp||'';
+  document.getElementById('sc-ac-data').value=c.accordo?.data||'';
+  document.getElementById('sc-ac-modpag').value=c.accordo?.modpag||'Acconto + saldo consegna';
+  document.getElementById('sc-ac-perc').value=c.accordo?.percAcc||30;
+  document.getElementById('sc-ac-acc').value=c.accordo?.acconto||'';
+  document.getElementById('sc-ac-cons').value=c.accordo?.consegna||'';
+  document.getElementById('sc-ac-note').value=c.accordo?.note||'';
+  // pagamenti
+  renderPagamenti(c);
+  // note
+  document.getElementById('sc-note-int').value=c.noteInt||'';
+  // log
+  renderLog(c);
+  // bot
+  botMsg('Commessa '+c.nome+' aperta. Fase: '+FASI_LBL[FASI.indexOf(c.fase)]+'. '+getSuggestFase(c.fase),getSugsFase(c.fase));
+}
+
+function renderTracker(fase){
+  const idx = FASI.indexOf(fase);
+  document.getElementById('sc-tracker').innerHTML = FASI.map((f,i)=>{
+    const cls = i<idx?'done':i===idx?'cur':'todo';
+    return `<div class="fase-node ${cls}"><div class="fase-dot">${i<idx?'✓':(i+1)}</div><div class="fase-lbl">${FASI_LBL[i]}</div></div>`;
+  }).join('');
+}
+
+function getSuggestFase(fase){
+  const map={richiesta:'Pianifica il sopralluogo.',sopralluogo:'Crea il preventivo.',preventivo:'Invia il preventivo al cliente.',trattativa:'Raggiungi l\'accordo e conferma.',confermata:'Ordina il materiale e avvia la lavorazione.',lavorazione:'Aggiorna avanzamento nel foglio operaio.',consegnata:'Emetti la fattura.',fatturata:'Commessa chiusa!'};
+  return map[fase]||'';
+}
+function getSugsFase(fase){
+  const map={richiesta:['Pianifica sopralluogo','Vai alla scheda Sopralluogo'],sopralluogo:['Crea preventivo','Disegna sagoma'],preventivo:['Avanza a trattativa','Apri preventivatore'],trattativa:['Conferma accordo'],confermata:['Avanza a lavorazione','Genera foglio operaio'],lavorazione:['Foglio operaio','Aggiorna stato'],consegnata:['Registra pagamento saldo']};
+  return map[fase]||[];
+}
+
+function syncSchedaHeader(){
+  if(!activeCommId)return;
+  const nome=document.getElementById('sc-an-nome').value;
+  const cogn=document.getElementById('sc-an-cogn').value;
+  const luogo=document.getElementById('sc-an-luogo').value;
+  document.getElementById('sc-nome').textContent=nome+' '+(cogn||'');
+  document.getElementById('sc-luogo').textContent=luogo||'—';
+  const imp=parseFloat(document.getElementById('sc-pr-imp').value)||parseFloat(document.getElementById('sc-ac-imp').value)||0;
+  if(imp)document.getElementById('sc-imp').textContent='€ '+imp.toLocaleString('it-IT');
+}
+
+function selCanale(btn,val){
+  document.querySelectorAll('#canali-wrap .canale-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function calcAcconto(){
+  const imp=parseFloat(document.getElementById('sc-ac-imp').value)||0;
+  const perc=parseFloat(document.getElementById('sc-ac-perc').value)||0;
+  document.getElementById('sc-ac-acc').value=Math.round(imp*perc/100);
+}
+
+function avanzaFase(){
+  if(!activeCommId){
+    botMsg('⚠ Seleziona prima una commessa dalla lista a sinistra, poi clicca "Avanza fase".');
+    return;
+  }
+  const c=commesse.find(x=>x.id===activeCommId);
+  if(!c)return;
+  const idx=FASI.indexOf(c.fase);
+  if(idx<FASI.length-1){
+    c.fase=FASI[idx+1];
+    addLog(c,'Avanzata a fase: '+FASI_LBL[idx+1]);
+    saveCommessa();
+    renderTracker(c.fase);
+    document.getElementById('sc-badge').innerHTML=`<span class="badge ${FASI_BADGE[c.fase]||'bv'}">${FASI_LBL[FASI.indexOf(c.fase)]}</span>`;
+    renderCommList(commesse);
+    updateFaseActionBtns(idx+1);
+    botMsg('✓ Commessa avanzata a: '+FASI_LBL[idx+1]+'. '+getSuggestFase(c.fase),getSugsFase(c.fase));
+  } else {
+    botMsg('La commessa è già all\'ultima fase ('+FASI_LBL[idx]+').');
+  }
+}
+
+function tornaFase(){
+  if(!activeCommId){
+    botMsg('⚠ Seleziona prima una commessa dalla lista.');
+    return;
+  }
+  const c=commesse.find(x=>x.id===activeCommId);
+  if(!c)return;
+  const idx=FASI.indexOf(c.fase);
+  if(idx>0){
+    const fasePrecedente=FASI[idx-1];
+    const conferma=confirm('Vuoi tornare alla fase "'+FASI_LBL[idx-1]+'"?');
+    if(!conferma)return;
+    addLog(c,'Tornata a fase: '+FASI_LBL[idx-1]);
+    saveCommessa(); // salva dati form
+    c.fase=fasePrecedente; // rimetti la fase DOPO saveCommessa (che la sovrascrive)
+    renderTracker(c.fase);
+    document.getElementById('sc-badge').innerHTML=`<span class="badge ${FASI_BADGE[c.fase]||'bv'}">${FASI_LBL[FASI.indexOf(c.fase)]}</span>`;
+    renderCommList(commesse);
+    updateFaseActionBtns(idx-1);
+    botMsg('↩ Commessa riportata a: '+FASI_LBL[idx-1]+'.');
+  } else {
+    botMsg('La commessa è già alla prima fase ('+FASI_LBL[0]+').');
+  }
+}
+
+function updateFaseActionBtns(idx){
+  // aggiorna tutti i pulsanti avanza/torna nella scheda commessa
+  document.querySelectorAll('.btn-avanza-fase').forEach(btn=>{
+    btn.disabled = (idx>=FASI.length-1);
+    btn.title = idx>=FASI.length-1 ? 'Ultima fase raggiunta' : '→ Avanza a: '+FASI_LBL[idx+1];
+  });
+  document.querySelectorAll('.btn-torna-fase').forEach(btn=>{
+    btn.disabled = (idx<=0);
+    btn.title = idx<=0 ? 'Prima fase' : '← Torna a: '+FASI_LBL[idx-1];
+  });
+}
+
+function saveCommessa(){
+  if(!activeCommId)return;
+  const c=commesse.find(x=>x.id===activeCommId);
+  c.nome=document.getElementById('sc-an-nome').value;
+  c.cognome=document.getElementById('sc-an-cogn').value;
+  c.tel=document.getElementById('sc-an-tel').value;
+  c.email=document.getElementById('sc-an-email').value;
+  c.luogo=document.getElementById('sc-an-luogo').value;
+  c.tipo=document.getElementById('sc-an-tipo').value;
+  c.dataRichiesta=document.getElementById('sc-an-data').value;
+  c.tags=document.getElementById('sc-an-tags').value;
+  c.noteRichiesta=document.getElementById('sc-an-note').value;
+  c.canale=document.querySelector('#canali-wrap .canale-btn.sel')?.getAttribute('onclick')?.match(/'(\w+)'/)?.[1]||c.canale;
+  c.sopralluogo={data:document.getElementById('sc-so-data').value,mat:document.getElementById('sc-so-mat').value,note:document.getElementById('sc-so-note').value,pezzi:pezzi.map(p=>({desc:p.desc,qta:p.qta,L:p.L,la:p.la,lati:p.lati,forature:p.forature,mq:p.mq,ml:p.ml})),mqTot:pezzi.reduce((s,p)=>s+p.mq,0),mlTot:pezzi.reduce((s,p)=>s+p.ml,0)};
+  c.preventivo={num:document.getElementById('sc-pr-num').value,imp:parseFloat(document.getElementById('sc-pr-imp').value)||0,dataInvio:document.getElementById('sc-pr-data').value};
+  c.accordo={imp:parseFloat(document.getElementById('sc-ac-imp').value)||0,data:document.getElementById('sc-ac-data').value,modpag:document.getElementById('sc-ac-modpag').value,percAcc:parseFloat(document.getElementById('sc-ac-perc').value)||30,acconto:parseFloat(document.getElementById('sc-ac-acc').value)||0,consegna:document.getElementById('sc-ac-cons').value,note:document.getElementById('sc-ac-note').value};
+  c.importo=c.accordo.imp||c.preventivo.imp||0;
+  c.noteInt=document.getElementById('sc-note-int').value;
+  addLog(c,'Dati salvati');
+  renderCommList(commesse);
+  sbSaveCommessa(c);
+  botMsg('✓ Commessa salvata.');
+}
+
+function addLog(c,msg){
+  if(!c.log)c.log=[];
+  c.log.push({ts:new Date().toLocaleString('it-IT'),msg});
+  renderLog(c);
+}
+
+function renderLog(c){
+  const el=document.getElementById('comm-log');
+  if(!c.log||!c.log.length){el.innerHTML='— nessuna attività —';return;}
+  el.innerHTML=[...c.log].reverse().map(l=>`<div>${l.ts} — ${l.msg}</div>`).join('');
+}
+
+function deleteCommessa(){
+  commesse=commesse.filter(x=>x.id!==activeCommId);
+  sbDeleteCommessa(activeCommId);
+  activeCommId=null;
+  document.getElementById('scheda-commessa').style.display='none';
+  renderCommList(commesse);
+  botMsg('Commessa eliminata.');
+}
+
+function newCommessa(){
+  const newId='C'+String(Date.now()).slice(-6); // ID univoco basato sul timestamp
+  const oggi=new Date().toISOString().split('T')[0];
+  const nuova={id:newId,nome:'Nuovo cliente',cognome:'',tel:'',email:'',luogo:'',tipo:'Privato',canale:'',dataRichiesta:oggi,tags:'',noteRichiesta:'',fase:'richiesta',importo:0,sopralluogo:{data:'',tipoEl:'',misure:'',note:''},preventivo:{num:'',imp:0,dataInvio:''},accordo:{imp:0,data:'',modpag:'Acconto + saldo consegna',percAcc:30,acconto:0,consegna:'',note:''},pagamenti:[],noteInt:'',log:[],versioni:[]};
+  commesse.unshift(nuova);
+  sbSaveCommessa(nuova);
+  renderCommList(commesse);
+  openCommessa(newId);
+  showStab('anagrafica',document.querySelector('.stab'));
+  botMsg('Nuova commessa creata. Inserisci nome, telefono e luogo del sopralluogo per iniziare.');
+}
+
+function addVersione(){
+  const c=commesse.find(x=>x.id===activeCommId);
+  if(!c)return;
+  const vn=(c.versioni?c.versioni.length:1)+1;
+  if(!c.versioni)c.versioni=[];
+  const imp=parseFloat(prompt('Importo versione v'+vn+' (€):'))||0;
+  if(!imp)return;
+  c.versioni.push({v:vn,imp});
+  const list=document.getElementById('versioni-list');
+  list.innerHTML+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--stone7)"><span>v${vn} — dopo trattativa</span><span>€ ${imp.toLocaleString('it-IT')}</span></div>`;
+  botMsg('Versione v'+vn+' aggiunta: € '+imp.toLocaleString('it-IT')+'. Puoi confrontarla con la v1.');
+}
+
+function addFoto(inp){
+  const files=[...inp.files];
+  const grid=document.getElementById('foto-grid');
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const slot=document.createElement('div');
+      slot.className='foto-slot';
+      slot.innerHTML=`<img src="${e.target.result}" alt="foto" />`;
+      grid.insertBefore(slot,grid.querySelector('label'));
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderPagamenti(c){
+  const list=document.getElementById('pag-list');
+  if(!c.pagamenti||!c.pagamenti.length){list.innerHTML='<div style="font-size:12px;color:var(--stone5);padding:8px 0">Nessun pagamento registrato.</div>';renderRiepPag(c);return;}
+  list.innerHTML=c.pagamenti.map((p,i)=>`
+    <div class="pag-row">
+      <div class="pag-stato ok"></div>
+      <div style="flex:1"><b>${p.tipo}</b> — ${p.metodo} ${p.note?'· '+p.note:''}</div>
+      <div class="tnum" style="color:var(--teal)">€ ${p.imp.toLocaleString('it-IT')}</div>
+      <div style="font-size:11px;color:var(--stone5);font-family:'DM Mono',monospace;margin-left:8px">${p.data}</div>
+      <button class="btn btn-sm btn-ghost" style="color:var(--red);padding:2px 6px" onclick="delPag(${i})">✕</button>
+    </div>`).join('');
+  renderRiepPag(c);
+}
+
+function renderRiepPag(c){
+  const totAcc=(c.accordo?.imp||0);
+  const pagato=(c.pagamenti||[]).reduce((s,p)=>s+p.imp,0);
+  const residuo=totAcc-pagato;
+  const el=document.getElementById('pag-riepilogo');
+  el.innerHTML=`
+    <div style="display:flex;justify-content:space-between;padding:3px 0"><span style="color:var(--stone4)">Importo accordato</span><span class="tnum">€ ${totAcc.toLocaleString('it-IT')}</span></div>
+    <div style="display:flex;justify-content:space-between;padding:3px 0"><span style="color:var(--stone4)">Incassato</span><span class="tnum" style="color:var(--teal)">€ ${pagato.toLocaleString('it-IT')}</span></div>
+    <div style="height:1px;background:var(--stone6);margin:6px 0"></div>
+    <div style="display:flex;justify-content:space-between;font-weight:500"><span>Residuo</span><span class="tnum" style="color:${residuo>0?'var(--gold)':'#22c55e'}">€ ${residuo.toLocaleString('it-IT')}</span></div>`;
+}
+
+function addPagamento(){
+  const c=commesse.find(x=>x.id===activeCommId);
+  if(!c)return;
+  const imp=parseFloat(document.getElementById('pag-imp').value)||0;
+  if(!imp){botMsg('Inserisci un importo valido.');return;}
+  if(!c.pagamenti)c.pagamenti=[];
+  const p={tipo:document.getElementById('pag-tipo').value,imp,data:document.getElementById('pag-data').value||new Date().toISOString().split('T')[0],metodo:document.getElementById('pag-metodo').value,note:document.getElementById('pag-note').value};
+  c.pagamenti.push(p);
+  document.getElementById('pag-imp').value='';
+  document.getElementById('pag-note').value='';
+  addLog(c,'Pagamento registrato: '+p.tipo+' € '+p.imp);
+  renderPagamenti(c);
+  botMsg('✓ Pagamento registrato: '+p.tipo+' di € '+imp.toLocaleString('it-IT')+'.');
+}
+
+function delPag(i){
+  const c=commesse.find(x=>x.id===activeCommId);
+  if(!c||!c.pagamenti)return;
+  c.pagamenti.splice(i,1);
+  renderPagamenti(c);
+}
+
+function showStab(id,btn){
+  document.querySelectorAll('.stab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('stab-'+id)?.classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+
+// ── NAVIGATION (aggiornata per commesse)
+
+const pages=['preventivo','commesse','sagoma','foglio','magazzino','listino'];
+function showPage(id){
+  pages.forEach(p=>{
+    document.getElementById('page-'+p).classList.remove('active');
+  });
+  document.querySelectorAll('.tnb').forEach((b,i)=>{
+    b.classList.toggle('active', pages[i]===id);
+  });
+  document.getElementById('page-'+id).classList.add('active');
+  if(id==='sagoma'){initCanvas();checkCanvasSize();}
+  if(id==='foglio'){updateFoglio();}
+}
+
+// ── USER
+function switchUser(){
+  currentUser = currentUser==='titolare'?'carlo':'titolare';
+  document.getElementById('user-name').textContent = currentUser==='titolare'?'Titolare':'Carlo';
+  document.getElementById('user-avatar').textContent = currentUser==='titolare'?'T':'C';
+  botMsg(currentUser==='titolare'
+    ? 'Bentornato! Sei entrato come Titolare. Hai accesso completo a tutte le sezioni.'
+    : 'Ciao Carlo! Sei nella modalità operaio. Vai al foglio esecutivo per vedere le operazioni di oggi.');
+  if(currentUser==='carlo') showPage('foglio');
+}
+
+// ── PREVENTIVO CALC
+function updateEl(n){
+  const row = document.getElementById('el-'+n);
+  if(!row)return;
+  const matEl = row.querySelectorAll('select')[0];
+  const bordEl = row.querySelectorAll('select')[1];
+  const forEl = row.querySelectorAll('select')[2];
+  const matPrezzo = parseFloat(matEl.value)||0;
+  const bordPrezzo = parseFloat(bordEl.value)||0;
+  const forPrezzo = parseFloat(forEl.value)||0;
+  const mq = lastAreaScarto||0;
+  const mlBordo = mq>0?Math.round(Math.sqrt(mq)*4*10)/10:0;
+  const impMat = matPrezzo*mq;
+  const impBordo = bordPrezzo*mlBordo;
+  const impFor = forPrezzo;
+  const totEl = impMat+impBordo+impFor;
+  const mqEl = document.getElementById('el'+n+'-mq');
+  const impEl = document.getElementById('el'+n+'-imp');
+  if(mqEl) mqEl.textContent = mq>0?mq.toFixed(2)+' m²':'—';
+  if(impEl) impEl.textContent = totEl>0?'€ '+Math.round(totEl).toLocaleString('it-IT'):'—';
+  ricalcTot();
+}
+
+function ricalcTot(){
+  let totMat=0;
+  document.querySelectorAll('[id^="el"][id$="-imp"]').forEach(el=>{
+    const v=el.textContent.replace(/[€\s.,]/g,'');
+    totMat+=parseInt(v)||0;
+  });
+  const perc=(parseFloat(document.getElementById('perc-mdo').value)||0)/100;
+  const tras=parseFloat(document.getElementById('imp-tras').value)||0;
+  const mdo=Math.round(totMat*perc);
+  const tot=totMat+mdo+tras;
+  document.getElementById('tot-mat').textContent='€ '+totMat.toLocaleString('it-IT');
+  document.getElementById('tot-mdo').textContent='€ '+mdo.toLocaleString('it-IT');
+  document.getElementById('tot-tras').textContent='€ '+tras.toLocaleString('it-IT');
+  document.getElementById('tot-finale').textContent='€ '+tot.toLocaleString('it-IT');
+  checkComplete();
+}
+
+function checkComplete(){
+  const cli=document.getElementById('cli').value.trim();
+  const warn=document.getElementById('warn-incomplete');
+  warn.style.display=cli?'none':'block';
+}
+
+function addElemento(){
+  elCount++;
+  const n=elCount;
+  const row=document.createElement('tr');
+  row.id='el-'+n;
+  row.innerHTML=`
+    <td><input style="font-size:12px;padding:4px 6px" placeholder="Descrizione..."/></td>
+    <td><select style="font-size:12px;padding:4px 6px" onchange="updateEl(${n})">
+      <option value="">— scegli —</option>
+      <option value="140">Granito Nero Assoluto — €140/m²</option>
+      <option value="180">Marmo Bianco Carrara — €180/m²</option>
+      <option value="160">Marmo Botticino — €160/m²</option>
+      <option value="110">Travertino Romano — €110/m²</option>
+      <option value="90">Pietra Serena — €90/m²</option>
+    </select></td>
+    <td><span id="el${n}-mq" class="tnum" style="color:var(--stone5)">—</span></td>
+    <td><select style="font-size:12px;padding:4px 6px" onchange="updateEl(${n})">
+      <option value="0">Nessuno</option>
+      <option value="8">Filo lucido — €8/ml</option>
+      <option value="15">Toro — €15/ml</option>
+      <option value="12">Bisello 45° — €12/ml</option>
+    </select></td>
+    <td><select style="font-size:12px;padding:4px 6px" onchange="updateEl(${n})">
+      <option value="0">Nessuna</option>
+      <option value="45">Foro lavabo ovale — €45</option>
+      <option value="50">Piano cottura 4F — €50</option>
+      <option value="12">Foro rubinetto — €12</option>
+    </select></td>
+    <td><span id="el${n}-imp" class="tnum" style="font-weight:500">—</span></td>
+    <td><button class="btn btn-sm btn-ghost" onclick="showPage('sagoma')">↗ Sagoma</button></td>
+    <td><button class="btn btn-sm btn-ghost" style="color:var(--red)" onclick="this.closest('tr').remove();ricalcTot()">✕</button></td>`;
+  document.getElementById('elementi-body').appendChild(row);
+}
+
+// ── CANVAS SAGOMA
+function initCanvas(){
+  cv=document.getElementById('sagoma-canvas');
+  if(!cv||cv._init)return;
+  cv._init=true;
+  ctx=cv.getContext('2d');
+  cv.addEventListener('click',onCvClick);
+  cv.addEventListener('dblclick',()=>{if(pts.length>2)closeShape();});
+  drawGrid();
+}
+
+function checkCanvasSize(){
+  const cv2=document.getElementById('sagoma-canvas');
+  if(!cv2)return;
+  const w=cv2.parentElement.clientWidth;
+  if(w>0&&cv2.width!==w){cv2.width=w;if(ctx)drawGrid();}
+}
+
+function drawGrid(){
+  if(!ctx||!cv)return;
+  ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.strokeStyle='rgba(120,113,108,0.15)';ctx.lineWidth=0.5;
+  for(let x=0;x<cv.width;x+=20){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,cv.height);ctx.stroke();}
+  for(let y=0;y<cv.height;y+=20){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(cv.width,y);ctx.stroke();}
+}
+
+let currentTool='poly';
+function setTool(t){
+  currentTool=t;
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tbtn-'+t)?.classList.add('active');
+}
+
+function onCvClick(e){
+  const r=cv.getBoundingClientRect();
+  const scaleX=cv.width/r.width;
+  const x=(e.clientX-r.left)*scaleX;
+  const y=(e.clientY-r.top)*(cv.height/r.height);
+  pts.push({x,y});
+  redrawShape();
+}
+
+function redrawShape(){
+  drawGrid();
+  if(!pts.length)return;
+  ctx.strokeStyle='#b45309';ctx.lineWidth=2;ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);
+  for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i].x,pts[i].y);
+  ctx.stroke();
+  pts.forEach((p,i)=>{
+    ctx.beginPath();ctx.arc(p.x,p.y,5,0,Math.PI*2);
+    ctx.fillStyle='#b45309';ctx.fill();
+    ctx.fillStyle='#fff';ctx.font='bold 9px DM Mono,monospace';
+    ctx.fillText(i+1,p.x-3,p.y+3);
+  });
+}
+
+function closeShape(){
+  drawGrid();
+  ctx.strokeStyle='#b45309';ctx.fillStyle='rgba(180,83,9,0.1)';ctx.lineWidth=2;ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);
+  pts.forEach(p=>ctx.lineTo(p.x,p.y));
+  ctx.closePath();ctx.fill();ctx.stroke();
+  pts.forEach((p,i)=>{
+    ctx.beginPath();ctx.arc(p.x,p.y,5,0,Math.PI*2);
+    ctx.fillStyle='#b45309';ctx.fill();
+    ctx.fillStyle='#fff';ctx.font='bold 9px DM Mono,monospace';
+    ctx.fillText(i+1,p.x-3,p.y+3);
+  });
+  drawMeasurements();
+  const area=shoelace(pts);
+  lastArea=(area/10000);
+  lastAreaScarto=parseFloat((area*1.12/10000).toFixed(3));
+  lastQuotes=pts.map((p,i)=>{
+    const j=(i+1)%pts.length;
+    const d=Math.round(Math.sqrt(Math.pow(pts[j].x-p.x,2)+Math.pow(pts[j].y-p.y,2)));
+    return {label:'L'+(i+1),px:d,cm:d};
+  });
+  document.getElementById('av').textContent=lastArea.toFixed(3)+' m²';
+  document.getElementById('asv').textContent=lastAreaScarto.toFixed(3)+' m²';
+  document.getElementById('quotes-block').style.display='block';
+  document.getElementById('quotes-list').innerHTML=lastQuotes.map(q=>q.label+': '+q.cm+' cm').join('<br>');
+  const cx=Math.round(pts.reduce((s,p)=>s+p.x,0)/pts.length);
+  const cy=Math.round(pts.reduce((s,p)=>s+p.y,0)/pts.length);
+  ctx.fillStyle='#b45309';ctx.font='bold 13px DM Mono,monospace';
+  ctx.fillText(lastArea.toFixed(2)+' m²',cx-25,cy);
+}
+
+function drawMeasurements(){
+  ctx.strokeStyle='rgba(120,113,108,0.5)';ctx.fillStyle='var(--stone4)';
+  ctx.font='10px DM Mono,monospace';ctx.lineWidth=0.8;
+  pts.forEach((p,i)=>{
+    const j=(i+1)%pts.length;
+    const mx=(p.x+pts[j].x)/2, my=(p.y+pts[j].y)/2;
+    const d=Math.round(Math.sqrt(Math.pow(pts[j].x-p.x,2)+Math.pow(pts[j].y-p.y,2)));
+    ctx.fillStyle='rgba(68,64,60,0.8)';
+    ctx.fillText(d+' cm',mx-12,my-5);
+  });
+}
+
+function shoelace(p){let s=0;for(let i=0;i<p.length;i++){const j=(i+1)%p.length;s+=p[i].x*p[j].y-p[j].x*p[i].y;}return Math.abs(s)/2;}
+
+function clearCanvas(){
+  pts=[];lastArea=null;lastAreaScarto=null;lastQuotes=[];
+  if(ctx&&cv)drawGrid();
+  document.getElementById('av').textContent='—';
+  document.getElementById('asv').textContent='—';
+  document.getElementById('quotes-block').style.display='none';
+  document.getElementById('quota-panel').style.display='none';
+}
+
+function undoLast(){
+  if(pts.length){pts.pop();redrawShape();}
+}
+
+function loadExL(){
+  clearCanvas();initCanvas();checkCanvasSize();
+  const w=cv.width, h=cv.height;
+  pts=[
+    {x:w*.06,y:h*.88},{x:w*.06,y:h*.12},
+    {x:w*.70,y:h*.12},{x:w*.70,y:h*.45},
+    {x:w*.28,y:h*.45},{x:w*.28,y:h*.88}
+  ];
+  closeShape();
+}
+
+function loadExU(){
+  clearCanvas();initCanvas();checkCanvasSize();
+  const w=cv.width, h=cv.height;
+  pts=[
+    {x:w*.06,y:h*.88},{x:w*.06,y:h*.12},{x:w*.28,y:h*.12},
+    {x:w*.28,y:h*.72},{x:w*.58,y:h*.72},{x:w*.58,y:h*.12},
+    {x:w*.80,y:h*.12},{x:w*.80,y:h*.88}
+  ];
+  closeShape();
+}
+
+function showQuotaDialog(){
+  if(!lastQuotes.length){botMsg('Prima disegna o carica una sagoma.');return;}
+  const panel=document.getElementById('quota-panel');
+  panel.style.display='block';
+  const cont=document.getElementById('quota-inputs');
+  cont.innerHTML='';
+  lastQuotes.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.innerHTML=`<div class="fl">${q.label} (cm)</div><input type="number" value="${q.cm}" onchange="updateQuota(${i},this.value)" />`;
+    cont.appendChild(d);
+  });
+}
+
+function updateQuota(i,val){
+  if(lastQuotes[i])lastQuotes[i].cm=parseInt(val)||lastQuotes[i].cm;
+  document.getElementById('quotes-list').innerHTML=lastQuotes.map(q=>q.label+': '+q.cm+' cm').join('<br>');
+}
+
+function confirmSagoma(){
+  if(!lastAreaScarto){botMsg('Disegna prima la sagoma o carica un esempio!');return;}
+  sagomaConfirmed=true;
+  updateEl(1);
+  showPage('preventivo');
+  setTimeout(()=>{
+    botMsg('✓ Sagoma confermata! I m² ('+lastAreaScarto+') sono stati aggiornati nel preventivo.\n\nPasso successivo: abbina la lastra dal magazzino. Ti servono '+lastAreaScarto+' m² — verifica che la lastra scelta abbia abbastanza superficie.',
+    ['Vai al magazzino','Genera foglio operaio']);
+  },300);
+}
+
+// ── FOGLIO OPERAIO
+function updateFoglio(){
+  const cli=document.getElementById('cli')?.value||'— cliente —';
+  const cant=document.getElementById('cant')?.value||'—';
+  document.getElementById('fo-cliente').textContent=cli||'— cliente —';
+  document.getElementById('fo-cantiere').textContent=cant||'—';
+  const d=new Date(document.getElementById('data-prev')?.value||Date.now());
+  d.setDate(d.getDate()+30);
+  document.getElementById('fo-scad').textContent=d.toLocaleDateString('it-IT');
+  if(lastAreaScarto){
+    document.getElementById('fo-mq').textContent=lastAreaScarto+' m²';
+    document.getElementById('fo-quotes').innerHTML=lastQuotes.map(q=>q.label+': '+q.cm+' cm').join('<br>')||'—';
+    const fw=document.getElementById('fo-canvas-wrap');
+    fw.style.display='block';
+    const fc=document.getElementById('fo-canvas');
+    const fctx=fc.getContext('2d');
+    fctx.clearRect(0,0,240,140);
+    if(pts.length>2){
+      const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+      const minX=Math.min(...xs), maxX=Math.max(...xs);
+      const minY=Math.min(...ys), maxY=Math.max(...ys);
+      const scX=200/(maxX-minX), scY=110/(maxY-minY);
+      const sc=Math.min(scX,scY);
+      const offX=20+(200-(maxX-minX)*sc)/2;
+      const offY=15+(110-(maxY-minY)*sc)/2;
+      fctx.strokeStyle='#b45309';fctx.fillStyle='rgba(180,83,9,0.1)';fctx.lineWidth=1.5;
+      fctx.beginPath();
+      pts.forEach((p,i)=>{
+        const x=offX+(p.x-minX)*sc, y=offY+(p.y-minY)*sc;
+        i===0?fctx.moveTo(x,y):fctx.lineTo(x,y);
+      });
+      fctx.closePath();fctx.fill();fctx.stroke();
+    }
+  }
+}
+
+function updateOps(){
+  const cbs=document.querySelectorAll('#ops-table tbody input[type=checkbox]');
+  const done=[...cbs].filter(c=>c.checked).length;
+  document.getElementById('ops-status').textContent=done+' / '+cbs.length+' operazioni completate';
+  if(done===cbs.length)botMsg('✓ Tutte le operazioni completate! Ricordati di fare le foto e aggiornare lo stato a "Consegnato".',['Segna come consegnato']);
+}
+
+function printFoglio(){
+  botMsg('Per stampare in PDF: usa il menu del browser → Stampa → "Salva come PDF". Le sezioni non utili vengono nascoste automaticamente.');
+  window.print();
+}
+
+// ── MAGAZZINO
+// ── MAGAZZINO — render griglia da DB
+function renderLastreGrid(){
+  const grid = document.getElementById('lastre-grid');
+  if(!grid) return;
+  // rimuovi tutte le card esistenti tranne il pulsante "aggiungi"
+  grid.querySelectorAll('.lcard:not(.lcard-add)').forEach(c=>c.remove());
+  const addCard = grid.querySelector('.lcard-add');
+
+  lastrasDb.forEach(l=>{
+    const mqNum = parseFloat(l.mq)||0;
+    const isLow = mqNum < 1.5;
+    const colors = {
+      'Granito Nero Assoluto':'#1c1917','Granito Nero (figlia)':'#292524',
+      'Marmo Botticino':'#d6c9a8','Marmo Carrara':'#f0ede8','Marmo Bianco Carrara':'#f0ede8',
+      'Travertino Romano':'#c9b99a','Pietra Serena':'#8b8680','Quarzite':'#a09590',
+    };
+    const bg = colors[l.mat]||'#a8a29e';
+    const txtColor = ['Marmo Botticino','Marmo Carrara','Marmo Bianco Carrara','Travertino Romano'].includes(l.mat)?'#44403c':'#fafaf9';
+    const card = document.createElement('div');
+    card.className='lcard'+(isLow?' lcard-danger':'');
+    card.onclick=()=>selectLastra(l.cod);
+    card.innerHTML=`
+      <div class="lrect" style="background:${bg};color:${txtColor}">${l.cod}</div>
+      <div class="lcard-name">${l.mat.split(' ').slice(0,2).join(' ')}</div>
+      <div class="lcard-info">
+        ${l.l}×${l.la} cm · ${l.sp}cm<br>
+        <b style="color:${isLow?'var(--red)':'var(--teal)'}">${mqNum.toFixed(2)} m²</b> · ${l.tipo}<br>
+        ${l.pos}
+      </div>`;
+    if(addCard) grid.insertBefore(card, addCard);
+    else grid.appendChild(card);
+  });
+}
+
+function selectLastra(cod){
+  const l=lastrasDb.find(x=>x.cod===cod);if(!l)return;
+  document.getElementById('lastra-detail').style.display='block';
+  document.getElementById('ld-title').textContent='Lastra: '+cod;
+  document.getElementById('ld-cod').value=cod;
+  document.getElementById('ld-mat').value=l.mat;
+  document.getElementById('ld-tipo').value=l.tipo;
+  document.getElementById('ld-l').value=l.l;
+  document.getElementById('ld-la').value=l.la;
+  document.getElementById('ld-sp').value=l.sp;
+  document.getElementById('ld-mq').value=l.mq;
+  document.getElementById('ld-fin').value=l.fin;
+  document.getElementById('ld-pos').value=l.pos;
+  document.getElementById('ld-note').value=l.note;
+  document.getElementById('fo-lastra').textContent=cod;
+  document.getElementById('fo-mat').textContent=l.mat;
+  document.getElementById('lastra-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(lastAreaScarto&&l.mq<lastAreaScarto){
+    botMsg('⚠ Attenzione! La lastra '+cod+' ha '+l.mq+' m² disponibili ma ne servono '+lastAreaScarto+'. Scegli un\'altra lastra o combina con una figlia.');
+  } else if(lastAreaScarto){
+    botMsg('✓ Lastra '+cod+' abbinata. Ha '+l.mq+' m² — sufficiente per i '+lastAreaScarto+' m² necessari.');
+  }
+}
+
+function addLastra(){
+  document.getElementById('lastra-detail').style.display='block';
+  ['ld-cod','ld-mat','ld-pos','ld-note'].forEach(id=>document.getElementById(id).value='');
+  ['ld-l','ld-la','ld-mq'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ld-sp').value=2;
+  document.getElementById('ld-title').textContent='Nuova lastra';
+  botMsg('Inserisci i dati della nuova lastra. Il codice viene assegnato automaticamente: usa il formato TIPO-NUM (es. GNA-048, CAR-012).');
+}
+
+function saveLastra(){
+  const cod = document.getElementById('ld-cod').value.trim();
+  if(!cod){botMsg('⚠ Inserisci il codice lastra prima di salvare.');return;}
+  const l = {
+    cod: cod,
+    mat: document.getElementById('ld-mat').value,
+    tipo: document.getElementById('ld-tipo').value,
+    l: parseFloat(document.getElementById('ld-l').value)||0,
+    la: parseFloat(document.getElementById('ld-la').value)||0,
+    sp: parseFloat(document.getElementById('ld-sp').value)||2,
+    mq: parseFloat(document.getElementById('ld-mq').value)||0,
+    fin: document.getElementById('ld-fin').value,
+    pos: document.getElementById('ld-pos').value,
+    note: document.getElementById('ld-note').value,
+  };
+  const idx = lastrasDb.findIndex(x=>x.cod===cod);
+  if(idx>=0) lastrasDb[idx]=l; else lastrasDb.push(l);
+  sbSaveLastra(l);
+  renderLastreGrid();
+  botMsg('✓ Lastra salvata! Ricordati di stampare il QR code e attaccarlo fisicamente alla lastra per trovarla subito in magazzino.');
+}
+
+function printQR(){
+  botMsg('Il QR code è pronto da stampare. Contiene il codice lastra, il materiale e la posizione in magazzino. Stampalo su etichetta adesiva resistente all\'acqua.');
+}
+
+function registraFiglia(){
+  botMsg('Per registrare una lastra figlia: assegna un nuovo codice (es. GNA-F02), seleziona tipo "Figlia", e inserisci le dimensioni dell\'avanzo rimasto dopo la lavorazione.');
+}
+
+function filterLastre(){
+  const q=document.getElementById('mag-search').value.toLowerCase();
+  const f=document.getElementById('mag-filter').value.toLowerCase();
+  document.querySelectorAll('.lcard:not(.lcard-add)').forEach(c=>{
+    const t=c.textContent.toLowerCase();
+    const show=(q===''||t.includes(q))&&(f===''||t.includes(f));
+    c.style.display=show?'':'none';
+  });
+}
+
+// ── LOGO
+function loadLogo(inp){
+  const file=inp.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=e=>{logoData=e.target.result;botMsg('✓ Logo caricato. Apparirà sull\'intestazione di tutti i PDF.');};
+  r.readAsDataURL(file);
+}
+
+// ── CHAT ASSISTENTE (AI reale via Netlify Function)
+
+function buildContesto(){
+  // Riassunto commesse aperte
+  const aperte=commesse.filter(c=>c.fase&&c.fase!=='consegna');
+  const righeComm=aperte.slice(0,10).map(c=>{
+    const nome=(c.nome||'')+(c.cognome?' '+c.cognome:'');
+    const imp=c.accordo?.imp||c.importo||0;
+    return `- ${c.id}: ${nome} | Fase: ${c.fase} | Importo: €${imp}`;
+  });
+  // Riassunto lastre disponibili
+  const righeLast=lastrasDb.slice(0,15).map(l=>`- ${l.cod}: ${l.mat} ${l.tipo} ${l.l}×${l.la}cm ${l.mq}m² pos:${l.pos||'?'}`);
+  return [
+    `COMMESSE APERTE (${aperte.length}):`,
+    righeComm.length?righeComm.join('\n'):'Nessuna commessa aperta.',
+    '',
+    `MAGAZZINO LASTRE (${lastrasDb.length} lastre):`,
+    righeLast.length?righeLast.join('\n'):'Nessuna lastra in magazzino.',
+  ].join('\n');
+}
+
+function addBotMsg(txt,sugs){
+  const m=document.createElement('div');m.className='msg bot';
+  const html=txt.replace(/\n/g,'<br>');
+  let s='';
+  if(sugs&&sugs.length){s='<div class="sugs">'+sugs.map(x=>`<button class="sug" onclick="userSay('${x}')">${x}</button>`).join('')+'</div>';}
+  m.innerHTML=`<div class="bubble">${html}</div>${s}<div class="msg-time">${now()}</div>`;
+  document.getElementById('msgs').appendChild(m);
+  scrollChat();
+}
+
+function botMsg(txt,sugs){addBotMsg(txt,sugs);}
+
+function userSay(txt){document.getElementById('chat-in').value=txt;sendMsg();}
+
+async function sendMsg(){
+  const inp=document.getElementById('chat-in');
+  const txt=inp.value.trim();if(!txt)return;inp.value='';
+
+  // Messaggio utente
+  const um=document.createElement('div');um.className='msg user';
+  um.innerHTML=`<div class="bubble">${txt}</div><div class="msg-time" style="text-align:right">${now()}</div>`;
+  document.getElementById('msgs').appendChild(um);
+  scrollChat();
+
+  // Indicatore typing
+  const ty=document.createElement('div');ty.className='msg bot';
+  ty.innerHTML='<div class="typing"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
+  document.getElementById('msgs').appendChild(ty);scrollChat();
+
+  try {
+    const res=await fetch('/.netlify/functions/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:txt, contesto:buildContesto()})
+    });
+    const data=await res.json();
+    ty.remove();
+    if(data.risposta){
+      addBotMsg(data.risposta,[]);
+    } else {
+      addBotMsg('⚠ Errore: '+(data.error||'Risposta non disponibile.'),[]);
+    }
+  } catch(err){
+    ty.remove();
+    addBotMsg('⚠ Impossibile contattare l\'assistente AI. Controlla la connessione.',[]);
+  }
+}
+
+function scrollChat(){const m=document.getElementById('msgs');m.scrollTop=m.scrollHeight;}
+function now(){return new Date().toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});}
+
+// ── INIT
+window.addEventListener('load',async ()=>{
+  document.getElementById('data-prev').value=new Date().toISOString().split('T')[0];
+  if(document.getElementById('pag-data'))document.getElementById('pag-data').value=new Date().toISOString().split('T')[0];
+  addBotMsg('⏳ Connessione al database in corso...',[]);
+  await Promise.all([loadCommesse(), loadLastre()]);
+  // rimuovi il messaggio di caricamento e mostra il benvenuto
+  const msgs=document.getElementById('msgs');
+  if(msgs.firstChild)msgs.removeChild(msgs.firstChild);
+  addBotMsg('Benvenuto! Sono il tuo assistente di laboratorio.\n\nI dati sono salvati nel database — non spariscono più al refresh! 🎉\n\nSei nella schermata "Preventivi". Per iniziare:\n1. Inserisci il nome del cliente\n2. Aggiungi gli elementi da preventivare\n3. Disegna la sagoma per calcolare i m²',['Cosa posso fare?','Come disegno una sagoma?','Dove trovo le lastre?']);
+});
+window.addEventListener('resize',checkCanvasSize);
+</script>
+</body>
+</html>
