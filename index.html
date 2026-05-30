@@ -350,6 +350,7 @@ canvas{display:block;cursor:crosshair;width:100%}
     <button class="tnb" onclick="showPage('foglio')">Foglio operaio</button>
     <button class="tnb" onclick="showPage('magazzino')">Magazzino lastre</button>
     <button class="tnb" onclick="showPage('listino')">Listino</button>
+    <button class="tnb" onclick="showPage('materiali')">Materiali</button>
   </nav>
   <div class="topbar-user">
     <div class="avatar-sm" id="user-avatar">T</div>
@@ -1169,6 +1170,91 @@ canvas{display:block;cursor:crosshair;width:100%}
     </div>
     <div class="mb"><div class="fl">Logo aziendale</div><input type="file" accept="image/*" onchange="loadLogo(this)" style="font-size:12px;padding:6px" /></div>
     <button class="btn btn-gold">Salva impostazioni</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ MATERIALI -->
+<div id="page-materiali" class="page">
+  <h2>Gestione Materiali</h2>
+  <div class="page-sub">Categorie, materiali, spessori e finiture — salvati nel database</div>
+
+  <div style="display:flex;gap:10px;margin-bottom:16px;align-items:flex-end">
+    <div style="flex:1">
+      <div class="fl">Filtra per categoria</div>
+      <select id="mat-filter-cat" onchange="renderMaterialiPage()" style="font-size:13px">
+        <option value="">Tutte le categorie</option>
+        <option>Granito Sardo</option>
+        <option>Marmo Sardo</option>
+        <option>Basalto Sardo</option>
+        <option>Trachite Sarda</option>
+        <option>Altre pietre sarde</option>
+        <option>Granito Estero</option>
+        <option>Marmo Estero</option>
+        <option>Travertino</option>
+        <option>Quarzite</option>
+        <option>Silestone</option>
+        <option>Dekton</option>
+        <option>Altro tecnico</option>
+      </select>
+    </div>
+    <button class="btn btn-gold" onclick="apriNuovoMateriale()">+ Nuovo materiale</button>
+  </div>
+
+  <div id="mat-list"></div>
+
+  <!-- FORM NUOVO/MODIFICA MATERIALE -->
+  <div id="mat-form" style="display:none">
+    <div class="card" style="border:2px solid var(--gold2)">
+      <div class="card-title" id="mat-form-title">Nuovo materiale</div>
+      <input type="hidden" id="mat-id" />
+      <div class="g2">
+        <div>
+          <div class="fl">Categoria</div>
+          <select id="mat-cat" style="font-size:13px">
+            <option>Granito Sardo</option>
+            <option>Marmo Sardo</option>
+            <option>Basalto Sardo</option>
+            <option>Trachite Sarda</option>
+            <option>Altre pietre sarde</option>
+            <option>Granito Estero</option>
+            <option>Marmo Estero</option>
+            <option>Travertino</option>
+            <option>Quarzite</option>
+            <option>Silestone</option>
+            <option>Dekton</option>
+            <option>Altro tecnico</option>
+          </select>
+        </div>
+        <div>
+          <div class="fl">Nome materiale</div>
+          <input id="mat-nome" placeholder="es. Bianco Sardo, Marmo Orosei..." />
+        </div>
+      </div>
+      <div class="g2">
+        <div>
+          <div class="fl">Spessori disponibili (separati da virgola)</div>
+          <input id="mat-spessori" placeholder="es. 2cm, 3cm, 4cm" />
+        </div>
+        <div>
+          <div class="fl">Finiture disponibili (separate da virgola)</div>
+          <input id="mat-finiture" placeholder="es. Lucido, Levigato, Fiammato" />
+        </div>
+      </div>
+      <div class="g2">
+        <div>
+          <div class="fl">Prezzo base €/m²</div>
+          <input type="number" id="mat-prezzo" placeholder="0" />
+        </div>
+        <div>
+          <div class="fl">Note</div>
+          <input id="mat-note" placeholder="Note libere..." />
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn btn-gold" onclick="salvaMateriale()">✓ Salva</button>
+        <button class="btn btn-ghost" onclick="chiudiFormMateriale()">Annulla</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2310,7 +2396,7 @@ function showStab(id,btn){
 
 // ── NAVIGATION (aggiornata per commesse)
 
-const pages=['preventivo','commesse','sagoma','foglio','magazzino','listino'];
+const pages=['preventivo','commesse','sagoma','foglio','magazzino','listino','materiali'];
 function showPage(id){
   pages.forEach(p=>{
     document.getElementById('page-'+p).classList.remove('active');
@@ -2736,6 +2822,156 @@ function filterLastre(){
   });
 }
 
+// ── GESTIONE MATERIALI
+
+let materialiDb = [];
+
+async function loadMateriali(){
+  try {
+    const {data,error} = await sb.from('materiali').select('*').order('categoria').order('nome');
+    if(error) throw error;
+    materialiDb = data || [];
+  } catch(e) {
+    // tabella non ancora creata o vuota — usa i dati da MATERIALI_CAT
+    materialiDb = [];
+    for(const [cat, lista] of Object.entries(MATERIALI_CAT)){
+      lista.forEach(nome=>{
+        materialiDb.push({id:cat+'_'+nome.replace(/\s/g,'_'), categoria:cat, nome, spessori:'2cm, 3cm', finiture:'Lucido, Levigato', prezzo:0, note:''});
+      });
+    }
+  }
+  renderMaterialiPage();
+  aggiornaMenuMateriali();
+}
+
+async function salvaMateriale(){
+  const id = document.getElementById('mat-id').value || (Date.now().toString());
+  const mat = {
+    id,
+    categoria: document.getElementById('mat-cat').value,
+    nome: document.getElementById('mat-nome').value.trim(),
+    spessori: document.getElementById('mat-spessori').value.trim(),
+    finiture: document.getElementById('mat-finiture').value.trim(),
+    prezzo: parseFloat(document.getElementById('mat-prezzo').value)||0,
+    note: document.getElementById('mat-note').value.trim(),
+  };
+  if(!mat.nome){ botMsg('⚠ Inserisci il nome del materiale.'); return; }
+  try {
+    const {error} = await sb.from('materiali').upsert(mat, {onConflict:'id'});
+    if(error) throw error;
+  } catch(e) { console.error('Salva materiale:', e); }
+  const idx = materialiDb.findIndex(m=>m.id===id);
+  if(idx>=0) materialiDb[idx]=mat; else materialiDb.push(mat);
+  chiudiFormMateriale();
+  renderMaterialiPage();
+  aggiornaMenuMateriali();
+  botMsg('✓ Materiale "'+mat.nome+'" salvato!');
+}
+
+async function eliminaMateriale(id){
+  if(!confirm('Eliminare questo materiale?')) return;
+  try {
+    await sb.from('materiali').delete().eq('id',id);
+  } catch(e) { console.error(e); }
+  materialiDb = materialiDb.filter(m=>m.id!==id);
+  renderMaterialiPage();
+  aggiornaMenuMateriali();
+}
+
+function duplicaMateriale(id){
+  const m = materialiDb.find(x=>x.id===id);
+  if(!m) return;
+  apriNuovoMateriale();
+  document.getElementById('mat-cat').value = m.categoria;
+  document.getElementById('mat-nome').value = m.nome + ' (copia)';
+  document.getElementById('mat-spessori').value = m.spessori;
+  document.getElementById('mat-finiture').value = m.finiture;
+  document.getElementById('mat-prezzo').value = m.prezzo;
+  document.getElementById('mat-note').value = m.note;
+  document.getElementById('mat-form-title').textContent = 'Duplica materiale';
+}
+
+function modificaMateriale(id){
+  const m = materialiDb.find(x=>x.id===id);
+  if(!m) return;
+  document.getElementById('mat-form').style.display='block';
+  document.getElementById('mat-form-title').textContent = 'Modifica materiale';
+  document.getElementById('mat-id').value = m.id;
+  document.getElementById('mat-cat').value = m.categoria;
+  document.getElementById('mat-nome').value = m.nome;
+  document.getElementById('mat-spessori').value = m.spessori||'';
+  document.getElementById('mat-finiture').value = m.finiture||'';
+  document.getElementById('mat-prezzo').value = m.prezzo||'';
+  document.getElementById('mat-note').value = m.note||'';
+  document.getElementById('mat-form').scrollIntoView({behavior:'smooth'});
+}
+
+function apriNuovoMateriale(){
+  document.getElementById('mat-form').style.display='block';
+  document.getElementById('mat-form-title').textContent = 'Nuovo materiale';
+  document.getElementById('mat-id').value = '';
+  document.getElementById('mat-nome').value = '';
+  document.getElementById('mat-spessori').value = '2cm, 3cm';
+  document.getElementById('mat-finiture').value = 'Lucido, Levigato';
+  document.getElementById('mat-prezzo').value = '';
+  document.getElementById('mat-note').value = '';
+  document.getElementById('mat-form').scrollIntoView({behavior:'smooth'});
+}
+
+function chiudiFormMateriale(){
+  document.getElementById('mat-form').style.display='none';
+}
+
+function renderMaterialiPage(){
+  const filtro = document.getElementById('mat-filter-cat')?.value||'';
+  const lista = filtro ? materialiDb.filter(m=>m.categoria===filtro) : materialiDb;
+  // raggruppa per categoria
+  const gruppi = {};
+  lista.forEach(m=>{ if(!gruppi[m.categoria]) gruppi[m.categoria]=[]; gruppi[m.categoria].push(m); });
+  let html = '';
+  for(const [cat, mats] of Object.entries(gruppi)){
+    html += `<div class="card" style="margin-bottom:12px">
+      <div class="card-title">${cat} <span style="font-size:11px;color:var(--stone4);font-weight:400">(${mats.length})</span></div>
+      <table style="width:100%;font-size:12px">
+        <thead><tr><th>Nome</th><th>Spessori</th><th>Finiture</th><th>€/m²</th><th>Note</th><th style="width:100px"></th></tr></thead>
+        <tbody>
+          ${mats.map(m=>`<tr>
+            <td style="font-weight:500">${m.nome}</td>
+            <td style="color:var(--stone4);font-family:'DM Mono',monospace;font-size:11px">${m.spessori||'—'}</td>
+            <td style="color:var(--stone4);font-size:11px">${m.finiture||'—'}</td>
+            <td style="font-family:'DM Mono',monospace">${m.prezzo?'€'+m.prezzo:'—'}</td>
+            <td style="color:var(--stone4);font-size:11px">${m.note||''}</td>
+            <td>
+              <div style="display:flex;gap:4px">
+                <button class="btn btn-sm btn-ghost" title="Modifica" onclick="modificaMateriale('${m.id}')">✏️</button>
+                <button class="btn btn-sm btn-ghost" title="Duplica" onclick="duplicaMateriale('${m.id}')">⎘</button>
+                <button class="btn btn-sm btn-danger" title="Elimina" onclick="eliminaMateriale('${m.id}')">✕</button>
+              </div>
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+  }
+  if(!html) html = '<div style="text-align:center;color:var(--stone4);padding:20px;font-size:13px">Nessun materiale trovato. Clicca "+ Nuovo materiale" per aggiungere.</div>';
+  document.getElementById('mat-list').innerHTML = html;
+}
+
+function aggiornaMenuMateriali(){
+  // aggiorna il menu a tendina nel sopralluogo con i dati dal database
+  const cat = document.getElementById('sc-so-cat')?.value;
+  if(cat) {
+    const mats = materialiDb.filter(m=>m.categoria===cat);
+    const matSel = document.getElementById('sc-so-mat');
+    if(matSel && mats.length){
+      const valAttuale = matSel.value;
+      matSel.innerHTML = '<option value="">— seleziona materiale —</option>';
+      mats.forEach(m=>{ const o=document.createElement('option'); o.value=m.nome; o.textContent=m.nome; matSel.appendChild(o); });
+      matSel.value = valAttuale;
+    }
+  }
+}
+
 // ── LOGO
 function loadLogo(inp){
   const file=inp.files[0];if(!file)return;
@@ -2821,7 +3057,7 @@ window.addEventListener('load',async ()=>{
   document.getElementById('data-prev').value=new Date().toISOString().split('T')[0];
   if(document.getElementById('pag-data'))document.getElementById('pag-data').value=new Date().toISOString().split('T')[0];
   addBotMsg('⏳ Connessione al database in corso...',[]);
-  await Promise.all([loadCommesse(), loadLastre()]);
+  await Promise.all([loadCommesse(), loadLastre(), loadMateriali()]);
   // rimuovi il messaggio di caricamento e mostra il benvenuto
   const msgs=document.getElementById('msgs');
   if(msgs.firstChild)msgs.removeChild(msgs.firstChild);
