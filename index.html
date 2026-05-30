@@ -584,15 +584,34 @@ canvas{display:block;cursor:crosshair;width:100%}
           <div class="g2" style="margin-bottom:10px">
             <div><div class="fl">Data sopralluogo</div><input type="date" id="sc-so-data" /></div>
             <div><div class="fl">Materiale proposto</div>
-              <select id="sc-so-mat" onchange="ricalcTotale()">
-                <option value="">— da definire —</option>
-                <option value="Granito Nero Assoluto">Granito Nero Assoluto</option>
-                <option value="Marmo Bianco Carrara">Marmo Bianco Carrara</option>
-                <option value="Marmo Botticino">Marmo Botticino</option>
-                <option value="Travertino Romano">Travertino Romano</option>
-                <option value="Pietra Serena">Pietra Serena</option>
-                <option value="Quarzite">Quarzite</option>
-              </select>
+<div style="display:flex;gap:8px">
+                <select id="sc-so-cat" onchange="onMatCatChange()" style="flex:1">
+                  <option value="">— categoria —</option>
+                  <optgroup label="🟤 Sardegna">
+                    <option value="Granito Sardo">Granito Sardo</option>
+                    <option value="Marmo Sardo">Marmo Sardo</option>
+                    <option value="Basalto Sardo">Basalto Sardo</option>
+                    <option value="Trachite Sarda">Trachite Sarda</option>
+                    <option value="Altre pietre sarde">Altre pietre sarde</option>
+                  </optgroup>
+                  <optgroup label="🔵 Altri Graniti">
+                    <option value="Granito Estero">Granito Estero</option>
+                  </optgroup>
+                  <optgroup label="⚪ Altri Marmi">
+                    <option value="Marmo Estero">Marmo Estero</option>
+                    <option value="Travertino">Travertino</option>
+                    <option value="Quarzite">Quarzite</option>
+                  </optgroup>
+                  <optgroup label="⚙ Materiali Tecnici">
+                    <option value="Silestone">Silestone</option>
+                    <option value="Dekton">Dekton</option>
+                    <option value="Altro tecnico">Altro tecnico</option>
+                  </optgroup>
+                </select>
+                <select id="sc-so-mat" onchange="ricalcTotale()" style="flex:1" disabled>
+                  <option value="">— seleziona prima categoria —</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -1926,7 +1945,20 @@ function openCommessa(id){
   document.querySelectorAll('#canali-wrap .canale-btn').forEach(b=>b.classList.toggle('sel',b.getAttribute('onclick').includes("'"+c.canale+"'")));
   // sopralluogo
   document.getElementById('sc-so-data').value=c.sopralluogo?.data||'';
-  document.getElementById('sc-so-mat').value=c.sopralluogo?.mat||'';
+  // ripristina menu materiale a due livelli
+  const matSalvato = c.sopralluogo?.mat||'';
+  const catSalvata = c.sopralluogo?.matCat||'';
+  // trova la categoria dal materiale salvato se non c'è catSalvata
+  let catTrovata = catSalvata;
+  if(!catTrovata && matSalvato){
+    for(const [cat, lista] of Object.entries(MATERIALI_CAT)){
+      if(lista.includes(matSalvato)){ catTrovata=cat; break; }
+    }
+    if(!catTrovata) catTrovata=matSalvato; // fallback: era una categoria
+  }
+  document.getElementById('sc-so-cat').value=catTrovata||'';
+  onMatCatChange();
+  document.getElementById('sc-so-mat').value=matSalvato||catTrovata||'';
   document.getElementById('sc-so-note').value=c.sopralluogo?.note||'';
   document.getElementById('sc-so-sagoma-status').textContent=c.sagoma?'✓ Sagoma collegata ('+c.sagoma+' m²)':'Nessuna sagoma collegata';
   // ripristina pezzi
@@ -2015,6 +2047,41 @@ function calcAcconto(){
   const saldo=Math.max(0, imp-acc1-acc2-acc3);
   document.getElementById('rata1-imp').value=acc1||'';
   document.getElementById('rata4-imp').value=saldo||'';
+}
+
+// ── MATERIALI per categoria
+const MATERIALI_CAT = {
+  'Granito Sardo': ['Granito Grigio Sardo','Granito Rosa Sardo','Granito Giallo Sardo','Granito Verde Sardo','Granito Bianco Sardo','Granito Tormalina','Altro granito sardo'],
+  'Marmo Sardo': ['Marmo Orosei','Marmo Bardiglio Sardo','Marmo Bianco Sardo','Altro marmo sardo'],
+  'Basalto Sardo': ['Basalto Grigio','Basalto Nero','Altro basalto'],
+  'Trachite Sarda': ['Trachite Grigia','Trachite Rosa','Altra trachite'],
+  'Altre pietre sarde': ['Pietra di Orosei','Pietra locale','Altro'],
+  'Granito Estero': ['Granito Nero Assoluto','Granito Bianco Serizzo','Granito Impala','Granito Baltic Brown','Altro granito estero'],
+  'Marmo Estero': ['Marmo Bianco Carrara','Marmo Botticino','Marmo Nero Marquinia','Marmo Calacatta','Altro marmo estero'],
+  'Travertino': ['Travertino Romano','Travertino Noce','Altro travertino'],
+  'Quarzite': ['Quarzite Bianca','Quarzite Grigia','Altra quarzite'],
+  'Silestone': ['Silestone Bianco','Silestone Grigio','Altro Silestone'],
+  'Dekton': ['Dekton Bianco','Dekton Grigio','Altro Dekton'],
+  'Altro tecnico': ['Da specificare'],
+};
+
+function onMatCatChange(){
+  const cat = document.getElementById('sc-so-cat').value;
+  const matSel = document.getElementById('sc-so-mat');
+  matSel.innerHTML = '';
+  if(!cat){
+    matSel.innerHTML = '<option value="">— seleziona prima categoria —</option>';
+    matSel.disabled = true;
+    return;
+  }
+  matSel.disabled = false;
+  matSel.innerHTML = '<option value="">— seleziona materiale —</option>';
+  (MATERIALI_CAT[cat]||[]).forEach(m=>{
+    const o=document.createElement('option');
+    o.value=m; o.textContent=m;
+    matSel.appendChild(o);
+  });
+  ricalcTotale();
 }
 
 // mappa fase → tab da aprire
