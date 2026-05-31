@@ -17,250 +17,246 @@
   --green:#166534;--green2:#dcfce7;
   --red:#b91c1c;--red2:#fecaca;
   --blue:#1e40af;--blue2:#dbeafe;
+  --purple:#5b21b6;--purple2:#ede9fe;
   --r:8px;--r2:12px;--r3:16px;
   --shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.08);
-  --shadow2:0 4px 16px rgba(0,0,0,.12);
-  /* formula prezzi */
-  --costi-fissi: 0.43;
+  --shadow2:0 4px 16px rgba(0,0,0,.14);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--stone7);color:var(--stone);min-height:100vh;font-size:14px}
 
-/* ── TOPBAR ── */
-.topbar{background:var(--stone);color:var(--cream);display:flex;align-items:center;gap:0;padding:0;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:100}
-.topbar-logo{padding:12px 20px;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.05em;color:var(--gold3);border-right:1px solid var(--stone3);white-space:nowrap;cursor:pointer}
+/* TOPBAR */
+.topbar{background:var(--stone);color:var(--cream);display:flex;align-items:center;padding:0;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:100}
+.topbar-logo{padding:12px 20px;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.05em;color:var(--gold3);border-right:1px solid var(--stone3);white-space:nowrap;cursor:pointer;flex-shrink:0}
 .topbar-logo span{color:var(--stone5);font-weight:400}
-.tnb{padding:14px 18px;font-size:13px;font-weight:400;cursor:pointer;border:none;background:transparent;color:var(--stone5);letter-spacing:.02em;transition:all .15s;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px}
+.topnav{display:flex;flex:1;overflow-x:auto}
+.tnb{padding:14px 16px;font-size:13px;cursor:pointer;border:none;background:transparent;color:var(--stone5);letter-spacing:.02em;transition:all .15s;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px;flex-shrink:0}
 .tnb:hover{color:var(--cream);background:var(--stone2)}
 .tnb.active{color:var(--gold3);border-bottom-color:var(--gold3);background:var(--stone2)}
-.topbar-right{padding:0 16px;display:flex;align-items:center;gap:8px;border-left:1px solid var(--stone3);margin-left:auto;font-size:12px;color:var(--stone5)}
-.db-status{width:7px;height:7px;border-radius:50%;background:var(--stone4)}
-.db-status.ok{background:var(--teal2)}
-.db-status.err{background:var(--red)}
+.topbar-right{padding:0 14px;display:flex;align-items:center;gap:6px;border-left:1px solid var(--stone3);flex-shrink:0}
+.db-dot{width:7px;height:7px;border-radius:50%;background:var(--stone4)}
+.db-dot.ok{background:var(--teal2)}
+.db-dot.err{background:var(--red)}
 
-/* ── LAYOUT ── */
-.page{display:none;padding:28px 32px;max-width:1200px;margin:0 auto}
+/* LAYOUT */
+.page{display:none;padding:24px 28px;max-width:1280px;margin:0 auto}
 .page.active{display:block}
-
-/* ── HEADER PAGINA ── */
-.ph{margin-bottom:24px}
-.ph h2{font-size:20px;font-weight:500;color:var(--stone)}
-.ph p{font-size:12px;color:var(--stone4);font-family:'DM Mono',monospace;margin-top:3px}
+.ph{margin-bottom:20px}
+.ph h2{font-size:19px;font-weight:500}
+.ph p{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace;margin-top:2px}
 .ph-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 
-/* ── CARD ── */
-.card{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:16px 18px;margin-bottom:14px;box-shadow:var(--shadow)}
-.card-title{font-size:11px;font-weight:500;color:var(--stone4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:6px}
-.card-title::before{content:'';display:block;width:3px;height:12px;background:var(--gold2);border-radius:2px}
+/* CARD */
+.card{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow)}
+.card-title{font-size:11px;font-weight:500;color:var(--stone4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:6px}
+.card-title::before{content:'';display:block;width:3px;height:11px;background:var(--gold2);border-radius:2px}
 
-/* ── FORM ── */
+/* FORM */
 .fl{font-size:11px;color:var(--stone4);margin-bottom:4px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em}
-.fg{margin-bottom:14px}
-input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--stone6);border-radius:var(--r);font-size:13px;background:#fff;color:var(--stone);font-family:'DM Sans',sans-serif;transition:border-color .15s}
+.fg{margin-bottom:12px}
+input,select,textarea{width:100%;padding:7px 10px;border:1px solid var(--stone6);border-radius:var(--r);font-size:13px;background:#fff;color:var(--stone);font-family:'DM Sans',sans-serif;transition:border-color .15s}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold2);box-shadow:0 0 0 3px var(--gold4)}
-textarea{resize:vertical;min-height:70px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+input[readonly]{background:var(--stone7);color:var(--stone4)}
+textarea{resize:vertical;min-height:60px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
 
-/* ── BOTTONI ── */
-.btn{padding:8px 14px;border-radius:var(--r);border:1px solid var(--stone6);font-size:13px;cursor:pointer;background:#fff;color:var(--stone);font-family:'DM Sans',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+/* BOTTONI */
+.btn{padding:7px 13px;border-radius:var(--r);border:1px solid var(--stone6);font-size:13px;cursor:pointer;background:#fff;color:var(--stone);font-family:'DM Sans',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .btn:hover{background:var(--stone7);border-color:var(--stone5)}
 .btn-primary{background:var(--gold);color:#fff;border-color:var(--gold)}
 .btn-primary:hover{background:var(--gold2);border-color:var(--gold2)}
 .btn-teal{background:var(--teal);color:#fff;border-color:var(--teal)}
-.btn-teal:hover{background:var(--teal2);border-color:var(--teal2)}
+.btn-teal:hover{opacity:.9}
+.btn-green{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-green:hover{opacity:.9}
 .btn-ghost{border-color:transparent;background:transparent;color:var(--stone4)}
 .btn-ghost:hover{background:var(--stone7);color:var(--stone)}
 .btn-danger{border-color:var(--red2);color:var(--red);background:#fff}
 .btn-danger:hover{background:var(--red2)}
-.btn-sm{padding:5px 10px;font-size:12px}
-.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.btn-sm{padding:4px 9px;font-size:12px}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 
-/* ── BADGE ── */
+/* BADGE */
 .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500;font-family:'DM Mono',monospace}
-.badge-gray{background:var(--stone7);color:var(--stone4)}
-.badge-gold{background:var(--gold4);color:var(--gold)}
-.badge-green{background:var(--green2);color:var(--green)}
-.badge-blue{background:var(--blue2);color:var(--blue)}
-.badge-red{background:var(--red2);color:var(--red)}
-.badge-teal{background:var(--teal3);color:var(--teal)}
+.bg-gray{background:var(--stone7);color:var(--stone4)}
+.bg-gold{background:var(--gold4);color:var(--gold)}
+.bg-green{background:var(--green2);color:var(--green)}
+.bg-blue{background:var(--blue2);color:var(--blue)}
+.bg-red{background:var(--red2);color:var(--red)}
+.bg-teal{background:var(--teal3);color:var(--teal)}
+.bg-purple{background:var(--purple2);color:var(--purple)}
 
-/* ── TABELLA ── */
+/* TABELLA */
 table{width:100%;border-collapse:collapse}
 th{text-align:left;padding:8px 10px;font-size:11px;color:var(--stone4);border-bottom:1px solid var(--stone6);font-family:'DM Mono',monospace;font-weight:400;text-transform:uppercase;letter-spacing:.05em}
-td{padding:10px;border-bottom:1px solid var(--stone7);font-size:13px;vertical-align:middle}
+td{padding:9px 10px;border-bottom:1px solid var(--stone7);font-size:13px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--stone8)}
-.tnum{font-family:'DM Mono',monospace;font-size:13px}
+.tnum{font-family:'DM Mono',monospace}
 
-/* ── LISTA CARD (preventivi/commesse) ── */
-.list-card{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:12px}
-.list-card:hover{border-color:var(--gold3);box-shadow:var(--shadow)}
-.list-card-avatar{width:38px;height:38px;border-radius:50%;background:var(--gold4);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--gold);font-family:'DM Mono',monospace;flex-shrink:0}
-.list-card-body{flex:1;min-width:0}
-.list-card-name{font-size:14px;font-weight:500;color:var(--stone)}
-.list-card-sub{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace;margin-top:2px}
-.list-card-right{text-align:right;flex-shrink:0}
-.list-card-amount{font-size:14px;font-weight:500;font-family:'DM Mono',monospace;color:var(--stone)}
-.list-card-date{font-size:11px;color:var(--stone5);margin-top:2px}
+/* LIST CARD */
+.lc{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:12px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px;transition:all .15s}
+.lc:hover{border-color:var(--gold3);box-shadow:var(--shadow)}
+.lc-av{width:36px;height:36px;border-radius:50%;background:var(--gold4);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--gold);font-family:'DM Mono',monospace;flex-shrink:0}
+.lc-body{flex:1;min-width:0}
+.lc-name{font-size:13px;font-weight:500}
+.lc-sub{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace;margin-top:1px}
+.lc-right{text-align:right;flex-shrink:0}
+.lc-amt{font-size:13px;font-weight:500;font-family:'DM Mono',monospace}
+.lc-date{font-size:11px;color:var(--stone5);margin-top:1px}
 
-/* ── METRICHE ── */
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
-.metric{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:14px 16px;box-shadow:var(--shadow)}
-.metric-val{font-size:22px;font-weight:500;color:var(--stone);font-family:'DM Mono',monospace}
-.metric-lbl{font-size:11px;color:var(--stone4);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
-.metric-gold .metric-val{color:var(--gold)}
-.metric-green .metric-val{color:var(--green)}
-.metric-teal .metric-val{color:var(--teal)}
+/* METRICHE */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.metric{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:12px 14px;box-shadow:var(--shadow)}
+.metric-val{font-size:20px;font-weight:500;font-family:'DM Mono',monospace}
+.metric-lbl{font-size:10px;color:var(--stone4);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+.m-gold .metric-val{color:var(--gold)}
+.m-green .metric-val{color:var(--green)}
+.m-teal .metric-val{color:var(--teal)}
+.m-blue .metric-val{color:var(--blue)}
 
-/* ── SEARCH/FILTER ── */
-.search-row{display:flex;gap:10px;margin-bottom:18px;align-items:center}
-.search-row input{max-width:280px}
-.search-row select{max-width:160px;width:auto}
+/* SEARCH */
+.srow{display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap}
+.srow input{max-width:260px}
+.srow select{width:auto;min-width:130px}
 
-/* ── MODAL ── */
-.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(28,25,23,.5);z-index:200;align-items:center;justify-content:center}
-.modal-backdrop.open{display:flex}
-.modal{background:#fff;border-radius:var(--r3);padding:28px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow2)}
-.modal-wide{max-width:780px}
-.modal h3{font-size:16px;font-weight:500;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--stone6)}
-.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--stone6)}
+/* MODAL */
+.mback{display:none;position:fixed;inset:0;background:rgba(28,25,23,.55);z-index:200;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.mback.open{display:flex}
+.modal{background:#fff;border-radius:var(--r3);padding:24px;width:100%;max-width:580px;box-shadow:var(--shadow2);margin:auto}
+.modal-lg{max-width:860px}
+.modal h3{font-size:15px;font-weight:500;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--stone6)}
+.mfoot{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid var(--stone6)}
 
-/* ── SCHEDA DETTAGLIO ── */
-.detail-header{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;gap:16px}
-.detail-avatar{width:48px;height:48px;border-radius:50%;background:var(--gold4);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500;color:var(--gold);font-family:'DM Mono',monospace;flex-shrink:0}
-.detail-info h3{font-size:18px;font-weight:500}
-.detail-info p{font-size:12px;color:var(--stone4);font-family:'DM Mono',monospace;margin-top:3px}
-.detail-actions{margin-left:auto;display:flex;gap:8px}
+/* TRACKER */
+.tracker{display:flex;margin-bottom:16px;overflow-x:auto}
+.ts{flex:1;min-width:70px;padding:7px 4px;font-size:10px;text-align:center;background:var(--stone7);color:var(--stone5);border:1px solid var(--stone6);border-right:none;font-family:'DM Mono',monospace}
+.ts:first-child{border-radius:var(--r) 0 0 var(--r)}
+.ts:last-child{border-right:1px solid var(--stone6);border-radius:0 var(--r) var(--r) 0}
+.ts.done{background:var(--green2);color:var(--green);border-color:#bbf7d0}
+.ts.cur{background:var(--gold4);color:var(--gold);border-color:var(--gold3);font-weight:500}
 
-/* ── TABS ── */
-.tabs{display:flex;gap:0;border-bottom:1px solid var(--stone6);margin-bottom:20px}
-.tab{padding:10px 16px;font-size:13px;cursor:pointer;border:none;background:transparent;color:var(--stone4);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+/* PREVENTIVATORE */
+.calc-box{background:var(--stone);color:var(--cream);border-radius:var(--r2);padding:14px 18px;margin-top:10px}
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:13px}
+.calc-row.tot{border-top:1px solid var(--stone3);margin-top:6px;padding-top:8px;font-size:15px;font-weight:500}
+.calc-val{font-family:'DM Mono',monospace;color:var(--gold3)}
+.calc-note{font-size:11px;color:var(--stone5)}
+
+/* SAGOMA DESIGNER */
+.sagoma-wrap{background:var(--stone8);border:1px solid var(--stone6);border-radius:var(--r2);padding:16px;margin:12px 0}
+.sagoma-forme{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.sf-btn{padding:6px 14px;border:2px solid var(--stone6);border-radius:var(--r);font-size:12px;cursor:pointer;background:#fff;font-family:'DM Mono',monospace;transition:all .15s}
+.sf-btn:hover{border-color:var(--gold2)}
+.sf-btn.active{border-color:var(--gold);background:var(--gold4);color:var(--gold);font-weight:500}
+.sagoma-misure{display:grid;gap:8px;margin-bottom:14px}
+.sagoma-canvas-wrap{display:flex;justify-content:center;margin:10px 0}
+canvas#sagoma-canvas{border:1px solid var(--stone6);border-radius:var(--r);background:#fff;cursor:pointer;max-width:100%}
+.lato-panel{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:12px;margin-top:10px}
+.lato-panel h4{font-size:12px;font-weight:600;margin-bottom:10px;color:var(--stone3)}
+.lato-row{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--stone7)}
+.lato-row:last-child{border-bottom:none}
+.lato-num{width:24px;height:24px;border-radius:50%;background:var(--gold4);color:var(--gold);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;flex-shrink:0}
+.lato-num.sel{background:var(--gold);color:#fff}
+.lato-ml{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace}
+.pezzo-card{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:14px;margin-bottom:10px}
+.pezzo-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.pezzo-num{font-size:12px;font-weight:600;font-family:'DM Mono',monospace;color:var(--stone3)}
+
+/* RIEPILOGO PREVENTIVO */
+.prev-riepilogo{background:var(--stone);border-radius:var(--r2);padding:16px 20px;margin-top:14px;color:var(--cream)}
+.pr-row{display:flex;justify-content:space-between;padding:3px 0;font-size:13px}
+.pr-row.sep{border-top:1px solid var(--stone3);margin-top:8px;padding-top:8px}
+.pr-row.tot{font-size:16px;font-weight:500}
+.pr-val{font-family:'DM Mono',monospace;color:var(--gold3)}
+.pr-sub{color:var(--stone5);font-size:11px}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--stone6);margin-bottom:16px}
+.tab{padding:9px 14px;font-size:13px;cursor:pointer;border:none;background:transparent;color:var(--stone4);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
 .tab:hover{color:var(--stone)}
 .tab.active{color:var(--gold2);border-bottom-color:var(--gold2);font-weight:500}
-.tab-content{display:none}
-.tab-content.active{display:block}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
 
-/* ── TRACKER FASI ── */
-.tracker{display:flex;gap:0;margin-bottom:20px;overflow-x:auto}
-.tracker-step{flex:1;min-width:80px;padding:8px 6px;font-size:10px;text-align:center;background:var(--stone7);color:var(--stone5);border:1px solid var(--stone6);font-family:'DM Mono',monospace;border-right:none;cursor:default}
-.tracker-step:first-child{border-radius:var(--r) 0 0 var(--r)}
-.tracker-step:last-child{border-right:1px solid var(--stone6);border-radius:0 var(--r) var(--r) 0}
-.tracker-step.done{background:var(--green2);color:var(--green);border-color:#bbf7d0}
-.tracker-step.current{background:var(--gold4);color:var(--gold);border-color:var(--gold3);font-weight:500}
+/* EMPTY */
+.empty{text-align:center;padding:48px 20px;color:var(--stone5)}
+.empty-icon{font-size:36px;margin-bottom:10px}
+.empty p{font-size:13px;margin-bottom:12px}
 
-/* ── STATI PREVENTIVO ── */
-.stato-bozza{background:var(--stone7);color:var(--stone4)}
-.stato-inviato{background:var(--blue2);color:var(--blue)}
-.stato-accettato{background:var(--green2);color:var(--green)}
-.stato-rifiutato{background:var(--red2);color:var(--red)}
+/* SEP */
+.sep{height:1px;background:var(--stone7);margin:14px 0}
 
-/* ── PREVENTIVATORE ── */
-.prev-calc{background:var(--stone);color:var(--cream);border-radius:var(--r2);padding:16px 20px;margin-top:12px}
-.prev-calc-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0;font-size:13px}
-.prev-calc-row.total{border-top:1px solid var(--stone3);margin-top:8px;padding-top:10px;font-size:16px;font-weight:500}
-.prev-calc-val{font-family:'DM Mono',monospace;color:var(--gold3)}
-.prev-calc-sub{font-size:11px;color:var(--stone5)}
-
-/* ── EMPTY STATE ── */
-.empty{text-align:center;padding:60px 20px;color:var(--stone5)}
-.empty-icon{font-size:40px;margin-bottom:12px}
-.empty p{font-size:14px;margin-bottom:16px}
-
-/* ── SEP ── */
-.sep{height:1px;background:var(--stone7);margin:16px 0}
-
-/* ── TOAST ── */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--stone);color:var(--cream);padding:12px 18px;border-radius:var(--r2);font-size:13px;z-index:999;transform:translateY(100px);opacity:0;transition:all .3s;max-width:320px}
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--stone);color:var(--cream);padding:10px 16px;border-radius:var(--r2);font-size:13px;z-index:999;transform:translateY(80px);opacity:0;transition:all .25s;max-width:300px;box-shadow:var(--shadow2)}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.ok{border-left:3px solid var(--teal2)}
 .toast.err{border-left:3px solid var(--red)}
 
 @media(max-width:768px){
-  .page{padding:16px}
+  .page{padding:12px}
   .metrics{grid-template-columns:1fr 1fr}
-  .grid2,.grid3,.grid4{grid-template-columns:1fr}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .modal{padding:16px}
 }
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-logo" onclick="navTo('dashboard')">MARMISTA<span>.app</span></div>
-  <button class="tnb active" onclick="navTo('dashboard')" id="tnb-dashboard">Dashboard</button>
-  <button class="tnb" onclick="navTo('clienti')" id="tnb-clienti">Clienti</button>
-  <button class="tnb" onclick="navTo('preventivi')" id="tnb-preventivi">Preventivi</button>
-  <button class="tnb" onclick="navTo('commesse')" id="tnb-commesse">Commesse</button>
-  <button class="tnb" onclick="navTo('magazzino')" id="tnb-magazzino">Magazzino</button>
-  <button class="tnb" onclick="navTo('materiali')" id="tnb-materiali">Materiali</button>
+  <div class="topnav">
+    <button class="tnb active" onclick="navTo('dashboard')" id="tnb-dashboard">Dashboard</button>
+    <button class="tnb" onclick="navTo('clienti')" id="tnb-clienti">Clienti</button>
+    <button class="tnb" onclick="navTo('preventivi')" id="tnb-preventivi">Preventivi</button>
+    <button class="tnb" onclick="navTo('commesse')" id="tnb-commesse">Commesse</button>
+    <button class="tnb" onclick="navTo('magazzino')" id="tnb-magazzino">Magazzino</button>
+    <button class="tnb" onclick="navTo('materiali')" id="tnb-materiali">Materiali</button>
+  </div>
   <div class="topbar-right">
-    <div class="db-status" id="db-status"></div>
-    <span id="db-label">—</span>
+    <div class="db-dot" id="db-dot"></div>
+    <span style="font-size:11px;color:var(--stone5)" id="db-lbl">—</span>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ══════════════════════════════════════════
+<!-- ═══════════════════════════════════
      DASHBOARD
-══════════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <div class="page active" id="page-dashboard">
   <div class="ph">
     <div class="ph-row">
-      <div>
-        <h2>Dashboard</h2>
-        <p id="dash-date">—</p>
-      </div>
+      <div><h2>Dashboard</h2><p id="dash-data">—</p></div>
     </div>
   </div>
-
   <div class="metrics">
-    <div class="metric metric-gold">
-      <div class="metric-val" id="dash-preventivi-aperti">—</div>
-      <div class="metric-lbl">Preventivi aperti</div>
-    </div>
-    <div class="metric metric-teal">
-      <div class="metric-val" id="dash-commesse-attive">—</div>
-      <div class="metric-lbl">Commesse attive</div>
-    </div>
-    <div class="metric metric-green">
-      <div class="metric-val" id="dash-da-incassare">—</div>
-      <div class="metric-lbl">Da incassare</div>
-    </div>
-    <div class="metric">
-      <div class="metric-val" id="dash-clienti">—</div>
-      <div class="metric-lbl">Clienti totali</div>
-    </div>
+    <div class="metric m-gold"><div class="metric-val" id="d-prev">—</div><div class="metric-lbl">Preventivi aperti</div></div>
+    <div class="metric m-teal"><div class="metric-val" id="d-comm">—</div><div class="metric-lbl">Commesse attive</div></div>
+    <div class="metric m-green"><div class="metric-val" id="d-inc">—</div><div class="metric-lbl">Da incassare</div></div>
+    <div class="metric m-blue"><div class="metric-val" id="d-cli">—</div><div class="metric-lbl">Clienti</div></div>
   </div>
-
-  <div class="grid2" style="gap:20px">
-    <div>
-      <div class="card-title" style="margin-bottom:10px">Preventivi recenti</div>
-      <div id="dash-prev-list"><div class="empty"><p>Nessun preventivo</p></div></div>
-    </div>
-    <div>
-      <div class="card-title" style="margin-bottom:10px">Commesse in lavorazione</div>
-      <div id="dash-comm-list"><div class="empty"><p>Nessuna commessa attiva</p></div></div>
-    </div>
+  <div class="g2" style="gap:16px">
+    <div><div class="card-title" style="margin-bottom:8px">Preventivi recenti</div><div id="d-prev-list"></div></div>
+    <div><div class="card-title" style="margin-bottom:8px">Commesse in lavorazione</div><div id="d-comm-list"></div></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
+<!-- ═══════════════════════════════════
      CLIENTI
-══════════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <div class="page" id="page-clienti">
   <div class="ph">
     <div class="ph-row">
       <div><h2>Clienti</h2><p>Anagrafica clienti del laboratorio</p></div>
-      <button class="btn btn-primary" onclick="openModalCliente()">+ Nuovo cliente</button>
+      <button class="btn btn-primary" onclick="openCliente()">+ Nuovo cliente</button>
     </div>
   </div>
-
-  <div class="search-row">
-    <input type="text" placeholder="Cerca cliente..." id="search-clienti" oninput="filterClienti()">
-    <select onchange="filterClienti()" id="filter-tipo-cliente">
+  <div class="srow">
+    <input type="text" placeholder="Cerca..." id="src-cli" oninput="filtClienti()">
+    <select id="flt-tipo-cli" onchange="filtClienti()">
       <option value="">Tutti i tipi</option>
       <option value="privato">Privato</option>
       <option value="impresa">Impresa edile</option>
@@ -268,25 +264,30 @@ tr:hover td{background:var(--stone8)}
       <option value="architetto">Architetto</option>
       <option value="altro">Altro</option>
     </select>
+    <select id="flt-canale-cli" onchange="filtClienti()">
+      <option value="">Tutti i canali</option>
+      <option value="storico">Cliente storico</option>
+      <option value="passaparola">Passaparola</option>
+      <option value="social">Social</option>
+      <option value="altro">Altro</option>
+    </select>
   </div>
-
-  <div id="clienti-list"><div class="empty"><div class="empty-icon">👥</div><p>Nessun cliente ancora</p><button class="btn btn-primary" onclick="openModalCliente()">Aggiungi il primo cliente</button></div></div>
+  <div id="clienti-list"><div class="empty"><div class="empty-icon">👥</div><p>Nessun cliente ancora</p></div></div>
 </div>
 
-<!-- ══════════════════════════════════════════
+<!-- ═══════════════════════════════════
      PREVENTIVI
-══════════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <div class="page" id="page-preventivi">
   <div class="ph">
     <div class="ph-row">
-      <div><h2>Preventivi</h2><p>Lista preventivi — solo quelli accettati diventano commesse</p></div>
-      <button class="btn btn-primary" onclick="openModalPreventivo()">+ Nuovo preventivo</button>
+      <div><h2>Preventivi</h2><p>Solo quelli accettati diventano commesse</p></div>
+      <button class="btn btn-primary" onclick="openPreventivo()">+ Nuovo preventivo</button>
     </div>
   </div>
-
-  <div class="search-row">
-    <input type="text" placeholder="Cerca preventivo..." id="search-preventivi" oninput="filterPreventivi()">
-    <select onchange="filterPreventivi()" id="filter-stato-prev">
+  <div class="srow">
+    <input type="text" placeholder="Cerca..." id="src-prev" oninput="filtPreventivi()">
+    <select id="flt-stato-prev" onchange="filtPreventivi()">
       <option value="">Tutti gli stati</option>
       <option value="bozza">Bozza</option>
       <option value="inviato">Inviato</option>
@@ -294,23 +295,21 @@ tr:hover td{background:var(--stone8)}
       <option value="rifiutato">Rifiutato</option>
     </select>
   </div>
-
-  <div id="preventivi-list"><div class="empty"><div class="empty-icon">📋</div><p>Nessun preventivo ancora</p><button class="btn btn-primary" onclick="openModalPreventivo()">Crea il primo preventivo</button></div></div>
+  <div id="preventivi-list"><div class="empty"><div class="empty-icon">📋</div><p>Nessun preventivo ancora</p></div></div>
 </div>
 
-<!-- ══════════════════════════════════════════
+<!-- ═══════════════════════════════════
      COMMESSE
-══════════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <div class="page" id="page-commesse">
   <div class="ph">
     <div class="ph-row">
-      <div><h2>Commesse</h2><p>Solo lavori confermati — nascono da preventivi accettati</p></div>
+      <div><h2>Commesse</h2><p>Solo lavori confermati — nati da preventivi accettati</p></div>
     </div>
   </div>
-
-  <div class="search-row">
-    <input type="text" placeholder="Cerca commessa..." id="search-commesse" oninput="filterCommesse()">
-    <select onchange="filterCommesse()" id="filter-fase-comm">
+  <div class="srow">
+    <input type="text" placeholder="Cerca..." id="src-comm" oninput="filtCommesse()">
+    <select id="flt-fase-comm" onchange="filtCommesse()">
       <option value="">Tutte le fasi</option>
       <option value="confermata">Confermata</option>
       <option value="materiale_ordinato">Materiale ordinato</option>
@@ -319,24 +318,22 @@ tr:hover td{background:var(--stone8)}
       <option value="fatturata">Fatturata</option>
     </select>
   </div>
-
-  <div id="commesse-list"><div class="empty"><div class="empty-icon">🔨</div><p>Nessuna commessa attiva</p><p style="font-size:12px;color:var(--stone5)">Le commesse nascono da preventivi accettati</p></div></div>
+  <div id="commesse-list"><div class="empty"><div class="empty-icon">🔨</div><p>Nessuna commessa — le commesse nascono da preventivi accettati</p></div></div>
 </div>
 
-<!-- ══════════════════════════════════════════
+<!-- ═══════════════════════════════════
      MAGAZZINO
-══════════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <div class="page" id="page-magazzino">
   <div class="ph">
     <div class="ph-row">
-      <div><h2>Magazzino lastre</h2><p>Lastre fisiche in magazzino con stato e provenienza</p></div>
-      <button class="btn btn-primary" onclick="openModalLastra()">+ Nuova lastra</button>
+      <div><h2>Magazzino lastre</h2><p>Lastre fisiche con stato e lotto di cava</p></div>
+      <button class="btn btn-primary" onclick="openLastra()">+ Nuova lastra</button>
     </div>
   </div>
-
-  <div class="search-row">
-    <input type="text" placeholder="Cerca lastra..." id="search-lastre" oninput="filterLastre()">
-    <select onchange="filterLastre()" id="filter-stato-lastra">
+  <div class="srow">
+    <input type="text" placeholder="Cerca..." id="src-mag" oninput="filtLastre()">
+    <select id="flt-stato-mag" onchange="filtLastre()">
       <option value="">Tutti gli stati</option>
       <option value="disponibile">Disponibile</option>
       <option value="prenotata">Prenotata</option>
@@ -344,73 +341,59 @@ tr:hover td{background:var(--stone8)}
       <option value="consumata">Consumata</option>
     </select>
   </div>
-
-  <div id="lastre-list"><div class="empty"><div class="empty-icon">🪨</div><p>Nessuna lastra in magazzino</p><button class="btn btn-primary" onclick="openModalLastra()">Aggiungi la prima lastra</button></div></div>
+  <div id="magazzino-list"><div class="empty"><div class="empty-icon">🪨</div><p>Nessuna lastra in magazzino</p></div></div>
 </div>
 
-<!-- ══════════════════════════════════════════
+<!-- ═══════════════════════════════════
      MATERIALI
-══════════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <div class="page" id="page-materiali">
   <div class="ph">
     <div class="ph-row">
-      <div><h2>Catalogo materiali</h2><p>Listino acquisto — prezzi usati dal preventivatore</p></div>
-      <button class="btn btn-primary" onclick="openModalMateriale()">+ Nuovo materiale</button>
+      <div><h2>Catalogo materiali</h2><p>Listino acquisto — base del preventivatore</p></div>
+      <button class="btn btn-primary" onclick="openMateriale()">+ Nuovo materiale</button>
     </div>
   </div>
-
-  <div class="card" style="margin-bottom:20px">
-    <div class="card-title">Formula prezzi — parametri</div>
-    <div class="grid3">
-      <div class="fg">
-        <div class="fl">Costi fissi %</div>
-        <input type="number" id="param-costi-fissi" value="43" min="0" max="99" step="0.5" onchange="aggiornaFormula()">
-      </div>
-      <div class="fg">
-        <div class="fl">Margine default %</div>
-        <input type="number" id="param-margine-default" value="25" min="0" max="99" step="0.5">
-      </div>
-      <div style="display:flex;align-items:flex-end;padding-bottom:14px">
-        <div class="prev-calc" style="flex:1;padding:10px 14px">
-          <div class="prev-calc-row">
-            <span class="prev-calc-sub">Esempio: costo €100/m²</span>
-            <span class="prev-calc-val" id="formula-esempio">—</span>
-          </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">Parametri formula prezzi</div>
+    <div class="g3">
+      <div class="fg"><div class="fl">Costi fissi %</div><input type="number" id="p-costi" value="43" step="0.5" oninput="aggFormula()"></div>
+      <div class="fg"><div class="fl">Margine default %</div><input type="number" id="p-margine" value="25" step="0.5" oninput="aggFormula()"></div>
+      <div style="display:flex;align-items:flex-end;padding-bottom:12px">
+        <div class="calc-box" style="flex:1;padding:8px 12px">
+          <div class="calc-row"><span class="calc-note">Esempio costo €100/m²</span><span class="calc-val" id="formula-ex">—</span></div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="search-row">
-    <input type="text" placeholder="Cerca materiale..." id="search-materiali" oninput="filterMateriali()">
-    <select onchange="filterMateriali()" id="filter-cat-mat">
+  <div class="srow">
+    <input type="text" placeholder="Cerca materiale..." id="src-mat" oninput="filtMateriali()">
+    <select id="flt-cat-mat" onchange="filtMateriali()">
       <option value="">Tutte le categorie</option>
     </select>
   </div>
-
-  <div id="materiali-list"><div class="empty"><div class="empty-icon">🪨</div><p>Nessun materiale nel catalogo</p></div></div>
+  <div id="materiali-list"><div class="empty"><div class="empty-icon">📦</div><p>Nessun materiale nel catalogo</p></div></div>
 </div>
 
 
-<!-- ══════════════════════════════════════════
+<!-- ═══════════════════════════════════
      MODAL CLIENTE
-══════════════════════════════════════════ -->
-<div class="modal-backdrop" id="modal-cliente">
+═══════════════════════════════════ -->
+<div class="mback" id="m-cliente">
   <div class="modal">
-    <h3 id="modal-cliente-title">Nuovo cliente</h3>
-    <input type="hidden" id="cliente-id">
-    <div class="grid2">
-      <div class="fg"><div class="fl">Nome *</div><input type="text" id="c-nome" placeholder="Mario"></div>
-      <div class="fg"><div class="fl">Cognome *</div><input type="text" id="c-cognome" placeholder="Rossi"></div>
+    <h3 id="m-cli-title">Nuovo cliente</h3>
+    <input type="hidden" id="cli-id">
+    <div class="g2">
+      <div class="fg"><div class="fl">Nome *</div><input id="cli-nome" placeholder="Mario"></div>
+      <div class="fg"><div class="fl">Cognome *</div><input id="cli-cognome" placeholder="Rossi"></div>
     </div>
-    <div class="grid2">
-      <div class="fg"><div class="fl">Telefono</div><input type="tel" id="c-tel" placeholder="+39 ..."></div>
-      <div class="fg"><div class="fl">Email</div><input type="email" id="c-email" placeholder="mario@..."></div>
+    <div class="g2">
+      <div class="fg"><div class="fl">Telefono</div><input id="cli-tel" type="tel"></div>
+      <div class="fg"><div class="fl">Email</div><input id="cli-email" type="email"></div>
     </div>
-    <div class="grid2">
-      <div class="fg">
-        <div class="fl">Tipo cliente</div>
-        <select id="c-tipo">
+    <div class="g2">
+      <div class="fg"><div class="fl">Tipo cliente</div>
+        <select id="cli-tipo">
           <option value="privato">Privato</option>
           <option value="impresa">Impresa edile</option>
           <option value="geometra">Geometra</option>
@@ -418,169 +401,163 @@ tr:hover td{background:var(--stone8)}
           <option value="altro">Altro</option>
         </select>
       </div>
-      <div class="fg"><div class="fl">Indirizzo / Città</div><input type="text" id="c-indirizzo" placeholder="Via Roma 1, Nuoro"></div>
+      <div class="fg"><div class="fl">Come ci ha trovato</div>
+        <select id="cli-canale">
+          <option value="storico">Cliente storico</option>
+          <option value="passaparola">Passaparola</option>
+          <option value="social">Social</option>
+          <option value="altro">Altro</option>
+        </select>
+      </div>
     </div>
-    <div class="fg"><div class="fl">Note</div><textarea id="c-note" rows="2"></textarea></div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-cliente')">Annulla</button>
+    <div class="fg"><div class="fl">Indirizzo / Città</div><input id="cli-indirizzo"></div>
+    <div class="fg"><div class="fl">Note</div><textarea id="cli-note" rows="2"></textarea></div>
+    <div class="mfoot">
+      <button class="btn btn-ghost" onclick="closeM('m-cliente')">Annulla</button>
       <button class="btn btn-primary" onclick="saveCliente()">Salva cliente</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     MODAL PREVENTIVO
-══════════════════════════════════════════ -->
-<div class="modal-backdrop" id="modal-preventivo">
-  <div class="modal modal-wide">
-    <h3 id="modal-prev-title">Nuovo preventivo</h3>
+<!-- ═══════════════════════════════════
+     MODAL PREVENTIVO (con preventivatore completo)
+═══════════════════════════════════ -->
+<div class="mback" id="m-preventivo">
+  <div class="modal modal-lg">
+    <h3 id="m-prev-title">Nuovo preventivo</h3>
     <input type="hidden" id="prev-id">
 
-    <div class="grid2">
-      <div class="fg">
-        <div class="fl">Cliente *</div>
-        <select id="prev-cliente">
-          <option value="">Seleziona cliente...</option>
-        </select>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('prev','anagrafica')">1. Cliente & Lavoro</button>
+      <button class="tab" onclick="switchTab('prev','rilievo')">2. Rilievo misure</button>
+      <button class="tab" onclick="switchTab('prev','calcolo')">3. Calcolo & Stato</button>
+    </div>
+
+    <!-- TAB 1: ANAGRAFICA -->
+    <div class="tab-pane active" id="prev-tab-anagrafica">
+      <div class="g2">
+        <div class="fg"><div class="fl">Cliente *</div>
+          <select id="prev-cliente"><option value="">Seleziona cliente...</option></select>
+        </div>
+        <div class="fg"><div class="fl">Descrizione lavoro *</div>
+          <input id="prev-descr" placeholder="es. Piano cucina in granito">
+        </div>
       </div>
-      <div class="fg">
-        <div class="fl">Descrizione lavoro *</div>
-        <input type="text" id="prev-descrizione" placeholder="es. Piano cucina in granito">
+      <div class="g3">
+        <div class="fg"><div class="fl">Materiale</div>
+          <select id="prev-mat" onchange="onPrevMat()"><option value="">Seleziona...</option></select>
+        </div>
+        <div class="fg"><div class="fl">Spessore</div>
+          <select id="prev-sp" onchange="onPrevSp()"><option value="">—</option></select>
+        </div>
+        <div class="fg"><div class="fl">Fornitore</div>
+          <select id="prev-forn" onchange="calcolaPreventivo()"><option value="">—</option></select>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="fg"><div class="fl">Margine desiderato %</div>
+          <input type="number" id="prev-margine" value="25" step="0.5" oninput="calcolaPreventivo()">
+        </div>
+        <div class="fg"><div class="fl">Scarto materiale %</div>
+          <input type="number" id="prev-scarto" value="12" step="1" oninput="calcolaPreventivo()">
+        </div>
+      </div>
+      <div class="mfoot" style="border-top:none;margin-top:8px;padding-top:0">
+        <button class="btn btn-primary" onclick="switchTab('prev','rilievo')">Avanti: Rilievo misure →</button>
       </div>
     </div>
 
-    <div class="grid3">
-      <div class="fg">
-        <div class="fl">Materiale</div>
-        <select id="prev-materiale" onchange="onPrevMaterialeChange()">
-          <option value="">Seleziona...</option>
-        </select>
+    <!-- TAB 2: RILIEVO MISURE -->
+    <div class="tab-pane" id="prev-tab-rilievo">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span style="font-size:13px;font-weight:500">Pezzi da realizzare</span>
+        <button class="btn btn-sm btn-primary" onclick="addPezzo()">+ Aggiungi pezzo</button>
       </div>
-      <div class="fg">
-        <div class="fl">Spessore</div>
-        <select id="prev-spessore" onchange="calcolaPrezzoPreventivo()">
-          <option value="">—</option>
-        </select>
-      </div>
-      <div class="fg">
-        <div class="fl">Fornitore</div>
-        <select id="prev-fornitore" onchange="calcolaPrezzoPreventivo()">
-          <option value="">—</option>
-        </select>
+      <div id="pezzi-container"></div>
+      <div class="mfoot" style="border-top:none;margin-top:8px;padding-top:0">
+        <button class="btn btn-ghost" onclick="switchTab('prev','anagrafica')">← Indietro</button>
+        <button class="btn btn-primary" onclick="switchTab('prev','calcolo')">Avanti: Calcolo →</button>
       </div>
     </div>
 
-    <div class="grid3">
-      <div class="fg">
-        <div class="fl">m² netti</div>
-        <input type="number" id="prev-mq" placeholder="0.00" step="0.01" oninput="calcolaPrezzoPreventivo()">
+    <!-- TAB 3: CALCOLO & STATO -->
+    <div class="tab-pane" id="prev-tab-calcolo">
+      <div id="prev-riepilogo-box"></div>
+      <div class="sep"></div>
+      <div class="g2">
+        <div class="fg"><div class="fl">Stato preventivo</div>
+          <select id="prev-stato">
+            <option value="bozza">Bozza</option>
+            <option value="inviato">Inviato al cliente</option>
+            <option value="accettato">Accettato ✓</option>
+            <option value="rifiutato">Rifiutato ✗</option>
+          </select>
+        </div>
+        <div class="fg"><div class="fl">Data</div>
+          <input type="date" id="prev-data">
+        </div>
       </div>
-      <div class="fg">
-        <div class="fl">Scarto %</div>
-        <input type="number" id="prev-scarto" value="12" step="1" oninput="calcolaPrezzoPreventivo()">
+      <div class="fg"><div class="fl">Note</div><textarea id="prev-note" rows="2"></textarea></div>
+      <div class="mfoot" style="border-top:none;margin-top:8px;padding-top:0">
+        <button class="btn btn-ghost" onclick="switchTab('prev','rilievo')">← Indietro</button>
+        <button class="btn btn-ghost" onclick="closeM('m-preventivo')">Annulla</button>
+        <button class="btn btn-primary" onclick="savePreventivo()">Salva preventivo</button>
       </div>
-      <div class="fg">
-        <div class="fl">Margine desiderato %</div>
-        <input type="number" id="prev-margine" value="25" step="0.5" oninput="calcolaPrezzoPreventivo()">
-      </div>
-    </div>
-
-    <!-- CALCOLO -->
-    <div class="prev-calc" id="prev-calc-box" style="display:none">
-      <div class="prev-calc-row"><span>Costo acquisto</span><span class="prev-calc-val" id="pc-costo">—</span></div>
-      <div class="prev-calc-row"><span>m² con scarto</span><span class="prev-calc-val" id="pc-mq-scarto">—</span></div>
-      <div class="prev-calc-row"><span>Prezzo unitario al cliente</span><span class="prev-calc-val" id="pc-prezzo-mq">—</span></div>
-      <div class="prev-calc-row total"><span>Totale materiale</span><span class="prev-calc-val" id="pc-totale">—</span></div>
-    </div>
-
-    <div class="sep"></div>
-
-    <div class="grid2">
-      <div class="fg">
-        <div class="fl">Stato</div>
-        <select id="prev-stato">
-          <option value="bozza">Bozza</option>
-          <option value="inviato">Inviato al cliente</option>
-          <option value="accettato">Accettato</option>
-          <option value="rifiutato">Rifiutato</option>
-        </select>
-      </div>
-      <div class="fg">
-        <div class="fl">Data</div>
-        <input type="date" id="prev-data">
-      </div>
-    </div>
-
-    <div class="fg"><div class="fl">Note</div><textarea id="prev-note" rows="2"></textarea></div>
-
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-preventivo')">Annulla</button>
-      <button class="btn btn-primary" onclick="savePreventivo()">Salva preventivo</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
+<!-- ═══════════════════════════════════
      MODAL LASTRA
-══════════════════════════════════════════ -->
-<div class="modal-backdrop" id="modal-lastra">
+═══════════════════════════════════ -->
+<div class="mback" id="m-lastra">
   <div class="modal">
-    <h3 id="modal-lastra-title">Nuova lastra</h3>
-    <input type="hidden" id="lastra-id">
-    <div class="grid2">
-      <div class="fg"><div class="fl">Codice lastra *</div><input type="text" id="l-cod" placeholder="GS-001"></div>
-      <div class="fg">
-        <div class="fl">Materiale</div>
-        <select id="l-materiale">
-          <option value="">Seleziona...</option>
-        </select>
+    <h3 id="m-las-title">Nuova lastra</h3>
+    <input type="hidden" id="las-id">
+    <div class="g2">
+      <div class="fg"><div class="fl">Codice *</div><input id="las-cod" placeholder="GS-001"></div>
+      <div class="fg"><div class="fl">Materiale</div><select id="las-mat"><option value="">Seleziona...</option></select></div>
+    </div>
+    <div class="g3">
+      <div class="fg"><div class="fl">Lunghezza (cm)</div><input type="number" id="las-l" oninput="calcMqLas()"></div>
+      <div class="fg"><div class="fl">Larghezza (cm)</div><input type="number" id="las-la" oninput="calcMqLas()"></div>
+      <div class="fg"><div class="fl">Spessore (cm)</div><input type="number" id="las-sp" step="0.5"></div>
+    </div>
+    <div class="g2">
+      <div class="fg"><div class="fl">m² calcolati</div><input id="las-mq" readonly></div>
+      <div class="fg"><div class="fl">Finitura</div>
+        <select id="las-fin"><option value="grezzo">Grezzo</option><option value="lucido">Lucido</option><option value="levigato">Levigato</option><option value="fiammato">Fiammato</option><option value="spazzolato">Spazzolato</option></select>
       </div>
     </div>
-    <div class="grid3">
-      <div class="fg"><div class="fl">Lunghezza (cm)</div><input type="number" id="l-l" placeholder="320" oninput="calcMqLastra()"></div>
-      <div class="fg"><div class="fl">Larghezza (cm)</div><input type="number" id="l-la" placeholder="180" oninput="calcMqLastra()"></div>
-      <div class="fg"><div class="fl">Spessore (cm)</div><input type="number" id="l-sp" placeholder="3" step="0.5"></div>
+    <div class="g2">
+      <div class="fg"><div class="fl">Lotto / Blocco cava</div><input id="las-lotto" placeholder="es. 2024-03"></div>
+      <div class="fg"><div class="fl">Posizione magazzino</div><input id="las-pos" placeholder="es. A-12"></div>
     </div>
-    <div class="grid2">
-      <div class="fg"><div class="fl">m² calcolati</div><input type="text" id="l-mq" readonly style="background:var(--stone7);color:var(--stone4)"></div>
-      <div class="fg"><div class="fl">Finitura</div><select id="l-fin"><option value="grezzo">Grezzo</option><option value="lucido">Lucido</option><option value="levigato">Levigato</option><option value="fiammato">Fiammato</option><option value="spazzolato">Spazzolato</option></select></div>
-    </div>
-    <div class="grid2">
-      <div class="fg"><div class="fl">Lotto / Blocco cava</div><input type="text" id="l-lotto" placeholder="es. 2024-03"></div>
-      <div class="fg"><div class="fl">Posizione magazzino</div><input type="text" id="l-pos" placeholder="es. A-12"></div>
-    </div>
-    <div class="grid2">
-      <div class="fg">
-        <div class="fl">Stato</div>
-        <select id="l-stato">
-          <option value="disponibile">Disponibile</option>
-          <option value="prenotata">Prenotata</option>
-          <option value="impegnata">Impegnata</option>
-          <option value="consumata">Consumata</option>
-        </select>
+    <div class="g2">
+      <div class="fg"><div class="fl">Stato</div>
+        <select id="las-stato"><option value="disponibile">Disponibile</option><option value="prenotata">Prenotata</option><option value="impegnata">Impegnata</option><option value="consumata">Consumata</option></select>
       </div>
-      <div class="fg"><div class="fl">Lastra madre (se figlia)</div><input type="text" id="l-madre" placeholder="codice lastra madre"></div>
+      <div class="fg"><div class="fl">Lastra madre (se figlia)</div><input id="las-madre" placeholder="codice lastra madre"></div>
     </div>
-    <div class="fg"><div class="fl">Note</div><textarea id="l-note" rows="2"></textarea></div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-lastra')">Annulla</button>
+    <div class="fg"><div class="fl">Note</div><textarea id="las-note" rows="2"></textarea></div>
+    <div class="mfoot">
+      <button class="btn btn-ghost" onclick="closeM('m-lastra')">Annulla</button>
       <button class="btn btn-primary" onclick="saveLastra()">Salva lastra</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
+<!-- ═══════════════════════════════════
      MODAL MATERIALE
-══════════════════════════════════════════ -->
-<div class="modal-backdrop" id="modal-materiale">
+═══════════════════════════════════ -->
+<div class="mback" id="m-materiale">
   <div class="modal">
-    <h3 id="modal-mat-title">Nuovo materiale</h3>
+    <h3 id="m-mat-title">Nuovo materiale</h3>
     <input type="hidden" id="mat-id">
-    <div class="grid2">
-      <div class="fg"><div class="fl">Nome materiale *</div><input type="text" id="mat-nome" placeholder="es. Ghiandone grezzo"></div>
-      <div class="fg">
-        <div class="fl">Categoria</div>
-        <select id="mat-categoria">
+    <div class="g2">
+      <div class="fg"><div class="fl">Nome materiale *</div><input id="mat-nome" placeholder="es. Ghiandone grezzo"></div>
+      <div class="fg"><div class="fl">Categoria</div>
+        <select id="mat-cat">
           <option value="granito_sardo">Granito Sardo</option>
           <option value="marmo_sardo">Marmo Sardo</option>
           <option value="basalto">Basalto</option>
@@ -589,19 +566,19 @@ tr:hover td{background:var(--stone8)}
         </select>
       </div>
     </div>
-    <div class="grid3">
-      <div class="fg"><div class="fl">Spessore (cm) *</div><input type="number" id="mat-spessore" placeholder="3" step="0.5"></div>
-      <div class="fg"><div class="fl">Finitura</div><select id="mat-finitura"><option value="grezzo">Grezzo</option><option value="lucido">Lucido</option><option value="levigato">Levigato</option><option value="fiammato">Fiammato</option><option value="granigliato">Granigliato</option></select></div>
-      <div class="fg"><div class="fl">Fornitore</div><input type="text" id="mat-fornitore" placeholder="es. Campolonghi"></div>
+    <div class="g3">
+      <div class="fg"><div class="fl">Spessore (cm) *</div><input type="number" id="mat-sp" step="0.5"></div>
+      <div class="fg"><div class="fl">Finitura</div>
+        <select id="mat-fin"><option value="grezzo">Grezzo</option><option value="lucido">Lucido</option><option value="levigato">Levigato</option><option value="fiammato">Fiammato</option><option value="granigliato">Granigliato</option></select>
+      </div>
+      <div class="fg"><div class="fl">Fornitore</div><input id="mat-forn" placeholder="es. Campolonghi"></div>
     </div>
-    <div class="fg"><div class="fl">Prezzo acquisto €/m² *</div><input type="number" id="mat-prezzo" placeholder="0.00" step="0.01" oninput="prevMateriale()"></div>
-
-    <div class="prev-calc" id="mat-calc-box" style="margin-top:12px">
-      <div class="prev-calc-row"><span class="prev-calc-sub">Con margine 25% → prezzo cliente</span><span class="prev-calc-val" id="mat-prezzo-calc">—</span></div>
+    <div class="fg"><div class="fl">Prezzo acquisto €/m² *</div><input type="number" id="mat-prezzo" step="0.01" oninput="prevMatCalc()"></div>
+    <div class="calc-box" id="mat-calc" style="margin-top:10px">
+      <div class="calc-row"><span class="calc-note">Con margine 25% → prezzo cliente</span><span class="calc-val" id="mat-prezzo-out">—</span></div>
     </div>
-
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-materiale')">Annulla</button>
+    <div class="mfoot">
+      <button class="btn btn-ghost" onclick="closeM('m-materiale')">Annulla</button>
       <button class="btn btn-primary" onclick="saveMateriale()">Salva materiale</button>
     </div>
   </div>
@@ -609,834 +586,560 @@ tr:hover td{background:var(--stone8)}
 
 
 <script>
-// ══════════════════════════════════════════
+// ═══════════════════════════════════
 // SUPABASE
-// ══════════════════════════════════════════
-const SUPABASE_URL = 'https://rytepcntbpxrtrdhqplp.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dGVwY250YnB4cnRyZGhxcGxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTQ4OTgsImV4cCI6MjA5NTY3MDg5OH0.p16KF7oUErDsoOWcLKh2h-DfWR8y72OIyGi4lcMb3_Y';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// ═══════════════════════════════════
+const SB_URL = 'https://rytepcntbpxrtrdhqplp.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dGVwY250YnB4cnRyZGhxcGxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTQ4OTgsImV4cCI6MjA5NTY3MDg5OH0.p16KF7oUErDsoOWcLKh2h-DfWR8y72OIyGi4lcMb3_Y';
+const sb = supabase.createClient(SB_URL, SB_KEY);
 
-// ══════════════════════════════════════════
+// ═══════════════════════════════════
 // STATO GLOBALE
-// ══════════════════════════════════════════
-let CLIENTI = [];
-let PREVENTIVI = [];
-let COMMESSE = [];
-let LASTRE = [];
-let MATERIALI = [];
+// ═══════════════════════════════════
+let CLIENTI=[], PREVENTIVI=[], COMMESSE=[], LASTRE=[], MATERIALI=[];
+let PEZZI_CORRENTI = []; // pezzi del preventivo in editing
+let PEZZO_SEL = null;    // pezzo selezionato per disegno sagoma
 
-// Parametri formula prezzi
-const COSTI_FISSI = () => parseFloat(document.getElementById('param-costi-fissi').value) / 100 || 0.43;
-const MARGINE_DEFAULT = () => parseFloat(document.getElementById('param-margine-default').value) / 100 || 0.25;
-
-// Formula: prezzo_cliente = costo_acquisto / (1 - costi_fissi - margine)
-function calcolaPrezzo(costoAcquisto, marginePerc) {
-  const m = marginePerc / 100;
-  const divisore = 1 - COSTI_FISSI() - m;
-  if (divisore <= 0) return 0;
-  return costoAcquisto / divisore;
+// ═══════════════════════════════════
+// FORMULA PREZZI
+// ═══════════════════════════════════
+const costiF = () => parseFloat(document.getElementById('p-costi').value)/100 || 0.43;
+const margineD = () => parseFloat(document.getElementById('p-margine').value)/100 || 0.25;
+function calcPrezzo(costo, margPerc) {
+  const m = margPerc/100;
+  const d = 1 - costiF() - m;
+  return d <= 0 ? 0 : costo/d;
+}
+function aggFormula() {
+  const ex = calcPrezzo(100, parseFloat(document.getElementById('p-margine').value)||25);
+  document.getElementById('formula-ex').textContent = fE(ex)+'/m²';
 }
 
-// ══════════════════════════════════════════
-// NAVIGAZIONE
-// ══════════════════════════════════════════
-function navTo(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tnb').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
-  document.getElementById('tnb-' + page).classList.add('active');
-  if (page === 'dashboard') renderDashboard();
+// ═══════════════════════════════════
+// UTILITY
+// ═══════════════════════════════════
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).substr(2,5); }
+function oggi(){ return new Date().toISOString().split('T')[0]; }
+function fE(n){ if(!n&&n!==0) return '—'; return '€'+parseFloat(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fD(d){ if(!d) return '—'; return new Date(d).toLocaleDateString('it-IT'); }
+function iniz(a,b){ return ((a||'')[0]||'').toUpperCase()+((b||'')[0]||'').toUpperCase(); }
+function nomeCli(id){ const c=CLIENTI.find(x=>x.id===id); return c?c.nome+' '+c.cognome:'—'; }
+
+function badgePrev(s){
+  const m={bozza:['bg-gray','Bozza'],inviato:['bg-blue','Inviato'],accettato:['bg-green','Accettato'],rifiutato:['bg-red','Rifiutato']};
+  const [c,l]=m[s]||['bg-gray',s]; return `<span class="badge ${c}">${l}</span>`;
+}
+function badgeFase(f){
+  const m={confermata:['bg-teal','Confermata'],materiale_ordinato:['bg-blue','Mat. ord.'],in_lavorazione:['bg-gold','Lavorazione'],consegnata:['bg-green','Consegnata'],fatturata:['bg-gray','Fatturata']};
+  const [c,l]=m[f]||['bg-gray',f]; return `<span class="badge ${c}">${l}</span>`;
+}
+function badgeStato(s){
+  const m={disponibile:['bg-green','● Disponibile'],prenotata:['bg-gold','● Prenotata'],impegnata:['bg-blue','● Impegnata'],consumata:['bg-gray','● Consumata']};
+  const [c,l]=m[s]||['bg-gray',s]; return `<span class="badge ${c}">${l}</span>`;
 }
 
-// ══════════════════════════════════════════
-// TOAST
-// ══════════════════════════════════════════
-function toast(msg, type = 'ok') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast ' + type + ' show';
-  setTimeout(() => t.classList.remove('show'), 3000);
+// ═══════════════════════════════════
+// NAV / MODAL / TABS
+// ═══════════════════════════════════
+function navTo(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tnb').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.getElementById('tnb-'+p).classList.add('active');
+  if(p==='dashboard') renderDash();
+}
+function openM(id){ document.getElementById(id).classList.add('open'); }
+function closeM(id){ document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.mback').forEach(b=>b.addEventListener('click',e=>{if(e.target===b)b.classList.remove('open');}));
+
+function switchTab(ctx, name){
+  const base = ctx==='prev' ? 'prev-tab-' : ctx+'-tab-';
+  document.querySelectorAll(`[id^="${base}"]`).forEach(p=>p.classList.remove('active'));
+  document.getElementById(base+name).classList.add('active');
+  // aggiorna tab buttons
+  const modal = document.getElementById('m-'+ctx);
+  if(modal){
+    modal.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    const idx = ['anagrafica','rilievo','calcolo'].indexOf(name);
+    if(idx>=0){ const tabs=modal.querySelectorAll('.tab'); if(tabs[idx]) tabs[idx].classList.add('active'); }
+  }
+  if(name==='calcolo') calcolaPreventivo();
 }
 
-// ══════════════════════════════════════════
-// MODAL
-// ══════════════════════════════════════════
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function toast(msg, type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast '+type+' show';
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
 
-// Click fuori chiude
-document.querySelectorAll('.modal-backdrop').forEach(b => {
-  b.addEventListener('click', e => { if (e.target === b) b.classList.remove('open'); });
-});
-
-// ══════════════════════════════════════════
-// SUPABASE — CARICAMENTO
-// ══════════════════════════════════════════
-async function loadAll() {
-  try {
-    const [c, p, co, l, m] = await Promise.all([
-      sb.from('clienti').select('*').order('created_at', {ascending: false}),
-      sb.from('preventivi').select('*').order('created_at', {ascending: false}),
-      sb.from('commesse_v2').select('*').order('created_at', {ascending: false}),
-      sb.from('lastre').select('*').order('created_at', {ascending: false}),
+// ═══════════════════════════════════
+// LOAD DATA
+// ═══════════════════════════════════
+async function loadAll(){
+  try{
+    const [c,p,co,l,m]=await Promise.all([
+      sb.from('clienti').select('*').order('created_at',{ascending:false}),
+      sb.from('preventivi').select('*').order('created_at',{ascending:false}),
+      sb.from('commesse_v2').select('*').order('created_at',{ascending:false}),
+      sb.from('lastre').select('*').order('created_at',{ascending:false}),
       sb.from('materiali').select('*').order('nome')
     ]);
-    CLIENTI = c.data || [];
-    PREVENTIVI = p.data || [];
-    COMMESSE = co.data || [];
-    LASTRE = l.data || [];
-    MATERIALI = m.data || [];
-
-    document.getElementById('db-status').className = 'db-status ok';
-    document.getElementById('db-label').textContent = 'DB online';
-
+    CLIENTI=c.data||[]; PREVENTIVI=p.data||[]; COMMESSE=co.data||[];
+    LASTRE=l.data||[]; MATERIALI=m.data||[];
+    document.getElementById('db-dot').className='db-dot ok';
+    document.getElementById('db-lbl').textContent='DB online';
     renderAll();
-  } catch(e) {
-    document.getElementById('db-status').className = 'db-status err';
-    document.getElementById('db-label').textContent = 'DB errore';
-    toast('Errore connessione database', 'err');
+  }catch(e){
+    document.getElementById('db-dot').className='db-dot err';
+    document.getElementById('db-lbl').textContent='Errore DB';
+    toast('Errore connessione database','err');
   }
 }
+function renderAll(){ renderDash(); renderClienti(); renderPreventivi(); renderCommesse(); renderLastre(); renderMateriali(); fillSelects(); }
 
-function renderAll() {
-  renderDashboard();
-  renderClienti();
-  renderPreventivi();
-  renderCommesse();
-  renderLastre();
-  renderMateriali();
-  populateSelects();
+// ═══════════════════════════════════
+// FILL SELECTS
+// ═══════════════════════════════════
+function fillSelects(){
+  // clienti nei preventivi
+  const sc=document.getElementById('prev-cliente');
+  sc.innerHTML='<option value="">Seleziona cliente...</option>';
+  CLIENTI.forEach(c=>sc.innerHTML+=`<option value="${c.id}">${c.nome} ${c.cognome}</option>`);
+  // materiali nei preventivi
+  const sm=document.getElementById('prev-mat');
+  sm.innerHTML='<option value="">Seleziona...</option>';
+  [...new Set(MATERIALI.map(m=>m.nome))].sort().forEach(n=>sm.innerHTML+=`<option value="${n}">${n}</option>`);
+  // materiali nel magazzino
+  const slm=document.getElementById('las-mat');
+  slm.innerHTML='<option value="">Seleziona...</option>';
+  [...new Set(MATERIALI.map(m=>m.nome))].sort().forEach(n=>slm.innerHTML+=`<option value="${n}">${n}</option>`);
+  // categorie filtro materiali
+  const fc=document.getElementById('flt-cat-mat');
+  const cats=[...new Set(MATERIALI.map(m=>m.categoria).filter(Boolean))];
+  fc.innerHTML='<option value="">Tutte le categorie</option>';
+  cats.forEach(c=>fc.innerHTML+=`<option value="${c}">${c.replace(/_/g,' ')}</option>`);
 }
 
-// ══════════════════════════════════════════
-// UTILITÀ
-// ══════════════════════════════════════════
-function iniziali(nome, cognome) {
-  return ((nome||'')[0]||'') + ((cognome||'')[0]||'').toUpperCase();
-}
-
-function fmtEuro(n) {
-  if (!n && n !== 0) return '—';
-  return '€' + parseFloat(n).toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2});
-}
-
-function fmtData(d) {
-  if (!d) return '—';
-  return new Date(d).toLocaleDateString('it-IT');
-}
-
-function oggi() {
-  return new Date().toISOString().split('T')[0];
-}
-
-function uid() {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2,5);
-}
-
-function statoPreventivoBadge(stato) {
-  const map = {
-    bozza: ['badge badge-gray', 'Bozza'],
-    inviato: ['badge badge-blue', 'Inviato'],
-    accettato: ['badge badge-green', 'Accettato'],
-    rifiutato: ['badge badge-red', 'Rifiutato']
-  };
-  const [cls, label] = map[stato] || ['badge badge-gray', stato];
-  return `<span class="${cls}">${label}</span>`;
-}
-
-function faseCommessaBadge(fase) {
-  const map = {
-    confermata: ['badge badge-teal', 'Confermata'],
-    materiale_ordinato: ['badge badge-blue', 'Mat. ordinato'],
-    in_lavorazione: ['badge badge-gold', 'In lavorazione'],
-    consegnata: ['badge badge-green', 'Consegnata'],
-    fatturata: ['badge badge-gray', 'Fatturata']
-  };
-  const [cls, label] = map[fase] || ['badge badge-gray', fase];
-  return `<span class="${cls}">${label}</span>`;
-}
-
-function nomeCliente(id) {
-  const c = CLIENTI.find(x => x.id === id);
-  return c ? c.nome + ' ' + c.cognome : '—';
-}
-
-function statoBadgeLastra(stato) {
-  const map = {
-    disponibile: ['badge badge-green', '● Disponibile'],
-    prenotata: ['badge badge-gold', '● Prenotata'],
-    impegnata: ['badge badge-blue', '● Impegnata'],
-    consumata: ['badge badge-gray', '● Consumata']
-  };
-  const [cls, label] = map[stato] || ['badge badge-gray', stato];
-  return `<span class="${cls}">${label}</span>`;
-}
-
-// ══════════════════════════════════════════
-// POPOLA SELECT
-// ══════════════════════════════════════════
-function populateSelects() {
-  // Select clienti nei modal
-  const selClienti = document.getElementById('prev-cliente');
-  selClienti.innerHTML = '<option value="">Seleziona cliente...</option>';
-  CLIENTI.forEach(c => {
-    selClienti.innerHTML += `<option value="${c.id}">${c.nome} ${c.cognome}</option>`;
-  });
-
-  // Select materiali nel modal lastra
-  const selMatLastra = document.getElementById('l-materiale');
-  selMatLastra.innerHTML = '<option value="">Seleziona...</option>';
-  [...new Set(MATERIALI.map(m => m.nome))].sort().forEach(nome => {
-    selMatLastra.innerHTML += `<option value="${nome}">${nome}</option>`;
-  });
-
-  // Select materiali nel modal preventivo
-  const selMatPrev = document.getElementById('prev-materiale');
-  selMatPrev.innerHTML = '<option value="">Seleziona...</option>';
-  [...new Set(MATERIALI.map(m => m.nome))].sort().forEach(nome => {
-    selMatPrev.innerHTML += `<option value="${nome}">${nome}</option>`;
-  });
-
-  // Filter categorie materiali
-  const selCat = document.getElementById('filter-cat-mat');
-  const cats = [...new Set(MATERIALI.map(m => m.categoria))].filter(Boolean);
-  selCat.innerHTML = '<option value="">Tutte le categorie</option>';
-  cats.forEach(c => { selCat.innerHTML += `<option value="${c}">${c.replace(/_/g,' ')}</option>`; });
-}
-
-// ══════════════════════════════════════════
+// ═══════════════════════════════════
 // DASHBOARD
-// ══════════════════════════════════════════
-function renderDashboard() {
-  const d = new Date();
-  document.getElementById('dash-date').textContent = d.toLocaleDateString('it-IT', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
-
-  const prevAperti = PREVENTIVI.filter(p => p.stato === 'bozza' || p.stato === 'inviato').length;
-  const commAttive = COMMESSE.filter(c => c.fase !== 'fatturata').length;
-  const daIncassare = COMMESSE.filter(c => c.fase !== 'fatturata').reduce((s, c) => s + (c.importo || 0), 0);
-
-  document.getElementById('dash-preventivi-aperti').textContent = prevAperti;
-  document.getElementById('dash-commesse-attive').textContent = commAttive;
-  document.getElementById('dash-da-incassare').textContent = fmtEuro(daIncassare);
-  document.getElementById('dash-clienti').textContent = CLIENTI.length;
-
-  // Lista preventivi recenti
-  const prevRecenti = PREVENTIVI.slice(0, 5);
-  const elPrev = document.getElementById('dash-prev-list');
-  if (!prevRecenti.length) {
-    elPrev.innerHTML = '<div class="empty"><p>Nessun preventivo</p></div>';
-  } else {
-    elPrev.innerHTML = prevRecenti.map(p => `
-      <div class="list-card" onclick="navTo('preventivi')">
-        <div class="list-card-avatar">${iniziali(nomeCliente(p.cliente_id).split(' ')[0], nomeCliente(p.cliente_id).split(' ')[1])}</div>
-        <div class="list-card-body">
-          <div class="list-card-name">${nomeCliente(p.cliente_id)}</div>
-          <div class="list-card-sub">${p.descrizione || '—'} &nbsp; ${statoPreventivoBadge(p.stato)}</div>
-        </div>
-        <div class="list-card-right">
-          <div class="list-card-amount">${fmtEuro(p.importo_totale)}</div>
-          <div class="list-card-date">${fmtData(p.data)}</div>
-        </div>
-      </div>`).join('');
-  }
-
-  // Lista commesse in lavorazione
-  const commLav = COMMESSE.filter(c => c.fase === 'in_lavorazione').slice(0, 5);
-  const elComm = document.getElementById('dash-comm-list');
-  if (!commLav.length) {
-    elComm.innerHTML = '<div class="empty"><p>Nessuna commessa in lavorazione</p></div>';
-  } else {
-    elComm.innerHTML = commLav.map(c => `
-      <div class="list-card" onclick="navTo('commesse')">
-        <div class="list-card-avatar">${iniziali(nomeCliente(c.cliente_id).split(' ')[0], nomeCliente(c.cliente_id).split(' ')[1])}</div>
-        <div class="list-card-body">
-          <div class="list-card-name">${nomeCliente(c.cliente_id)}</div>
-          <div class="list-card-sub">${c.descrizione || '—'}</div>
-        </div>
-        <div class="list-card-right">
-          <div class="list-card-amount">${fmtEuro(c.importo)}</div>
-          <div class="list-card-date">${faseCommessaBadge(c.fase)}</div>
-        </div>
-      </div>`).join('');
-  }
+// ═══════════════════════════════════
+function renderDash(){
+  const d=new Date();
+  document.getElementById('dash-data').textContent=d.toLocaleDateString('it-IT',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('d-prev').textContent=PREVENTIVI.filter(p=>p.stato==='bozza'||p.stato==='inviato').length;
+  document.getElementById('d-comm').textContent=COMMESSE.filter(c=>c.fase!=='fatturata').length;
+  document.getElementById('d-inc').textContent=fE(COMMESSE.filter(c=>c.fase!=='fatturata').reduce((s,c)=>s+(c.importo||0),0));
+  document.getElementById('d-cli').textContent=CLIENTI.length;
+  const elP=document.getElementById('d-prev-list');
+  const rP=PREVENTIVI.slice(0,5);
+  elP.innerHTML=rP.length?rP.map(p=>`<div class="lc"><div class="lc-av">${iniz(...nomeCli(p.cliente_id).split(' '))}</div><div class="lc-body"><div class="lc-name">${nomeCli(p.cliente_id)}</div><div class="lc-sub">${p.descrizione||'—'} ${badgePrev(p.stato)}</div></div><div class="lc-right"><div class="lc-amt">${fE(p.importo_totale)}</div><div class="lc-date">${fD(p.data)}</div></div></div>`).join(''):'<div class="empty"><p>Nessun preventivo</p></div>';
+  const elC=document.getElementById('d-comm-list');
+  const rC=COMMESSE.filter(c=>c.fase==='in_lavorazione').slice(0,5);
+  elC.innerHTML=rC.length?rC.map(c=>`<div class="lc"><div class="lc-av">${iniz(...nomeCli(c.cliente_id).split(' '))}</div><div class="lc-body"><div class="lc-name">${nomeCli(c.cliente_id)}</div><div class="lc-sub">${c.descrizione||'—'}</div></div><div class="lc-right">${fE(c.importo)}</div></div>`).join(''):'<div class="empty"><p>Nessuna commessa in lavorazione</p></div>';
 }
 
-// ══════════════════════════════════════════
+// ═══════════════════════════════════
 // CLIENTI
-// ══════════════════════════════════════════
-function renderClienti(lista) {
-  const l = lista || CLIENTI;
-  const el = document.getElementById('clienti-list');
-  if (!l.length) {
-    el.innerHTML = '<div class="empty"><div class="empty-icon">👥</div><p>Nessun cliente ancora</p><button class="btn btn-primary" onclick="openModalCliente()">Aggiungi il primo cliente</button></div>';
-    return;
-  }
-  el.innerHTML = `<table>
-    <thead><tr><th>Cliente</th><th>Tipo</th><th>Telefono</th><th>Email</th><th>Preventivi</th><th>Commesse</th><th></th></tr></thead>
-    <tbody>${l.map(c => {
-      const nPrev = PREVENTIVI.filter(p => p.cliente_id === c.id).length;
-      const nComm = COMMESSE.filter(co => co.cliente_id === c.id).length;
-      return `<tr>
-        <td><strong>${c.nome} ${c.cognome}</strong>${c.indirizzo ? `<br><span style="font-size:11px;color:var(--stone4)">${c.indirizzo}</span>` : ''}</td>
-        <td><span class="badge badge-gray">${c.tipo||'—'}</span></td>
-        <td class="tnum">${c.tel||'—'}</td>
-        <td>${c.email||'—'}</td>
-        <td class="tnum">${nPrev}</td>
-        <td class="tnum">${nComm}</td>
-        <td>
-          <button class="btn btn-sm btn-ghost" onclick="editCliente('${c.id}')">✏️</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteCliente('${c.id}')">🗑</button>
-        </td>
-      </tr>`;
-    }).join('')}</tbody>
-  </table>`;
+// ═══════════════════════════════════
+function renderClienti(lista){
+  const l=lista||CLIENTI;
+  const el=document.getElementById('clienti-list');
+  if(!l.length){el.innerHTML='<div class="empty"><div class="empty-icon">👥</div><p>Nessun cliente ancora</p></div>';return;}
+  el.innerHTML=`<table><thead><tr><th>Cliente</th><th>Tipo</th><th>Canale</th><th>Telefono</th><th>Preventivi</th><th>Commesse</th><th></th></tr></thead><tbody>${l.map(c=>`<tr>
+    <td><strong>${c.nome} ${c.cognome}</strong>${c.indirizzo?`<br><span style="font-size:11px;color:var(--stone4)">${c.indirizzo}</span>`:''}</td>
+    <td><span class="badge bg-gray">${c.tipo||'—'}</span></td>
+    <td><span class="badge bg-teal">${c.canale||'—'}</span></td>
+    <td class="tnum">${c.tel||'—'}</td>
+    <td class="tnum">${PREVENTIVI.filter(p=>p.cliente_id===c.id).length}</td>
+    <td class="tnum">${COMMESSE.filter(x=>x.cliente_id===c.id).length}</td>
+    <td><button class="btn btn-sm btn-ghost" onclick="openCliente('${c.id}')">✏️</button> <button class="btn btn-sm btn-danger" onclick="delCliente('${c.id}')">🗑</button></td>
+  </tr>`).join('')}</tbody></table>`;
+}
+function filtClienti(){
+  const q=document.getElementById('src-cli').value.toLowerCase();
+  const t=document.getElementById('flt-tipo-cli').value;
+  const k=document.getElementById('flt-canale-cli').value;
+  renderClienti(CLIENTI.filter(c=>(c.nome+' '+c.cognome+' '+(c.tel||'')).toLowerCase().includes(q)&&(!t||c.tipo===t)&&(!k||c.canale===k)));
+}
+function openCliente(id){
+  document.getElementById('m-cli-title').textContent=id?'Modifica cliente':'Nuovo cliente';
+  ['cli-id','cli-nome','cli-cognome','cli-tel','cli-email','cli-indirizzo','cli-note'].forEach(f=>document.getElementById(f).value='');
+  document.getElementById('cli-tipo').value='privato';
+  document.getElementById('cli-canale').value='passaparola';
+  if(id){const c=CLIENTI.find(x=>x.id===id);if(c){document.getElementById('cli-id').value=c.id;document.getElementById('cli-nome').value=c.nome||'';document.getElementById('cli-cognome').value=c.cognome||'';document.getElementById('cli-tel').value=c.tel||'';document.getElementById('cli-email').value=c.email||'';document.getElementById('cli-tipo').value=c.tipo||'privato';document.getElementById('cli-canale').value=c.canale||'passaparola';document.getElementById('cli-indirizzo').value=c.indirizzo||'';document.getElementById('cli-note').value=c.note||'';}}
+  openM('m-cliente');
+}
+async function saveCliente(){
+  const nome=document.getElementById('cli-nome').value.trim();
+  const cognome=document.getElementById('cli-cognome').value.trim();
+  if(!nome&&!cognome){toast('Inserisci nome o cognome','err');return;}
+  const id=document.getElementById('cli-id').value||uid();
+  const {error}=await sb.from('clienti').upsert({id,nome,cognome,tel:document.getElementById('cli-tel').value.trim(),email:document.getElementById('cli-email').value.trim(),tipo:document.getElementById('cli-tipo').value,canale:document.getElementById('cli-canale').value,indirizzo:document.getElementById('cli-indirizzo').value.trim(),note:document.getElementById('cli-note').value.trim()});
+  if(error){toast('Errore: '+error.message,'err');return;}
+  toast('Cliente salvato ✓'); closeM('m-cliente'); await loadAll();
+}
+async function delCliente(id){
+  if(!confirm('Eliminare questo cliente?')) return;
+  await sb.from('clienti').delete().eq('id',id);
+  toast('Cliente eliminato'); await loadAll();
 }
 
-function filterClienti() {
-  const q = document.getElementById('search-clienti').value.toLowerCase();
-  const tipo = document.getElementById('filter-tipo-cliente').value;
-  const filtered = CLIENTI.filter(c => {
-    const match = (c.nome+' '+c.cognome+' '+(c.tel||'')+' '+(c.email||'')).toLowerCase().includes(q);
-    const matchTipo = !tipo || c.tipo === tipo;
-    return match && matchTipo;
-  });
-  renderClienti(filtered);
+// ═══════════════════════════════════
+// PREVENTIVI — LISTA
+// ═══════════════════════════════════
+function renderPreventivi(lista){
+  const l=lista||PREVENTIVI;
+  const el=document.getElementById('preventivi-list');
+  if(!l.length){el.innerHTML='<div class="empty"><div class="empty-icon">📋</div><p>Nessun preventivo ancora</p></div>';return;}
+  el.innerHTML=l.map(p=>`<div class="card" style="padding:14px 16px">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div class="lc-av">${iniz(...nomeCli(p.cliente_id).split(' '))}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:500;font-size:13px">${nomeCli(p.cliente_id)}</div>
+        <div style="font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace">${p.descrizione||'—'} · ${fD(p.data)}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-family:'DM Mono',monospace;font-weight:500">${fE(p.importo_totale)}</span>
+        ${badgePrev(p.stato)}
+      </div>
+      <div class="btn-row">
+        ${p.stato==='bozza'?`<button class="btn btn-sm btn-ghost" onclick="cambiaStatoPrev('${p.id}','inviato')">📤 Invia</button>`:''}
+        ${p.stato==='inviato'?`<button class="btn btn-sm btn-green" onclick="cambiaStatoPrev('${p.id}','accettato')">✓ Accetta</button><button class="btn btn-sm btn-danger" onclick="cambiaStatoPrev('${p.id}','rifiutato')">✗ Rifiuta</button>`:''}
+        ${p.stato==='accettato'?`<button class="btn btn-sm btn-teal" onclick="convertiCommessa('${p.id}')">→ Commessa</button>`:''}
+        ${p.stato==='rifiutato'?`<button class="btn btn-sm btn-ghost" onclick="cambiaStatoPrev('${p.id}','bozza')">↩ Riapri</button>`:''}
+        <button class="btn btn-sm btn-ghost" onclick="openPreventivo('${p.id}')">✏️</button>
+        <button class="btn btn-sm btn-danger" onclick="delPreventivo('${p.id}')">🗑</button>
+      </div>
+    </div>
+  </div>`).join('');
+}
+function filtPreventivi(){
+  const q=document.getElementById('src-prev').value.toLowerCase();
+  const s=document.getElementById('flt-stato-prev').value;
+  renderPreventivi(PREVENTIVI.filter(p=>(nomeCli(p.cliente_id)+' '+(p.descrizione||'')).toLowerCase().includes(q)&&(!s||p.stato===s)));
+}
+async function cambiaStatoPrev(id, stato){
+  await sb.from('preventivi').update({stato, data_stato: oggi()}).eq('id',id);
+  toast('Stato aggiornato: '+stato); await loadAll();
+}
+async function delPreventivo(id){
+  if(!confirm('Eliminare questo preventivo?')) return;
+  await sb.from('preventivi').delete().eq('id',id);
+  toast('Preventivo eliminato'); await loadAll();
+}
+async function convertiCommessa(prevId){
+  const p=PREVENTIVI.find(x=>x.id===prevId);
+  if(!p) return;
+  if(!confirm(`Convertire il preventivo di ${nomeCli(p.cliente_id)} in commessa?`)) return;
+  const id=uid();
+  const pezzi=p.pezzi?JSON.parse(p.pezzi):[];
+  const {error}=await sb.from('commesse_v2').upsert({id,cliente_id:p.cliente_id,preventivo_id:p.id,descrizione:p.descrizione,materiale_nome:p.materiale_nome,spessore_cm:p.spessore_cm,importo:p.importo_totale||0,fase:'confermata',data_confermata:oggi(),pagamenti:'[]',log:JSON.stringify([{data:oggi(),msg:'Commessa creata da preventivo #'+p.id.slice(-6)}])});
+  if(error){toast('Errore: '+error.message,'err');return;}
+  toast('✓ Commessa creata — vai su Commesse'); await loadAll();
 }
 
-function openModalCliente(id) {
-  document.getElementById('modal-cliente-title').textContent = id ? 'Modifica cliente' : 'Nuovo cliente';
-  document.getElementById('cliente-id').value = '';
-  ['c-nome','c-cognome','c-tel','c-email','c-indirizzo','c-note'].forEach(f => document.getElementById(f).value = '');
-  document.getElementById('c-tipo').value = 'privato';
-  if (id) {
-    const c = CLIENTI.find(x => x.id === id);
-    if (c) {
-      document.getElementById('cliente-id').value = c.id;
-      document.getElementById('c-nome').value = c.nome || '';
-      document.getElementById('c-cognome').value = c.cognome || '';
-      document.getElementById('c-tel').value = c.tel || '';
-      document.getElementById('c-email').value = c.email || '';
-      document.getElementById('c-tipo').value = c.tipo || 'privato';
-      document.getElementById('c-indirizzo').value = c.indirizzo || '';
-      document.getElementById('c-note').value = c.note || '';
+// ═══════════════════════════════════
+// PREVENTIVO — EDITOR
+// ═══════════════════════════════════
+function openPreventivo(id){
+  fillSelects();
+  PEZZI_CORRENTI=[];
+  document.getElementById('m-prev-title').textContent=id?'Modifica preventivo':'Nuovo preventivo';
+  document.getElementById('prev-id').value='';
+  document.getElementById('prev-cliente').value='';
+  document.getElementById('prev-descr').value='';
+  document.getElementById('prev-mat').value='';
+  document.getElementById('prev-sp').innerHTML='<option value="">—</option>';
+  document.getElementById('prev-forn').innerHTML='<option value="">—</option>';
+  document.getElementById('prev-margine').value='25';
+  document.getElementById('prev-scarto').value='12';
+  document.getElementById('prev-stato').value='bozza';
+  document.getElementById('prev-data').value=oggi();
+  document.getElementById('prev-note').value='';
+  switchTab('prev','anagrafica');
+  if(id){
+    const p=PREVENTIVI.find(x=>x.id===id);
+    if(p){
+      document.getElementById('prev-id').value=p.id;
+      document.getElementById('prev-cliente').value=p.cliente_id||'';
+      document.getElementById('prev-descr').value=p.descrizione||'';
+      document.getElementById('prev-margine').value=p.margine_perc||25;
+      document.getElementById('prev-scarto').value=p.scarto_perc||12;
+      document.getElementById('prev-stato').value=p.stato||'bozza';
+      document.getElementById('prev-data').value=p.data||oggi();
+      document.getElementById('prev-note').value=p.note||'';
+      if(p.pezzi){ try{ PEZZI_CORRENTI=JSON.parse(p.pezzi); }catch(e){ PEZZI_CORRENTI=[]; } }
+      if(p.materiale_nome){ document.getElementById('prev-mat').value=p.materiale_nome; onPrevMat(p.spessore_cm, p.fornitore); }
     }
   }
-  openModal('modal-cliente');
+  if(!PEZZI_CORRENTI.length) addPezzo();
+  renderPezzi();
+  openM('m-preventivo');
 }
 
-function editCliente(id) { openModalCliente(id); }
-
-async function saveCliente() {
-  const nome = document.getElementById('c-nome').value.trim();
-  const cognome = document.getElementById('c-cognome').value.trim();
-  if (!nome && !cognome) { toast('Inserisci almeno nome o cognome', 'err'); return; }
-  const id = document.getElementById('cliente-id').value || uid();
-  const data = {
-    id, nome, cognome,
-    tel: document.getElementById('c-tel').value.trim(),
-    email: document.getElementById('c-email').value.trim(),
-    tipo: document.getElementById('c-tipo').value,
-    indirizzo: document.getElementById('c-indirizzo').value.trim(),
-    note: document.getElementById('c-note').value.trim()
-  };
-  const { error } = await sb.from('clienti').upsert(data);
-  if (error) { toast('Errore salvataggio: ' + error.message, 'err'); return; }
-  toast('Cliente salvato ✓');
-  closeModal('modal-cliente');
-  await loadAll();
+function onPrevMat(spSel, fornSel){
+  const nome=document.getElementById('prev-mat').value;
+  const vars=MATERIALI.filter(m=>m.nome===nome);
+  const sps=[...new Set(vars.map(m=>m.spessore))].sort((a,b)=>a-b);
+  const selSp=document.getElementById('prev-sp');
+  selSp.innerHTML='<option value="">—</option>';
+  sps.forEach(s=>selSp.innerHTML+=`<option value="${s}">${s} cm</option>`);
+  if(spSel) selSp.value=spSel;
+  onPrevSp(fornSel);
+}
+function onPrevSp(fornSel){
+  const nome=document.getElementById('prev-mat').value;
+  const sp=parseFloat(document.getElementById('prev-sp').value);
+  const vars=MATERIALI.filter(m=>m.nome===nome&&m.spessore==sp);
+  const selF=document.getElementById('prev-forn');
+  selF.innerHTML='<option value="">—</option>';
+  vars.forEach(m=>selF.innerHTML+=`<option value="${m.fornitore}">${m.fornitore} — €${m.prezzo}/m²</option>`);
+  if(fornSel) selF.value=fornSel;
+  calcolaPreventivo();
 }
 
-async function deleteCliente(id) {
-  if (!confirm('Eliminare questo cliente?')) return;
-  await sb.from('clienti').delete().eq('id', id);
-  toast('Cliente eliminato');
-  await loadAll();
-}
+// ═══════════════════════════════════
+// PEZZI E SAGOME
+// ═══════════════════════════════════
+const FORME={
+  rettangolo:{label:'Rettangolo',misure:['Lunghezza (cm)','Larghezza (cm)'],lati:['Frontale (L)','Dx (La)','Posteriore (L)','Sx (La)'],calcMq:(m)=>m[0]*m[1]/10000,calcLati:(m)=>[[m[0]],[m[1]],[m[0]],[m[1]]],disegna:disegnaRett},
+  l:{label:'Forma a L',misure:['A (cm)','B (cm)','C (cm)','D (cm)'],lati:['L1','L2','L3','L4','L5','L6'],calcMq:(m)=>((m[0]*m[1])-(m[2]*m[3]))/10000,calcLati:(m)=>[[m[0]],[m[1]-m[3]],[m[0]-m[2]],[m[3]],[m[2]],[m[1]]],disegna:disegnaL},
+  u:{label:'Forma a U',misure:['A (cm)','B (cm)','C (cm)','D (cm)','E (cm)'],lati:['L1','L2','L3','L4','L5','L6','L7','L8'],calcMq:(m)=>(m[0]*m[1]-(m[2]*m[3])-(m[4]*m[3]))/10000,calcLati:(m)=>[[m[0]],[m[1]],[m[0]],[m[3]],[m[2]],[m[1]-m[3]-m[3]],[m[4]],[m[3]]],disegna:disegnaU},
+  t:{label:'Forma a T',misure:['A (cm)','B (cm)','C (cm)','D (cm)'],lati:['L1','L2','L3','L4','L5','L6','L7','L8'],calcMq:(m)=>(m[0]*m[3]+m[2]*m[1])/10000,calcLati:(m)=>{const dx=(m[0]-m[2])/2;return [[m[0]],[m[3]],[dx],[m[1]],[m[2]],[m[1]],[dx],[m[3]]];},disegna:disegnaT},
+  trapezio:{label:'Trapezio',misure:['Base (cm)','Altezza (cm)','Offset sx (cm)'],lati:['Base','Dx','Testa','Sx'],calcMq:(m)=>m[0]*m[1]/10000,calcLati:(m)=>[[m[0]],[Math.sqrt(m[1]*m[1]+(m[0]-m[2])*(m[0]-m[2]))],[m[0]],[Math.sqrt(m[1]*m[1]+m[2]*m[2])]],disegna:disegnaTrap},
+  libera:{label:'Forma libera',misure:['Lato 1','Lato 2','Lato 3','Lato 4'],lati:['L1','L2','L3','L4'],calcMq:(m)=>0,calcLati:(m)=>[[m[0]],[m[1]],[m[2]],[m[3]]],disegna:()=>{}}
+};
 
-// ══════════════════════════════════════════
-// PREVENTIVI
-// ══════════════════════════════════════════
-function renderPreventivi(lista) {
-  const l = lista || PREVENTIVI;
-  const el = document.getElementById('preventivi-list');
-  if (!l.length) {
-    el.innerHTML = '<div class="empty"><div class="empty-icon">📋</div><p>Nessun preventivo ancora</p><button class="btn btn-primary" onclick="openModalPreventivo()">Crea il primo preventivo</button></div>';
-    return;
-  }
-  el.innerHTML = l.map(p => `
-    <div class="list-card">
-      <div class="list-card-avatar">${iniziali(nomeCliente(p.cliente_id).split(' ')[0], nomeCliente(p.cliente_id).split(' ')[1])}</div>
-      <div class="list-card-body">
-        <div class="list-card-name">${nomeCliente(p.cliente_id)}</div>
-        <div class="list-card-sub">${p.descrizione||'—'} &nbsp; ${statoPreventivoBadge(p.stato)}</div>
+function addPezzo(){
+  const p={id:uid(),qta:1,forma:'rettangolo',misure:[0,0,0,0,0],lati:[],note:''};
+  // inizializza lati
+  aggiornaLatiPezzo(p);
+  PEZZI_CORRENTI.push(p);
+  renderPezzi();
+}
+function aggiornaLatiPezzo(p){
+  const f=FORME[p.forma];
+  const ml=f.calcLati(p.misure);
+  p.lati=ml.map((m,i)=>({idx:i,label:f.lati[i]||'L'+(i+1),ml:m[0]||0,bordo:p.lati[i]?.bordo||'nessuno',goccia:p.lati[i]?.goccia||false}));
+}
+function renderPezzi(){
+  const el=document.getElementById('pezzi-container');
+  if(!PEZZI_CORRENTI.length){el.innerHTML='<div class="empty"><p>Nessun pezzo — clicca "+ Aggiungi pezzo"</p></div>';return;}
+  el.innerHTML=PEZZI_CORRENTI.map((p,idx)=>renderPezzoCard(p,idx)).join('');
+}
+function renderPezzoCard(p,idx){
+  const f=FORME[p.forma];
+  const mq=p.misure[0]&&p.misure[1]?f.calcMq(p.misure):0;
+  return `<div class="pezzo-card" id="pc-${p.id}">
+    <div class="pezzo-header">
+      <div class="pezzo-num">Pezzo ${idx+1}</div>
+      <div class="btn-row">
+        <label style="font-size:12px;color:var(--stone4)">Qta:</label>
+        <input type="number" value="${p.qta}" min="1" style="width:55px" onchange="setPezzo('${p.id}','qta',this.value)">
+        <button class="btn btn-sm btn-danger" onclick="delPezzo('${p.id}')">🗑</button>
       </div>
-      <div class="list-card-right" style="display:flex;align-items:center;gap:10px">
+    </div>
+    <!-- SCELTA FORMA -->
+    <div style="margin-bottom:10px">
+      <div class="fl">Forma</div>
+      <div class="sagoma-forme">${Object.keys(FORME).map(k=>`<button class="sf-btn ${p.forma===k?'active':''}" onclick="setForma('${p.id}','${k}')">${FORME[k].label}</button>`).join('')}</div>
+    </div>
+    <!-- MISURE -->
+    <div class="fl">Misure (cm)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+      ${f.misure.map((lbl,i)=>`<div style="flex:1;min-width:80px"><div class="fl">${lbl}</div><input type="number" value="${p.misure[i]||''}" placeholder="0" oninput="setMisura('${p.id}',${i},this.value)" style="width:100%"></div>`).join('')}
+    </div>
+    <!-- LATI LAVORAZIONI -->
+    <div class="lato-panel">
+      <h4>Lavorazioni per lato — ${mq>0?'m² pezzo: '+mq.toFixed(3):'inserisci le misure'}</h4>
+      ${p.lati.map((l,i)=>`<div class="lato-row">
+        <div class="lato-num">${i+1}</div>
         <div>
-          <div class="list-card-amount">${fmtEuro(p.importo_totale)}</div>
-          <div class="list-card-date">${fmtData(p.data)}</div>
+          <div style="font-size:12px;font-weight:500">${l.label}</div>
+          <div class="lato-ml">${l.ml>0?l.ml.toFixed(1)+' cm':'—'}</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:4px">
-          <button class="btn btn-sm btn-ghost" onclick="editPreventivo('${p.id}')">✏️</button>
-          ${p.stato === 'accettato' ? `<button class="btn btn-sm btn-teal" onclick="convertiInCommessa('${p.id}')">→ Commessa</button>` : ''}
-          <button class="btn btn-sm btn-danger" onclick="deletePreventivo('${p.id}')">🗑</button>
-        </div>
-      </div>
-    </div>`).join('');
+        <select onchange="setLato('${p.id}',${i},'bordo',this.value)" style="font-size:12px">
+          <option value="nessuno" ${l.bordo==='nessuno'?'selected':''}>Nessuno</option>
+          <option value="filo_lucido" ${l.bordo==='filo_lucido'?'selected':''}>Filo lucido</option>
+          <option value="bisello" ${l.bordo==='bisello'?'selected':''}>Bisello</option>
+          <option value="toro" ${l.bordo==='toro'?'selected':''}>Toro</option>
+          <option value="mezza_toro" ${l.bordo==='mezza_toro'?'selected':''}>Mezza toro</option>
+          <option value="profilo_custom" ${l.bordo==='profilo_custom'?'selected':''}>Profilo custom</option>
+        </select>
+        <label style="font-size:12px;display:flex;align-items:center;gap:4px;cursor:pointer">
+          <input type="checkbox" ${l.goccia?'checked':''} onchange="setLato('${p.id}',${i},'goccia',this.checked)"> Goccia
+        </label>
+      </div>`).join('')}
+    </div>
+    <div class="fg" style="margin-top:10px"><div class="fl">Note pezzo</div><input value="${p.note||''}" placeholder="es. foro lavello Ø90 al centro" onchange="setPezzo('${p.id}','note',this.value)"></div>
+  </div>`;
+}
+function setForma(pid,forma){
+  const p=PEZZI_CORRENTI.find(x=>x.id===pid); if(!p) return;
+  p.forma=forma; p.misure=[0,0,0,0,0]; aggiornaLatiPezzo(p); renderPezzi();
+}
+function setMisura(pid,idx,val){
+  const p=PEZZI_CORRENTI.find(x=>x.id===pid); if(!p) return;
+  p.misure[idx]=parseFloat(val)||0; aggiornaLatiPezzo(p);
+  // aggiorna solo il lato panel senza re-render completo
+  const card=document.getElementById('pc-'+pid);
+  if(card){
+    const f=FORME[p.forma];
+    const mq=f.calcMq(p.misure);
+    const lp=card.querySelector('.lato-panel h4');
+    if(lp) lp.textContent='Lavorazioni per lato — '+(mq>0?'m² pezzo: '+mq.toFixed(3):'inserisci le misure');
+    p.lati.forEach((l,i)=>{
+      const rows=card.querySelectorAll('.lato-row');
+      if(rows[i]){const ml=rows[i].querySelector('.lato-ml');if(ml)ml.textContent=l.ml>0?l.ml.toFixed(1)+' cm':'—';}
+    });
+  }
+  calcolaPreventivo();
+}
+function setLato(pid,idx,key,val){
+  const p=PEZZI_CORRENTI.find(x=>x.id===pid); if(!p||!p.lati[idx]) return;
+  p.lati[idx][key]=val; calcolaPreventivo();
+}
+function setPezzo(pid,key,val){
+  const p=PEZZI_CORRENTI.find(x=>x.id===pid); if(!p) return;
+  p[key]=key==='qta'?parseInt(val)||1:val; calcolaPreventivo();
+}
+function delPezzo(pid){
+  PEZZI_CORRENTI=PEZZI_CORRENTI.filter(x=>x.id!==pid); renderPezzi(); calcolaPreventivo();
 }
 
-function filterPreventivi() {
-  const q = document.getElementById('search-preventivi').value.toLowerCase();
-  const stato = document.getElementById('filter-stato-prev').value;
-  const filtered = PREVENTIVI.filter(p => {
-    const nome = nomeCliente(p.cliente_id).toLowerCase();
-    const match = (nome + ' ' + (p.descrizione||'')).toLowerCase().includes(q);
-    const matchStato = !stato || p.stato === stato;
-    return match && matchStato;
+// ═══════════════════════════════════
+// CALCOLO PREVENTIVO
+// ═══════════════════════════════════
+function calcolaPreventivo(){
+  const nomeMat=document.getElementById('prev-mat')?.value;
+  const sp=parseFloat(document.getElementById('prev-sp')?.value)||0;
+  const forn=document.getElementById('prev-forn')?.value;
+  const margine=parseFloat(document.getElementById('prev-margine')?.value)||25;
+  const scarto=parseFloat(document.getElementById('prev-scarto')?.value)||12;
+  const mat=MATERIALI.find(m=>m.nome===nomeMat&&m.spessore==sp&&m.fornitore===forn);
+  const el=document.getElementById('prev-riepilogo-box');
+  if(!el) return;
+
+  // calcola totali da pezzi
+  let mqTotNetti=0, mqTotLordi=0;
+  const mlPerBordo={};
+  let gocciaML=0;
+  PEZZI_CORRENTI.forEach(p=>{
+    const f=FORME[p.forma];
+    const mqP=f.calcMq(p.misure);
+    mqTotNetti+=mqP*(p.qta||1);
+    mqTotLordi+=mqP*(p.qta||1)*(1+scarto/100);
+    p.lati.forEach(l=>{
+      if(l.bordo&&l.bordo!=='nessuno'){
+        const mlL=(l.ml/100)*(p.qta||1);
+        mlPerBordo[l.bordo]=(mlPerBordo[l.bordo]||0)+mlL;
+      }
+      if(l.goccia) gocciaML+=(l.ml/100)*(p.qta||1);
+    });
   });
-  renderPreventivi(filtered);
+
+  const costoAcq=mat?mat.prezzo:0;
+  const prezzoMq=mat?calcPrezzo(costoAcq,margine):0;
+  const totMat=prezzoMq*mqTotLordi;
+
+  // build riepilogo HTML
+  let html=`<div class="prev-riepilogo">
+    <div class="calc-row"><span>Materiale</span><span class="calc-val">${nomeMat||'—'} ${sp?sp+'cm':''}</span></div>
+    <div class="calc-row"><span class="calc-note">Fornitore</span><span class="calc-val">${forn||'—'}</span></div>
+    ${costoAcq?`<div class="calc-row"><span class="calc-note">Costo acquisto</span><span class="calc-val">€${costoAcq.toFixed(2)}/m²</span></div>`:''}
+    ${prezzoMq?`<div class="calc-row"><span class="calc-note">Prezzo cliente (margine ${margine}%)</span><span class="calc-val">€${prezzoMq.toFixed(2)}/m²</span></div>`:''}
+    <div class="calc-row sep"><span>m² netti</span><span class="calc-val">${mqTotNetti.toFixed(3)} m²</span></div>
+    <div class="calc-row"><span>m² con scarto ${scarto}%</span><span class="calc-val">${mqTotLordi.toFixed(3)} m²</span></div>
+    ${Object.entries(mlPerBordo).map(([b,ml])=>`<div class="calc-row"><span>${b.replace(/_/g,' ')}</span><span class="calc-val">${ml.toFixed(2)} ml</span></div>`).join('')}
+    ${gocciaML>0?`<div class="calc-row"><span>Gocciolatoio</span><span class="calc-val">${gocciaML.toFixed(2)} ml</span></div>`:''}
+    <div class="calc-row tot"><span>Totale materiale</span><span class="calc-val">${fE(totMat)}</span></div>
+  </div>`;
+  el.innerHTML=html;
+  return {mqTotNetti, mqTotLordi, totMat, mlPerBordo, gocciaML};
 }
 
-function openModalPreventivo(id) {
-  populateSelects();
-  document.getElementById('modal-prev-title').textContent = id ? 'Modifica preventivo' : 'Nuovo preventivo';
-  document.getElementById('prev-id').value = '';
-  document.getElementById('prev-cliente').value = '';
-  document.getElementById('prev-descrizione').value = '';
-  document.getElementById('prev-materiale').value = '';
-  document.getElementById('prev-spessore').innerHTML = '<option value="">—</option>';
-  document.getElementById('prev-fornitore').innerHTML = '<option value="">—</option>';
-  document.getElementById('prev-mq').value = '';
-  document.getElementById('prev-scarto').value = '12';
-  document.getElementById('prev-margine').value = '25';
-  document.getElementById('prev-stato').value = 'bozza';
-  document.getElementById('prev-data').value = oggi();
-  document.getElementById('prev-note').value = '';
-  document.getElementById('prev-calc-box').style.display = 'none';
-
-  if (id) {
-    const p = PREVENTIVI.find(x => x.id === id);
-    if (p) {
-      document.getElementById('prev-id').value = p.id;
-      document.getElementById('prev-cliente').value = p.cliente_id || '';
-      document.getElementById('prev-descrizione').value = p.descrizione || '';
-      document.getElementById('prev-mq').value = p.mq_netti || '';
-      document.getElementById('prev-scarto').value = p.scarto_perc || 12;
-      document.getElementById('prev-margine').value = p.margine_perc || 25;
-      document.getElementById('prev-stato').value = p.stato || 'bozza';
-      document.getElementById('prev-data').value = p.data || oggi();
-      document.getElementById('prev-note').value = p.note || '';
-    }
-  }
-  openModal('modal-preventivo');
-}
-
-function editPreventivo(id) { openModalPreventivo(id); }
-
-function onPrevMaterialeChange() {
-  const nome = document.getElementById('prev-materiale').value;
-  const varianti = MATERIALI.filter(m => m.nome === nome);
-
-  // Popola spessori unici
-  const spessori = [...new Set(varianti.map(m => m.spessore))].sort((a,b) => a-b);
-  const selSp = document.getElementById('prev-spessore');
-  selSp.innerHTML = '<option value="">—</option>';
-  spessori.forEach(s => { selSp.innerHTML += `<option value="${s}">${s} cm</option>`; });
-
-  // Reset fornitore
-  document.getElementById('prev-fornitore').innerHTML = '<option value="">—</option>';
-  selSp.onchange = () => {
-    const sp = parseFloat(selSp.value);
-    const fornitori = varianti.filter(m => m.spessore == sp);
-    const selFor = document.getElementById('prev-fornitore');
-    selFor.innerHTML = '<option value="">—</option>';
-    fornitori.forEach(m => { selFor.innerHTML += `<option value="${m.fornitore}">${m.fornitore} — €${m.prezzo}/m²</option>`; });
-    calcolaPrezzoPreventivo();
+async function savePreventivo(){
+  const cliId=document.getElementById('prev-cliente').value;
+  const descr=document.getElementById('prev-descr').value.trim();
+  if(!cliId){toast('Seleziona un cliente','err');return;}
+  if(!descr){toast('Inserisci una descrizione','err');return;}
+  const nomeMat=document.getElementById('prev-mat').value;
+  const sp=parseFloat(document.getElementById('prev-sp').value)||null;
+  const forn=document.getElementById('prev-forn').value;
+  const margine=parseFloat(document.getElementById('prev-margine').value)||25;
+  const scarto=parseFloat(document.getElementById('prev-scarto').value)||12;
+  const mat=MATERIALI.find(m=>m.nome===nomeMat&&m.spessore==sp&&m.fornitore===forn);
+  const totals=calcolaPreventivo();
+  const importoTot=totals?totals.totMat:0;
+  const id=document.getElementById('prev-id').value||uid();
+  const data={
+    id, cliente_id:cliId, descrizione:descr,
+    materiale_nome:nomeMat, spessore_cm:sp, fornitore:forn,
+    margine_perc:margine, scarto_perc:scarto,
+    costo_acquisto_mq:mat?mat.prezzo:null,
+    importo_totale:importoTot||null,
+    stato:document.getElementById('prev-stato').value,
+    data:document.getElementById('prev-data').value,
+    data_stato:oggi(),
+    note:document.getElementById('prev-note').value.trim(),
+    pezzi:JSON.stringify(PEZZI_CORRENTI)
   };
-  calcolaPrezzoPreventivo();
+  const {error}=await sb.from('preventivi').upsert(data);
+  if(error){toast('Errore: '+error.message,'err');return;}
+  toast('Preventivo salvato ✓'); closeM('m-preventivo'); await loadAll();
 }
 
-function calcolaPrezzoPreventivo() {
-  const nomeMat = document.getElementById('prev-materiale').value;
-  const spessore = parseFloat(document.getElementById('prev-spessore').value);
-  const fornitore = document.getElementById('prev-fornitore').value;
-  const mq = parseFloat(document.getElementById('prev-mq').value) || 0;
-  const scarto = parseFloat(document.getElementById('prev-scarto').value) || 12;
-  const margine = parseFloat(document.getElementById('prev-margine').value) || 25;
-
-  const mat = MATERIALI.find(m => m.nome === nomeMat && m.spessore == spessore && m.fornitore === fornitore);
-  const box = document.getElementById('prev-calc-box');
-
-  if (!mat || !mq) { box.style.display = 'none'; return; }
-
-  const costoAcq = mat.prezzo;
-  const mqScarto = mq * (1 + scarto/100);
-  const prezzoMq = calcolaPrezzo(costoAcq, margine);
-  const totale = prezzoMq * mqScarto;
-
-  document.getElementById('pc-costo').textContent = `€${costoAcq.toFixed(2)}/m²`;
-  document.getElementById('pc-mq-scarto').textContent = `${mqScarto.toFixed(2)} m²`;
-  document.getElementById('pc-prezzo-mq').textContent = `€${prezzoMq.toFixed(2)}/m²`;
-  document.getElementById('pc-totale').textContent = fmtEuro(totale);
-  box.style.display = 'block';
-}
-
-async function savePreventivo() {
-  const clienteId = document.getElementById('prev-cliente').value;
-  const descrizione = document.getElementById('prev-descrizione').value.trim();
-  if (!clienteId) { toast('Seleziona un cliente', 'err'); return; }
-  if (!descrizione) { toast('Inserisci una descrizione', 'err'); return; }
-
-  const nomeMat = document.getElementById('prev-materiale').value;
-  const spessore = parseFloat(document.getElementById('prev-spessore').value);
-  const fornitore = document.getElementById('prev-fornitore').value;
-  const mq = parseFloat(document.getElementById('prev-mq').value) || 0;
-  const scarto = parseFloat(document.getElementById('prev-scarto').value) || 12;
-  const margine = parseFloat(document.getElementById('prev-margine').value) || 25;
-
-  const mat = MATERIALI.find(m => m.nome === nomeMat && m.spessore == spessore && m.fornitore === fornitore);
-  let importoTotale = 0;
-  if (mat && mq) {
-    const mqScarto = mq * (1 + scarto/100);
-    importoTotale = calcolaPrezzo(mat.prezzo, margine) * mqScarto;
-  }
-
-  const id = document.getElementById('prev-id').value || uid();
-  const data = {
-    id,
-    cliente_id: clienteId,
-    descrizione,
-    materiale_nome: nomeMat,
-    spessore_cm: spessore || null,
-    fornitore,
-    mq_netti: mq || null,
-    scarto_perc: scarto,
-    margine_perc: margine,
-    costo_acquisto_mq: mat ? mat.prezzo : null,
-    importo_totale: importoTotale || null,
-    stato: document.getElementById('prev-stato').value,
-    data: document.getElementById('prev-data').value,
-    note: document.getElementById('prev-note').value.trim(),
-    data_stato: oggi()
-  };
-
-  const { error } = await sb.from('preventivi').upsert(data);
-  if (error) { toast('Errore: ' + error.message, 'err'); return; }
-  toast('Preventivo salvato ✓');
-  closeModal('modal-preventivo');
-  await loadAll();
-}
-
-async function deletePreventivo(id) {
-  if (!confirm('Eliminare questo preventivo?')) return;
-  await sb.from('preventivi').delete().eq('id', id);
-  toast('Preventivo eliminato');
-  await loadAll();
-}
-
-async function convertiInCommessa(prevId) {
-  const p = PREVENTIVI.find(x => x.id === prevId);
-  if (!p) return;
-  if (!confirm(`Convertire il preventivo di ${nomeCliente(p.cliente_id)} in commessa?`)) return;
-
-  const id = uid();
-  const data = {
-    id,
-    cliente_id: p.cliente_id,
-    preventivo_id: p.id,
-    descrizione: p.descrizione,
-    materiale_nome: p.materiale_nome,
-    spessore_cm: p.spessore_cm,
-    importo: p.importo_totale || 0,
-    fase: 'confermata',
-    data_confermata: oggi(),
-    log: JSON.stringify([{data: oggi(), msg: 'Commessa creata da preventivo'}])
-  };
-
-  const { error } = await sb.from('commesse_v2').upsert(data);
-  if (error) { toast('Errore: ' + error.message, 'err'); return; }
-  toast('Commessa creata ✓ — vai su Commesse');
-  await loadAll();
-}
-
-// ══════════════════════════════════════════
+// ═══════════════════════════════════
 // COMMESSE
-// ══════════════════════════════════════════
-const FASI_COMMESSA = ['confermata','materiale_ordinato','in_lavorazione','consegnata','fatturata'];
-const FASI_LABEL = {confermata:'Confermata',materiale_ordinato:'Mat. ordinato',in_lavorazione:'In lavorazione',consegnata:'Consegnata',fatturata:'Fatturata'};
+// ═══════════════════════════════════
+const FASI=['confermata','materiale_ordinato','in_lavorazione','consegnata','fatturata'];
+const FASI_L={confermata:'Confermata',materiale_ordinato:'Mat. ord.',in_lavorazione:'In lavorazione',consegnata:'Consegnata',fatturata:'Fatturata'};
 
-function renderCommesse(lista) {
-  const l = lista || COMMESSE;
-  const el = document.getElementById('commesse-list');
-  if (!l.length) {
-    el.innerHTML = '<div class="empty"><div class="empty-icon">🔨</div><p>Nessuna commessa attiva</p><p style="font-size:12px;color:var(--stone5)">Le commesse nascono da preventivi accettati</p></div>';
-    return;
-  }
-  el.innerHTML = l.map(c => {
-    const faseIdx = FASI_COMMESSA.indexOf(c.fase);
-    const tracker = FASI_COMMESSA.map((f, i) => `<div class="tracker-step ${i < faseIdx ? 'done' : i === faseIdx ? 'current' : ''}">${FASI_LABEL[f]}</div>`).join('');
+function renderCommesse(lista){
+  const l=lista||COMMESSE;
+  const el=document.getElementById('commesse-list');
+  if(!l.length){el.innerHTML='<div class="empty"><div class="empty-icon">🔨</div><p>Nessuna commessa — le commesse nascono da preventivi accettati</p></div>';return;}
+  el.innerHTML=l.map(c=>{
+    const fi=FASI.indexOf(c.fase);
     return `<div class="card">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-        <div class="detail-avatar" style="width:36px;height:36px;font-size:12px">${iniziali(nomeCliente(c.cliente_id).split(' ')[0], nomeCliente(c.cliente_id).split(' ')[1])}</div>
-        <div style="flex:1">
-          <div style="font-weight:500">${nomeCliente(c.cliente_id)}</div>
-          <div style="font-size:12px;color:var(--stone4)">${c.descrizione||'—'}</div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-family:'DM Mono',monospace;font-weight:500">${fmtEuro(c.importo)}</div>
-          <div style="font-size:11px;color:var(--stone5)">${fmtData(c.data_confermata)}</div>
-        </div>
-        <div style="display:flex;gap:6px">
-          ${faseIdx < FASI_COMMESSA.length-1 ? `<button class="btn btn-sm btn-primary" onclick="avanzaFaseCommessa('${c.id}')">Avanza →</button>` : ''}
-          ${faseIdx > 0 ? `<button class="btn btn-sm btn-ghost" onclick="tornaFaseCommessa('${c.id}')">← Torna</button>` : ''}
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+        <div class="lc-av">${iniz(...nomeCli(c.cliente_id).split(' '))}</div>
+        <div style="flex:1"><div style="font-weight:500">${nomeCli(c.cliente_id)}</div><div style="font-size:11px;color:var(--stone4)">${c.descrizione||'—'}</div></div>
+        <div style="font-family:'DM Mono',monospace;font-weight:500">${fE(c.importo)}</div>
+        <div class="btn-row">
+          ${fi<FASI.length-1?`<button class="btn btn-sm btn-primary" onclick="avanzaComm('${c.id}')">Avanza →</button>`:''}
+          ${fi>0?`<button class="btn btn-sm btn-ghost" onclick="tornaComm('${c.id}')">← Torna</button>`:''}
+          <button class="btn btn-sm btn-danger" onclick="delComm('${c.id}')">🗑</button>
         </div>
       </div>
-      <div class="tracker">${tracker}</div>
+      <div class="tracker">${FASI.map((f,i)=>`<div class="ts ${i<fi?'done':i===fi?'cur':''}">${FASI_L[f]}</div>`).join('')}</div>
     </div>`;
   }).join('');
 }
-
-function filterCommesse() {
-  const q = document.getElementById('search-commesse').value.toLowerCase();
-  const fase = document.getElementById('filter-fase-comm').value;
-  const filtered = COMMESSE.filter(c => {
-    const match = (nomeCliente(c.cliente_id) + ' ' + (c.descrizione||'')).toLowerCase().includes(q);
-    const matchFase = !fase || c.fase === fase;
-    return match && matchFase;
-  });
-  renderCommesse(filtered);
+function filtCommesse(){
+  const q=document.getElementById('src-comm').value.toLowerCase();
+  const f=document.getElementById('flt-fase-comm').value;
+  renderCommesse(COMMESSE.filter(c=>(nomeCli(c.cliente_id)+' '+(c.descrizione||'')).toLowerCase().includes(q)&&(!f||c.fase===f)));
+}
+async function avanzaComm(id){
+  const c=COMMESSE.find(x=>x.id===id); if(!c) return;
+  const i=FASI.indexOf(c.fase); if(i>=FASI.length-1) return;
+  const nf=FASI[i+1];
+  await sb.from('commesse_v2').update({fase:nf,['data_'+nf]:oggi()}).eq('id',id);
+  toast('Fase: '+FASI_L[nf]); await loadAll();
+}
+async function tornaComm(id){
+  const c=COMMESSE.find(x=>x.id===id); if(!c) return;
+  const i=FASI.indexOf(c.fase); if(i<=0) return;
+  await sb.from('commesse_v2').update({fase:FASI[i-1]}).eq('id',id);
+  toast('Fase: '+FASI_L[FASI[i-1]]); await loadAll();
+}
+async function delComm(id){
+  if(!confirm('Eliminare questa commessa?')) return;
+  await sb.from('commesse_v2').delete().eq('id',id);
+  toast('Commessa eliminata'); await loadAll();
 }
 
-async function avanzaFaseCommessa(id) {
-  const c = COMMESSE.find(x => x.id === id);
-  if (!c) return;
-  const idx = FASI_COMMESSA.indexOf(c.fase);
-  if (idx >= FASI_COMMESSA.length - 1) return;
-  const nuovaFase = FASI_COMMESSA[idx + 1];
-  const dataKey = 'data_' + nuovaFase;
-  const update = { fase: nuovaFase, [dataKey]: oggi() };
-  await sb.from('commesse_v2').update(update).eq('id', id);
-  toast(`Fase avanzata: ${FASI_LABEL[nuovaFase]}`);
-  await loadAll();
-}
-
-async function tornaFaseCommessa(id) {
-  const c = COMMESSE.find(x => x.id === id);
-  if (!c) return;
-  const idx = FASI_COMMESSA.indexOf(c.fase);
-  if (idx <= 0) return;
-  const nuovaFase = FASI_COMMESSA[idx - 1];
-  await sb.from('commesse_v2').update({ fase: nuovaFase }).eq('id', id);
-  toast(`Fase tornata: ${FASI_LABEL[nuovaFase]}`);
-  await loadAll();
-}
-
-// ══════════════════════════════════════════
-// MAGAZZINO LASTRE
-// ══════════════════════════════════════════
-function renderLastre(lista) {
-  const l = lista || LASTRE;
-  const el = document.getElementById('lastre-list');
-  if (!l.length) {
-    el.innerHTML = '<div class="empty"><div class="empty-icon">🪨</div><p>Nessuna lastra in magazzino</p><button class="btn btn-primary" onclick="openModalLastra()">Aggiungi la prima lastra</button></div>';
-    return;
-  }
-  el.innerHTML = `<table>
-    <thead><tr><th>Codice</th><th>Materiale</th><th>Dimensioni</th><th>Lotto</th><th>Posizione</th><th>Stato</th><th></th></tr></thead>
-    <tbody>${l.map(la => `<tr>
-      <td class="tnum"><strong>${la.cod||la.id}</strong>${la.madre ? `<br><span style="font-size:10px;color:var(--stone5)">figlia di ${la.madre}</span>` : ''}</td>
-      <td>${la.mat||la.materiale_nome||'—'}<br><span style="font-size:11px;color:var(--stone4)">${la.sp||la.spessore_cm||'—'} cm · ${la.fin||la.finitura||'—'}</span></td>
-      <td class="tnum">${la.l||la.lunghezza||'—'} × ${la.la||la.larghezza||'—'} cm<br><span style="font-size:11px;color:var(--stone4)">${la.mq ? la.mq.toFixed(2)+' m²' : '—'}</span></td>
-      <td class="tnum">${la.lotto||'—'}</td>
-      <td>${la.pos||la.posizione||'—'}</td>
-      <td>${statoBadgeLastra(la.stato||'disponibile')}</td>
-      <td>
-        <button class="btn btn-sm btn-ghost" onclick="editLastra('${la.id||la.cod}')">✏️</button>
-        <button class="btn btn-sm btn-danger" onclick="deleteLastra('${la.id||la.cod}')">🗑</button>
-      </td>
-    </tr>`).join('')}</tbody>
-  </table>`;
-}
-
-function filterLastre() {
-  const q = document.getElementById('search-lastre').value.toLowerCase();
-  const stato = document.getElementById('filter-stato-lastra').value;
-  const filtered = LASTRE.filter(l => {
-    const match = ((l.cod||l.id)+' '+(l.mat||l.materiale_nome||'')+' '+(l.lotto||'')).toLowerCase().includes(q);
-    const matchStato = !stato || (l.stato||'disponibile') === stato;
-    return match && matchStato;
-  });
-  renderLastre(filtered);
-}
-
-function calcMqLastra() {
-  const l = parseFloat(document.getElementById('l-l').value) || 0;
-  const la = parseFloat(document.getElementById('l-la').value) || 0;
-  const mq = l && la ? (l * la / 10000).toFixed(2) : '';
-  document.getElementById('l-mq').value = mq ? mq + ' m²' : '';
-}
-
-function openModalLastra(id) {
-  populateSelects();
-  document.getElementById('modal-lastra-title').textContent = id ? 'Modifica lastra' : 'Nuova lastra';
-  document.getElementById('lastra-id').value = '';
-  ['l-cod','l-l','l-la','l-sp','l-mq','l-lotto','l-pos','l-madre','l-note'].forEach(f => document.getElementById(f).value = '');
-  document.getElementById('l-materiale').value = '';
-  document.getElementById('l-fin').value = 'grezzo';
-  document.getElementById('l-stato').value = 'disponibile';
-  openModal('modal-lastra');
-}
-
-function editLastra(id) { openModalLastra(id); }
-
-async function saveLastra() {
-  const cod = document.getElementById('l-cod').value.trim();
-  if (!cod) { toast('Inserisci il codice lastra', 'err'); return; }
-  const l = parseFloat(document.getElementById('l-l').value) || 0;
-  const la_val = parseFloat(document.getElementById('l-la').value) || 0;
-  const data = {
-    id: cod, cod,
-    mat: document.getElementById('l-materiale').value,
-    l, la: la_val,
-    sp: parseFloat(document.getElementById('l-sp').value) || null,
-    mq: l && la_val ? parseFloat((l * la_val / 10000).toFixed(4)) : null,
-    fin: document.getElementById('l-fin').value,
-    lotto: document.getElementById('l-lotto').value.trim(),
-    pos: document.getElementById('l-pos').value.trim(),
-    stato: document.getElementById('l-stato').value,
-    madre: document.getElementById('l-madre').value.trim() || null,
-    note: document.getElementById('l-note').value.trim()
-  };
-  const { error } = await sb.from('lastre').upsert(data);
-  if (error) { toast('Errore: ' + error.message, 'err'); return; }
-  toast('Lastra salvata ✓');
-  closeModal('modal-lastra');
-  await loadAll();
-}
-
-async function deleteLastra(id) {
-  if (!confirm('Eliminare questa lastra?')) return;
-  await sb.from('lastre').delete().eq('id', id);
-  toast('Lastra eliminata');
-  await loadAll();
-}
-
-// ══════════════════════════════════════════
-// MATERIALI
-// ══════════════════════════════════════════
-function renderMateriali(lista) {
-  const l = lista || MATERIALI;
-  const el = document.getElementById('materiali-list');
-  if (!l.length) {
-    el.innerHTML = '<div class="empty"><div class="empty-icon">🪨</div><p>Nessun materiale nel catalogo</p></div>';
-    return;
-  }
-  el.innerHTML = `<table>
-    <thead><tr><th>Materiale</th><th>Categoria</th><th>Spessore</th><th>Finitura</th><th>Fornitore</th><th>Costo €/m²</th><th>Prezzo cliente (25%)</th><th></th></tr></thead>
-    <tbody>${l.map(m => {
-      const prezzoCliente = calcolaPrezzo(m.prezzo, 25);
-      return `<tr>
-        <td><strong>${m.nome}</strong></td>
-        <td><span class="badge badge-gray">${(m.categoria||'—').replace(/_/g,' ')}</span></td>
-        <td class="tnum">${m.spessore||'—'} cm</td>
-        <td>${m.finitura||'—'}</td>
-        <td>${m.fornitore||'—'}</td>
-        <td class="tnum"><strong>${fmtEuro(m.prezzo)}</strong></td>
-        <td class="tnum" style="color:var(--gold)">${fmtEuro(prezzoCliente)}</td>
-        <td>
-          <button class="btn btn-sm btn-ghost" onclick="editMateriale('${m.id}')">✏️</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteMateriale('${m.id}')">🗑</button>
-        </td>
-      </tr>`;
-    }).join('')}</tbody>
-  </table>`;
-}
-
-function filterMateriali() {
-  const q = document.getElementById('search-materiali').value.toLowerCase();
-  const cat = document.getElementById('filter-cat-mat').value;
-  const filtered = MATERIALI.filter(m => {
-    const match = (m.nome+' '+(m.fornitore||'')).toLowerCase().includes(q);
-    const matchCat = !cat || m.categoria === cat;
-    return match && matchCat;
-  });
-  renderMateriali(filtered);
-}
-
-function aggiornaFormula() {
-  const costo = 100;
-  const margine = parseFloat(document.getElementById('param-margine-default').value) || 25;
-  const prezzo = calcolaPrezzo(costo, margine);
-  document.getElementById('formula-esempio').textContent = fmtEuro(prezzo) + '/m²';
-}
-
-function prevMateriale() {
-  const costo = parseFloat(document.getElementById('mat-prezzo').value) || 0;
-  if (!costo) { document.getElementById('mat-prezzo-calc').textContent = '—'; return; }
-  const prezzo = calcolaPrezzo(costo, 25);
-  document.getElementById('mat-prezzo-calc').textContent = fmtEuro(prezzo) + '/m²';
-}
-
-function openModalMateriale(id) {
-  document.getElementById('modal-mat-title').textContent = id ? 'Modifica materiale' : 'Nuovo materiale';
-  document.getElementById('mat-id').value = '';
-  ['mat-nome','mat-spessore','mat-fornitore','mat-prezzo'].forEach(f => document.getElementById(f).value = '');
-  document.getElementById('mat-categoria').value = 'granito_sardo';
-  document.getElementById('mat-finitura').value = 'grezzo';
-  document.getElementById('mat-prezzo-calc').textContent = '—';
-  if (id) {
-    const m = MATERIALI.find(x => x.id === id);
-    if (m) {
-      document.getElementById('mat-id').value = m.id;
-      document.getElementById('mat-nome').value = m.nome || '';
-      document.getElementById('mat-categoria').value = m.categoria || 'granito_sardo';
-      document.getElementById('mat-spessore').value = m.spessore || '';
-      document.getElementById('mat-finitura').value = m.finitura || 'grezzo';
-      document.getElementById('mat-fornitore').value = m.fornitore || '';
-      document.getElementById('mat-prezzo').value = m.prezzo || '';
-      prevMateriale();
-    }
-  }
-  openModal('modal-materiale');
-}
-
-function editMateriale(id) { openModalMateriale(id); }
-
-async function saveMateriale() {
-  const nome = document.getElementById('mat-nome').value.trim();
-  const prezzo = parseFloat(document.getElementById('mat-prezzo').value);
-  if (!nome) { toast('Inserisci il nome del materiale', 'err'); return; }
-  if (!prezzo) { toast('Inserisci il prezzo di acquisto', 'err'); return; }
-  const id = document.getElementById('mat-id').value || uid();
-  const data = {
-    id, nome,
-    categoria: document.getElementById('mat-categoria').value,
-    spessore: parseFloat(document.getElementById('mat-spessore').value) || null,
-    finitura: document.getElementById('mat-finitura').value,
-    fornitore: document.getElementById('mat-fornitore').value.trim(),
-    prezzo
-  };
-  const { error } = await sb.from('materiali').upsert(data);
-  if (error) { toast('Errore: ' + error.message, 'err'); return; }
-  toast('Materiale salvato ✓');
-  closeModal('modal-materiale');
-  await loadAll();
-}
-
-async function deleteMateriale(id) {
-  if (!confirm('Eliminare questo materiale?')) return;
-  await sb.from('materiali').delete().eq('id', id);
-  toast('Materiale eliminato');
-  await loadAll();
-}
-
-// ══════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', async () => {
-  aggiornaFormula();
-  document.getElementById('param-margine-default').addEventListener('input', aggiornaFormula);
-  await loadAll();
-});
-</script>
-</body>
-</html>
+// ═══════════════════════════════════
+// MAGAZZINO
+// ═══════�
