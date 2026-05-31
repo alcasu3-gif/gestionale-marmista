@@ -17,15 +17,12 @@
   --green:#166534;--green2:#dcfce7;
   --red:#b91c1c;--red2:#fecaca;
   --blue:#1e40af;--blue2:#dbeafe;
-  --purple:#5b21b6;--purple2:#ede9fe;
   --r:8px;--r2:12px;--r3:16px;
   --shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.08);
   --shadow2:0 4px 16px rgba(0,0,0,.14);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--stone7);color:var(--stone);min-height:100vh;font-size:14px}
-
-/* TOPBAR */
 .topbar{background:var(--stone);color:var(--cream);display:flex;align-items:center;padding:0;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:100}
 .topbar-logo{padding:12px 20px;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.05em;color:var(--gold3);border-right:1px solid var(--stone3);white-space:nowrap;cursor:pointer;flex-shrink:0}
 .topbar-logo span{color:var(--stone5);font-weight:400}
@@ -37,21 +34,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--stone7);color:var(--stone
 .db-dot{width:7px;height:7px;border-radius:50%;background:var(--stone4)}
 .db-dot.ok{background:var(--teal2)}
 .db-dot.err{background:var(--red)}
-
-/* LAYOUT */
 .page{display:none;padding:24px 28px;max-width:1280px;margin:0 auto}
 .page.active{display:block}
 .ph{margin-bottom:20px}
 .ph h2{font-size:19px;font-weight:500}
 .ph p{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace;margin-top:2px}
 .ph-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-
-/* CARD */
 .card{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow)}
 .card-title{font-size:11px;font-weight:500;color:var(--stone4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:6px}
 .card-title::before{content:'';display:block;width:3px;height:11px;background:var(--gold2);border-radius:2px}
-
-/* FORM */
 .fl{font-size:11px;color:var(--stone4);margin-bottom:4px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em}
 .fg{margin-bottom:12px}
 input,select,textarea{width:100%;padding:7px 10px;border:1px solid var(--stone6);border-radius:var(--r);font-size:13px;background:#fff;color:var(--stone);font-family:'DM Sans',sans-serif;transition:border-color .15s}
@@ -61,8 +52,6 @@ textarea{resize:vertical;min-height:60px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
-
-/* BOTTONI */
 .btn{padding:7px 13px;border-radius:var(--r);border:1px solid var(--stone6);font-size:13px;cursor:pointer;background:#fff;color:var(--stone);font-family:'DM Sans',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .btn:hover{background:var(--stone7);border-color:var(--stone5)}
 .btn-primary{background:var(--gold);color:#fff;border-color:var(--gold)}
@@ -77,8 +66,6 @@ textarea{resize:vertical;min-height:60px}
 .btn-danger:hover{background:var(--red2)}
 .btn-sm{padding:4px 9px;font-size:12px}
 .btn-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-
-/* BADGE */
 .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500;font-family:'DM Mono',monospace}
 .bg-gray{background:var(--stone7);color:var(--stone4)}
 .bg-gold{background:var(--gold4);color:var(--gold)}
@@ -86,28 +73,18 @@ textarea{resize:vertical;min-height:60px}
 .bg-blue{background:var(--blue2);color:var(--blue)}
 .bg-red{background:var(--red2);color:var(--red)}
 .bg-teal{background:var(--teal3);color:var(--teal)}
-.bg-purple{background:var(--purple2);color:var(--purple)}
-
-/* TABELLA */
 table{width:100%;border-collapse:collapse}
 th{text-align:left;padding:8px 10px;font-size:11px;color:var(--stone4);border-bottom:1px solid var(--stone6);font-family:'DM Mono',monospace;font-weight:400;text-transform:uppercase;letter-spacing:.05em}
 td{padding:9px 10px;border-bottom:1px solid var(--stone7);font-size:13px;vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--stone8)}
 .tnum{font-family:'DM Mono',monospace}
-
-/* LIST CARD */
 .lc{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:12px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px;transition:all .15s}
 .lc:hover{border-color:var(--gold3);box-shadow:var(--shadow)}
 .lc-av{width:36px;height:36px;border-radius:50%;background:var(--gold4);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--gold);font-family:'DM Mono',monospace;flex-shrink:0}
 .lc-body{flex:1;min-width:0}
 .lc-name{font-size:13px;font-weight:500}
 .lc-sub{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace;margin-top:1px}
-.lc-right{text-align:right;flex-shrink:0}
-.lc-amt{font-size:13px;font-weight:500;font-family:'DM Mono',monospace}
-.lc-date{font-size:11px;color:var(--stone5);margin-top:1px}
-
-/* METRICHE */
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
 .metric{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:12px 14px;box-shadow:var(--shadow)}
 .metric-val{font-size:20px;font-weight:500;font-family:'DM Mono',monospace}
@@ -116,91 +93,60 @@ tr:hover td{background:var(--stone8)}
 .m-green .metric-val{color:var(--green)}
 .m-teal .metric-val{color:var(--teal)}
 .m-blue .metric-val{color:var(--blue)}
-
-/* SEARCH */
 .srow{display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap}
 .srow input{max-width:260px}
 .srow select{width:auto;min-width:130px}
-
-/* MODAL */
 .mback{display:none;position:fixed;inset:0;background:rgba(28,25,23,.55);z-index:200;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
 .mback.open{display:flex}
 .modal{background:#fff;border-radius:var(--r3);padding:24px;width:100%;max-width:580px;box-shadow:var(--shadow2);margin:auto}
 .modal-lg{max-width:860px}
 .modal h3{font-size:15px;font-weight:500;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--stone6)}
 .mfoot{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid var(--stone6)}
-
-/* TRACKER */
 .tracker{display:flex;margin-bottom:16px;overflow-x:auto}
 .ts{flex:1;min-width:70px;padding:7px 4px;font-size:10px;text-align:center;background:var(--stone7);color:var(--stone5);border:1px solid var(--stone6);border-right:none;font-family:'DM Mono',monospace}
 .ts:first-child{border-radius:var(--r) 0 0 var(--r)}
 .ts:last-child{border-right:1px solid var(--stone6);border-radius:0 var(--r) var(--r) 0}
 .ts.done{background:var(--green2);color:var(--green);border-color:#bbf7d0}
 .ts.cur{background:var(--gold4);color:var(--gold);border-color:var(--gold3);font-weight:500}
-
-/* PREVENTIVATORE */
 .calc-box{background:var(--stone);color:var(--cream);border-radius:var(--r2);padding:14px 18px;margin-top:10px}
 .calc-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:13px}
 .calc-row.tot{border-top:1px solid var(--stone3);margin-top:6px;padding-top:8px;font-size:15px;font-weight:500}
 .calc-val{font-family:'DM Mono',monospace;color:var(--gold3)}
 .calc-note{font-size:11px;color:var(--stone5)}
-
-/* SAGOMA DESIGNER */
-.sagoma-wrap{background:var(--stone8);border:1px solid var(--stone6);border-radius:var(--r2);padding:16px;margin:12px 0}
-.sagoma-forme{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.sf-btn{padding:6px 14px;border:2px solid var(--stone6);border-radius:var(--r);font-size:12px;cursor:pointer;background:#fff;font-family:'DM Mono',monospace;transition:all .15s}
-.sf-btn:hover{border-color:var(--gold2)}
-.sf-btn.active{border-color:var(--gold);background:var(--gold4);color:var(--gold);font-weight:500}
-.sagoma-misure{display:grid;gap:8px;margin-bottom:14px}
-.sagoma-canvas-wrap{display:flex;justify-content:center;margin:10px 0}
-canvas#sagoma-canvas{border:1px solid var(--stone6);border-radius:var(--r);background:#fff;cursor:pointer;max-width:100%}
-.lato-panel{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:12px;margin-top:10px}
-.lato-panel h4{font-size:12px;font-weight:600;margin-bottom:10px;color:var(--stone3)}
-.lato-row{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--stone7)}
-.lato-row:last-child{border-bottom:none}
-.lato-num{width:24px;height:24px;border-radius:50%;background:var(--gold4);color:var(--gold);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;flex-shrink:0}
-.lato-num.sel{background:var(--gold);color:#fff}
-.lato-ml{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace}
-.pezzo-card{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:14px;margin-bottom:10px}
-.pezzo-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.pezzo-num{font-size:12px;font-weight:600;font-family:'DM Mono',monospace;color:var(--stone3)}
-
-/* RIEPILOGO PREVENTIVO */
-.prev-riepilogo{background:var(--stone);border-radius:var(--r2);padding:16px 20px;margin-top:14px;color:var(--cream)}
-.pr-row{display:flex;justify-content:space-between;padding:3px 0;font-size:13px}
-.pr-row.sep{border-top:1px solid var(--stone3);margin-top:8px;padding-top:8px}
-.pr-row.tot{font-size:16px;font-weight:500}
-.pr-val{font-family:'DM Mono',monospace;color:var(--gold3)}
-.pr-sub{color:var(--stone5);font-size:11px}
-
-/* TABS */
 .tabs{display:flex;border-bottom:1px solid var(--stone6);margin-bottom:16px}
 .tab{padding:9px 14px;font-size:13px;cursor:pointer;border:none;background:transparent;color:var(--stone4);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
 .tab:hover{color:var(--stone)}
 .tab.active{color:var(--gold2);border-bottom-color:var(--gold2);font-weight:500}
 .tab-pane{display:none}
 .tab-pane.active{display:block}
-
-/* EMPTY */
+.sf-btn{padding:6px 14px;border:2px solid var(--stone6);border-radius:var(--r);font-size:12px;cursor:pointer;background:#fff;font-family:'DM Mono',monospace;transition:all .15s}
+.sf-btn:hover{border-color:var(--gold2)}
+.sf-btn.active{border-color:var(--gold);background:var(--gold4);color:var(--gold);font-weight:500}
+.forme-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.pezzo-card{background:#fff;border:1px solid var(--stone6);border-radius:var(--r2);padding:14px;margin-bottom:10px}
+.pezzo-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.pezzo-num{font-size:12px;font-weight:600;font-family:'DM Mono',monospace;color:var(--stone3)}
+.lato-panel{background:var(--stone8);border:1px solid var(--stone6);border-radius:var(--r);padding:12px;margin-top:10px}
+.lato-panel h4{font-size:12px;font-weight:600;margin-bottom:10px;color:var(--stone3)}
+.lato-row{display:grid;grid-template-columns:28px 1fr 1fr auto;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--stone6)}
+.lato-row:last-child{border-bottom:none}
+.lato-n{width:24px;height:24px;border-radius:50%;background:var(--gold4);color:var(--gold);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;flex-shrink:0}
+.lato-ml{font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace}
+.prev-riepilogo{background:var(--stone);border-radius:var(--r2);padding:16px 20px;margin-top:14px;color:var(--cream)}
+.pr-row{display:flex;justify-content:space-between;padding:3px 0;font-size:13px}
+.pr-row.sep{border-top:1px solid var(--stone3);margin-top:8px;padding-top:8px}
+.pr-row.tot{font-size:16px;font-weight:500}
+.pr-val{font-family:'DM Mono',monospace;color:var(--gold3)}
+.pr-sub{color:var(--stone5);font-size:11px}
 .empty{text-align:center;padding:48px 20px;color:var(--stone5)}
 .empty-icon{font-size:36px;margin-bottom:10px}
-.empty p{font-size:13px;margin-bottom:12px}
-
-/* SEP */
+.empty p{font-size:13px;margin-bottom:8px}
 .sep{height:1px;background:var(--stone7);margin:14px 0}
-
-/* TOAST */
 .toast{position:fixed;bottom:20px;right:20px;background:var(--stone);color:var(--cream);padding:10px 16px;border-radius:var(--r2);font-size:13px;z-index:999;transform:translateY(80px);opacity:0;transition:all .25s;max-width:300px;box-shadow:var(--shadow2)}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.ok{border-left:3px solid var(--teal2)}
 .toast.err{border-left:3px solid var(--red)}
-
-@media(max-width:768px){
-  .page{padding:12px}
-  .metrics{grid-template-columns:1fr 1fr}
-  .g2,.g3,.g4{grid-template-columns:1fr}
-  .modal{padding:16px}
-}
+@media(max-width:768px){.page{padding:12px}.metrics{grid-template-columns:1fr 1fr}.g2,.g3,.g4{grid-template-columns:1fr}.modal{padding:16px}}
 </style>
 </head>
 <body>
@@ -217,289 +163,158 @@ canvas#sagoma-canvas{border:1px solid var(--stone6);border-radius:var(--r);backg
   </div>
   <div class="topbar-right">
     <div class="db-dot" id="db-dot"></div>
-    <span style="font-size:11px;color:var(--stone5)" id="db-lbl">—</span>
+    <span style="font-size:11px;color:var(--stone5)" id="db-lbl">connessione...</span>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- ═══════════════════════════════════
-     DASHBOARD
-═══════════════════════════════════ -->
+<!-- DASHBOARD -->
 <div class="page active" id="page-dashboard">
-  <div class="ph">
-    <div class="ph-row">
-      <div><h2>Dashboard</h2><p id="dash-data">—</p></div>
-    </div>
-  </div>
+  <div class="ph"><div class="ph-row"><div><h2>Dashboard</h2><p id="dash-data">—</p></div></div></div>
   <div class="metrics">
-    <div class="metric m-gold"><div class="metric-val" id="d-prev">—</div><div class="metric-lbl">Preventivi aperti</div></div>
-    <div class="metric m-teal"><div class="metric-val" id="d-comm">—</div><div class="metric-lbl">Commesse attive</div></div>
-    <div class="metric m-green"><div class="metric-val" id="d-inc">—</div><div class="metric-lbl">Da incassare</div></div>
-    <div class="metric m-blue"><div class="metric-val" id="d-cli">—</div><div class="metric-lbl">Clienti</div></div>
+    <div class="metric m-gold"><div class="metric-val" id="d-prev">0</div><div class="metric-lbl">Preventivi aperti</div></div>
+    <div class="metric m-teal"><div class="metric-val" id="d-comm">0</div><div class="metric-lbl">Commesse attive</div></div>
+    <div class="metric m-green"><div class="metric-val" id="d-inc">€0</div><div class="metric-lbl">Da incassare</div></div>
+    <div class="metric m-blue"><div class="metric-val" id="d-cli">0</div><div class="metric-lbl">Clienti</div></div>
   </div>
   <div class="g2" style="gap:16px">
-    <div><div class="card-title" style="margin-bottom:8px">Preventivi recenti</div><div id="d-prev-list"></div></div>
-    <div><div class="card-title" style="margin-bottom:8px">Commesse in lavorazione</div><div id="d-comm-list"></div></div>
+    <div><div class="card-title" style="margin-bottom:8px">Preventivi recenti</div><div id="d-prev-list"><div class="empty"><p>Nessun preventivo</p></div></div></div>
+    <div><div class="card-title" style="margin-bottom:8px">Commesse in lavorazione</div><div id="d-comm-list"><div class="empty"><p>Nessuna commessa attiva</p></div></div></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-     CLIENTI
-═══════════════════════════════════ -->
+<!-- CLIENTI -->
 <div class="page" id="page-clienti">
-  <div class="ph">
-    <div class="ph-row">
-      <div><h2>Clienti</h2><p>Anagrafica clienti del laboratorio</p></div>
-      <button class="btn btn-primary" onclick="openCliente()">+ Nuovo cliente</button>
-    </div>
-  </div>
+  <div class="ph"><div class="ph-row"><div><h2>Clienti</h2><p>Anagrafica clienti del laboratorio</p></div><button class="btn btn-primary" onclick="openCliente()">+ Nuovo cliente</button></div></div>
   <div class="srow">
     <input type="text" placeholder="Cerca..." id="src-cli" oninput="filtClienti()">
-    <select id="flt-tipo-cli" onchange="filtClienti()">
-      <option value="">Tutti i tipi</option>
-      <option value="privato">Privato</option>
-      <option value="impresa">Impresa edile</option>
-      <option value="geometra">Geometra</option>
-      <option value="architetto">Architetto</option>
-      <option value="altro">Altro</option>
-    </select>
-    <select id="flt-canale-cli" onchange="filtClienti()">
-      <option value="">Tutti i canali</option>
-      <option value="storico">Cliente storico</option>
-      <option value="passaparola">Passaparola</option>
-      <option value="social">Social</option>
-      <option value="altro">Altro</option>
-    </select>
+    <select id="flt-tipo-cli" onchange="filtClienti()"><option value="">Tutti i tipi</option><option value="privato">Privato</option><option value="impresa">Impresa edile</option><option value="geometra">Geometra</option><option value="architetto">Architetto</option><option value="altro">Altro</option></select>
+    <select id="flt-can-cli" onchange="filtClienti()"><option value="">Tutti i canali</option><option value="storico">Cliente storico</option><option value="passaparola">Passaparola</option><option value="social">Social</option><option value="altro">Altro</option></select>
   </div>
   <div id="clienti-list"><div class="empty"><div class="empty-icon">👥</div><p>Nessun cliente ancora</p></div></div>
 </div>
 
-<!-- ═══════════════════════════════════
-     PREVENTIVI
-═══════════════════════════════════ -->
+<!-- PREVENTIVI -->
 <div class="page" id="page-preventivi">
-  <div class="ph">
-    <div class="ph-row">
-      <div><h2>Preventivi</h2><p>Solo quelli accettati diventano commesse</p></div>
-      <button class="btn btn-primary" onclick="openPreventivo()">+ Nuovo preventivo</button>
-    </div>
-  </div>
+  <div class="ph"><div class="ph-row"><div><h2>Preventivi</h2><p>Solo quelli accettati diventano commesse</p></div><button class="btn btn-primary" onclick="openPreventivo()">+ Nuovo preventivo</button></div></div>
   <div class="srow">
     <input type="text" placeholder="Cerca..." id="src-prev" oninput="filtPreventivi()">
-    <select id="flt-stato-prev" onchange="filtPreventivi()">
-      <option value="">Tutti gli stati</option>
-      <option value="bozza">Bozza</option>
-      <option value="inviato">Inviato</option>
-      <option value="accettato">Accettato</option>
-      <option value="rifiutato">Rifiutato</option>
-    </select>
+    <select id="flt-stato-prev" onchange="filtPreventivi()"><option value="">Tutti gli stati</option><option value="bozza">Bozza</option><option value="inviato">Inviato</option><option value="accettato">Accettato</option><option value="rifiutato">Rifiutato</option></select>
   </div>
   <div id="preventivi-list"><div class="empty"><div class="empty-icon">📋</div><p>Nessun preventivo ancora</p></div></div>
 </div>
 
-<!-- ═══════════════════════════════════
-     COMMESSE
-═══════════════════════════════════ -->
+<!-- COMMESSE -->
 <div class="page" id="page-commesse">
-  <div class="ph">
-    <div class="ph-row">
-      <div><h2>Commesse</h2><p>Solo lavori confermati — nati da preventivi accettati</p></div>
-    </div>
-  </div>
+  <div class="ph"><div class="ph-row"><div><h2>Commesse</h2><p>Solo lavori confermati — nati da preventivi accettati</p></div></div></div>
   <div class="srow">
     <input type="text" placeholder="Cerca..." id="src-comm" oninput="filtCommesse()">
-    <select id="flt-fase-comm" onchange="filtCommesse()">
-      <option value="">Tutte le fasi</option>
-      <option value="confermata">Confermata</option>
-      <option value="materiale_ordinato">Materiale ordinato</option>
-      <option value="in_lavorazione">In lavorazione</option>
-      <option value="consegnata">Consegnata</option>
-      <option value="fatturata">Fatturata</option>
-    </select>
+    <select id="flt-fase-comm" onchange="filtCommesse()"><option value="">Tutte le fasi</option><option value="confermata">Confermata</option><option value="materiale_ordinato">Materiale ordinato</option><option value="in_lavorazione">In lavorazione</option><option value="consegnata">Consegnata</option><option value="fatturata">Fatturata</option></select>
   </div>
-  <div id="commesse-list"><div class="empty"><div class="empty-icon">🔨</div><p>Nessuna commessa — le commesse nascono da preventivi accettati</p></div></div>
+  <div id="commesse-list"><div class="empty"><div class="empty-icon">🔨</div><p>Nessuna commessa — nascono da preventivi accettati</p></div></div>
 </div>
 
-<!-- ═══════════════════════════════════
-     MAGAZZINO
-═══════════════════════════════════ -->
+<!-- MAGAZZINO -->
 <div class="page" id="page-magazzino">
-  <div class="ph">
-    <div class="ph-row">
-      <div><h2>Magazzino lastre</h2><p>Lastre fisiche con stato e lotto di cava</p></div>
-      <button class="btn btn-primary" onclick="openLastra()">+ Nuova lastra</button>
-    </div>
-  </div>
+  <div class="ph"><div class="ph-row"><div><h2>Magazzino lastre</h2><p>Lastre fisiche con stato e lotto di cava</p></div><button class="btn btn-primary" onclick="openLastra()">+ Nuova lastra</button></div></div>
   <div class="srow">
     <input type="text" placeholder="Cerca..." id="src-mag" oninput="filtLastre()">
-    <select id="flt-stato-mag" onchange="filtLastre()">
-      <option value="">Tutti gli stati</option>
-      <option value="disponibile">Disponibile</option>
-      <option value="prenotata">Prenotata</option>
-      <option value="impegnata">Impegnata</option>
-      <option value="consumata">Consumata</option>
-    </select>
+    <select id="flt-stato-mag" onchange="filtLastre()"><option value="">Tutti gli stati</option><option value="disponibile">Disponibile</option><option value="prenotata">Prenotata</option><option value="impegnata">Impegnata</option><option value="consumata">Consumata</option></select>
   </div>
   <div id="magazzino-list"><div class="empty"><div class="empty-icon">🪨</div><p>Nessuna lastra in magazzino</p></div></div>
 </div>
 
-<!-- ═══════════════════════════════════
-     MATERIALI
-═══════════════════════════════════ -->
+<!-- MATERIALI -->
 <div class="page" id="page-materiali">
-  <div class="ph">
-    <div class="ph-row">
-      <div><h2>Catalogo materiali</h2><p>Listino acquisto — base del preventivatore</p></div>
-      <button class="btn btn-primary" onclick="openMateriale()">+ Nuovo materiale</button>
-    </div>
-  </div>
+  <div class="ph"><div class="ph-row"><div><h2>Catalogo materiali</h2><p>Listino acquisto — base del preventivatore</p></div><button class="btn btn-primary" onclick="openMateriale()">+ Nuovo materiale</button></div></div>
   <div class="card" style="margin-bottom:16px">
-    <div class="card-title">Parametri formula prezzi</div>
+    <div class="card-title">Formula prezzi</div>
     <div class="g3">
       <div class="fg"><div class="fl">Costi fissi %</div><input type="number" id="p-costi" value="43" step="0.5" oninput="aggFormula()"></div>
       <div class="fg"><div class="fl">Margine default %</div><input type="number" id="p-margine" value="25" step="0.5" oninput="aggFormula()"></div>
-      <div style="display:flex;align-items:flex-end;padding-bottom:12px">
-        <div class="calc-box" style="flex:1;padding:8px 12px">
-          <div class="calc-row"><span class="calc-note">Esempio costo €100/m²</span><span class="calc-val" id="formula-ex">—</span></div>
-        </div>
-      </div>
+      <div style="display:flex;align-items:flex-end;padding-bottom:12px"><div class="calc-box" style="flex:1;padding:8px 12px"><div class="calc-row"><span class="calc-note">Esempio costo 100/m²</span><span class="calc-val" id="formula-ex">—</span></div></div></div>
     </div>
   </div>
   <div class="srow">
     <input type="text" placeholder="Cerca materiale..." id="src-mat" oninput="filtMateriali()">
-    <select id="flt-cat-mat" onchange="filtMateriali()">
-      <option value="">Tutte le categorie</option>
-    </select>
+    <select id="flt-cat-mat" onchange="filtMateriali()"><option value="">Tutte le categorie</option></select>
   </div>
   <div id="materiali-list"><div class="empty"><div class="empty-icon">📦</div><p>Nessun materiale nel catalogo</p></div></div>
 </div>
 
-
-<!-- ═══════════════════════════════════
-     MODAL CLIENTE
-═══════════════════════════════════ -->
+<!-- MODAL CLIENTE -->
 <div class="mback" id="m-cliente">
   <div class="modal">
     <h3 id="m-cli-title">Nuovo cliente</h3>
     <input type="hidden" id="cli-id">
     <div class="g2">
-      <div class="fg"><div class="fl">Nome *</div><input id="cli-nome" placeholder="Mario"></div>
-      <div class="fg"><div class="fl">Cognome *</div><input id="cli-cognome" placeholder="Rossi"></div>
+      <div class="fg"><div class="fl">Nome</div><input id="cli-nome" placeholder="Mario"></div>
+      <div class="fg"><div class="fl">Cognome</div><input id="cli-cognome" placeholder="Rossi"></div>
     </div>
     <div class="g2">
       <div class="fg"><div class="fl">Telefono</div><input id="cli-tel" type="tel"></div>
       <div class="fg"><div class="fl">Email</div><input id="cli-email" type="email"></div>
     </div>
     <div class="g2">
-      <div class="fg"><div class="fl">Tipo cliente</div>
-        <select id="cli-tipo">
-          <option value="privato">Privato</option>
-          <option value="impresa">Impresa edile</option>
-          <option value="geometra">Geometra</option>
-          <option value="architetto">Architetto</option>
-          <option value="altro">Altro</option>
-        </select>
-      </div>
-      <div class="fg"><div class="fl">Come ci ha trovato</div>
-        <select id="cli-canale">
-          <option value="storico">Cliente storico</option>
-          <option value="passaparola">Passaparola</option>
-          <option value="social">Social</option>
-          <option value="altro">Altro</option>
-        </select>
-      </div>
+      <div class="fg"><div class="fl">Tipo cliente</div><select id="cli-tipo"><option value="privato">Privato</option><option value="impresa">Impresa edile</option><option value="geometra">Geometra</option><option value="architetto">Architetto</option><option value="altro">Altro</option></select></div>
+      <div class="fg"><div class="fl">Come ci ha trovato</div><select id="cli-canale"><option value="storico">Cliente storico</option><option value="passaparola">Passaparola</option><option value="social">Social</option><option value="altro">Altro</option></select></div>
     </div>
-    <div class="fg"><div class="fl">Indirizzo / Città</div><input id="cli-indirizzo"></div>
+    <div class="fg"><div class="fl">Indirizzo / Citta</div><input id="cli-indirizzo"></div>
     <div class="fg"><div class="fl">Note</div><textarea id="cli-note" rows="2"></textarea></div>
-    <div class="mfoot">
-      <button class="btn btn-ghost" onclick="closeM('m-cliente')">Annulla</button>
-      <button class="btn btn-primary" onclick="saveCliente()">Salva cliente</button>
-    </div>
+    <div class="mfoot"><button class="btn btn-ghost" onclick="closeM('m-cliente')">Annulla</button><button class="btn btn-primary" onclick="saveCliente()">Salva cliente</button></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-     MODAL PREVENTIVO (con preventivatore completo)
-═══════════════════════════════════ -->
+<!-- MODAL PREVENTIVO -->
 <div class="mback" id="m-preventivo">
   <div class="modal modal-lg">
     <h3 id="m-prev-title">Nuovo preventivo</h3>
     <input type="hidden" id="prev-id">
-
     <div class="tabs">
-      <button class="tab active" onclick="switchTab('prev','anagrafica')">1. Cliente & Lavoro</button>
-      <button class="tab" onclick="switchTab('prev','rilievo')">2. Rilievo misure</button>
-      <button class="tab" onclick="switchTab('prev','calcolo')">3. Calcolo & Stato</button>
+      <button class="tab active" id="tab-btn-anagrafica" onclick="switchTab('anagrafica')">1. Cliente e Lavoro</button>
+      <button class="tab" id="tab-btn-rilievo" onclick="switchTab('rilievo')">2. Rilievo misure</button>
+      <button class="tab" id="tab-btn-calcolo" onclick="switchTab('calcolo')">3. Calcolo e Stato</button>
     </div>
-
-    <!-- TAB 1: ANAGRAFICA -->
-    <div class="tab-pane active" id="prev-tab-anagrafica">
+    <div class="tab-pane active" id="tab-anagrafica">
       <div class="g2">
-        <div class="fg"><div class="fl">Cliente *</div>
-          <select id="prev-cliente"><option value="">Seleziona cliente...</option></select>
-        </div>
-        <div class="fg"><div class="fl">Descrizione lavoro *</div>
-          <input id="prev-descr" placeholder="es. Piano cucina in granito">
-        </div>
+        <div class="fg"><div class="fl">Cliente</div><select id="prev-cliente"><option value="">Seleziona cliente...</option></select></div>
+        <div class="fg"><div class="fl">Descrizione lavoro</div><input id="prev-descr" placeholder="es. Piano cucina in granito"></div>
       </div>
       <div class="g3">
-        <div class="fg"><div class="fl">Materiale</div>
-          <select id="prev-mat" onchange="onPrevMat()"><option value="">Seleziona...</option></select>
-        </div>
-        <div class="fg"><div class="fl">Spessore</div>
-          <select id="prev-sp" onchange="onPrevSp()"><option value="">—</option></select>
-        </div>
-        <div class="fg"><div class="fl">Fornitore</div>
-          <select id="prev-forn" onchange="calcolaPreventivo()"><option value="">—</option></select>
-        </div>
+        <div class="fg"><div class="fl">Materiale</div><select id="prev-mat" onchange="onPrevMat()"><option value="">Seleziona...</option></select></div>
+        <div class="fg"><div class="fl">Spessore</div><select id="prev-sp" onchange="onPrevSp()"><option value="">—</option></select></div>
+        <div class="fg"><div class="fl">Fornitore</div><select id="prev-forn" onchange="calcolaPreventivo()"><option value="">—</option></select></div>
       </div>
       <div class="g2">
-        <div class="fg"><div class="fl">Margine desiderato %</div>
-          <input type="number" id="prev-margine" value="25" step="0.5" oninput="calcolaPreventivo()">
-        </div>
-        <div class="fg"><div class="fl">Scarto materiale %</div>
-          <input type="number" id="prev-scarto" value="12" step="1" oninput="calcolaPreventivo()">
-        </div>
+        <div class="fg"><div class="fl">Margine desiderato %</div><input type="number" id="prev-margine" value="25" step="0.5" oninput="calcolaPreventivo()"></div>
+        <div class="fg"><div class="fl">Scarto materiale %</div><input type="number" id="prev-scarto" value="12" step="1" oninput="calcolaPreventivo()"></div>
       </div>
-      <div class="mfoot" style="border-top:none;margin-top:8px;padding-top:0">
-        <button class="btn btn-primary" onclick="switchTab('prev','rilievo')">Avanti: Rilievo misure →</button>
+      <div class="mfoot" style="border-top:none;margin-top:4px;padding-top:0">
+        <button class="btn btn-primary" onclick="switchTab('rilievo')">Avanti: Rilievo misure</button>
       </div>
     </div>
-
-    <!-- TAB 2: RILIEVO MISURE -->
-    <div class="tab-pane" id="prev-tab-rilievo">
+    <div class="tab-pane" id="tab-rilievo">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <span style="font-size:13px;font-weight:500">Pezzi da realizzare</span>
         <button class="btn btn-sm btn-primary" onclick="addPezzo()">+ Aggiungi pezzo</button>
       </div>
       <div id="pezzi-container"></div>
-      <div class="mfoot" style="border-top:none;margin-top:8px;padding-top:0">
-        <button class="btn btn-ghost" onclick="switchTab('prev','anagrafica')">← Indietro</button>
-        <button class="btn btn-primary" onclick="switchTab('prev','calcolo')">Avanti: Calcolo →</button>
+      <div class="mfoot" style="border-top:none;margin-top:4px;padding-top:0">
+        <button class="btn btn-ghost" onclick="switchTab('anagrafica')">Indietro</button>
+        <button class="btn btn-primary" onclick="switchTab('calcolo')">Avanti: Calcolo</button>
       </div>
     </div>
-
-    <!-- TAB 3: CALCOLO & STATO -->
-    <div class="tab-pane" id="prev-tab-calcolo">
-      <div id="prev-riepilogo-box"></div>
+    <div class="tab-pane" id="tab-calcolo">
+      <div id="prev-riepilogo"></div>
       <div class="sep"></div>
       <div class="g2">
-        <div class="fg"><div class="fl">Stato preventivo</div>
-          <select id="prev-stato">
-            <option value="bozza">Bozza</option>
-            <option value="inviato">Inviato al cliente</option>
-            <option value="accettato">Accettato ✓</option>
-            <option value="rifiutato">Rifiutato ✗</option>
-          </select>
-        </div>
-        <div class="fg"><div class="fl">Data</div>
-          <input type="date" id="prev-data">
-        </div>
+        <div class="fg"><div class="fl">Stato preventivo</div><select id="prev-stato"><option value="bozza">Bozza</option><option value="inviato">Inviato al cliente</option><option value="accettato">Accettato</option><option value="rifiutato">Rifiutato</option></select></div>
+        <div class="fg"><div class="fl">Data</div><input type="date" id="prev-data"></div>
       </div>
       <div class="fg"><div class="fl">Note</div><textarea id="prev-note" rows="2"></textarea></div>
-      <div class="mfoot" style="border-top:none;margin-top:8px;padding-top:0">
-        <button class="btn btn-ghost" onclick="switchTab('prev','rilievo')">← Indietro</button>
+      <div class="mfoot" style="border-top:none;margin-top:4px;padding-top:0">
+        <button class="btn btn-ghost" onclick="switchTab('rilievo')">Indietro</button>
         <button class="btn btn-ghost" onclick="closeM('m-preventivo')">Annulla</button>
         <button class="btn btn-primary" onclick="savePreventivo()">Salva preventivo</button>
       </div>
@@ -507,15 +322,13 @@ canvas#sagoma-canvas{border:1px solid var(--stone6);border-radius:var(--r);backg
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-     MODAL LASTRA
-═══════════════════════════════════ -->
+<!-- MODAL LASTRA -->
 <div class="mback" id="m-lastra">
   <div class="modal">
     <h3 id="m-las-title">Nuova lastra</h3>
     <input type="hidden" id="las-id">
     <div class="g2">
-      <div class="fg"><div class="fl">Codice *</div><input id="las-cod" placeholder="GS-001"></div>
+      <div class="fg"><div class="fl">Codice</div><input id="las-cod" placeholder="GS-001"></div>
       <div class="fg"><div class="fl">Materiale</div><select id="las-mat"><option value="">Seleziona...</option></select></div>
     </div>
     <div class="g3">
@@ -525,167 +338,118 @@ canvas#sagoma-canvas{border:1px solid var(--stone6);border-radius:var(--r);backg
     </div>
     <div class="g2">
       <div class="fg"><div class="fl">m² calcolati</div><input id="las-mq" readonly></div>
-      <div class="fg"><div class="fl">Finitura</div>
-        <select id="las-fin"><option value="grezzo">Grezzo</option><option value="lucido">Lucido</option><option value="levigato">Levigato</option><option value="fiammato">Fiammato</option><option value="spazzolato">Spazzolato</option></select>
-      </div>
+      <div class="fg"><div class="fl">Finitura</div><select id="las-fin"><option value="grezzo">Grezzo</option><option value="lucido">Lucido</option><option value="levigato">Levigato</option><option value="fiammato">Fiammato</option><option value="spazzolato">Spazzolato</option></select></div>
     </div>
     <div class="g2">
       <div class="fg"><div class="fl">Lotto / Blocco cava</div><input id="las-lotto" placeholder="es. 2024-03"></div>
       <div class="fg"><div class="fl">Posizione magazzino</div><input id="las-pos" placeholder="es. A-12"></div>
     </div>
     <div class="g2">
-      <div class="fg"><div class="fl">Stato</div>
-        <select id="las-stato"><option value="disponibile">Disponibile</option><option value="prenotata">Prenotata</option><option value="impegnata">Impegnata</option><option value="consumata">Consumata</option></select>
-      </div>
+      <div class="fg"><div class="fl">Stato</div><select id="las-stato"><option value="disponibile">Disponibile</option><option value="prenotata">Prenotata</option><option value="impegnata">Impegnata</option><option value="consumata">Consumata</option></select></div>
       <div class="fg"><div class="fl">Lastra madre (se figlia)</div><input id="las-madre" placeholder="codice lastra madre"></div>
     </div>
     <div class="fg"><div class="fl">Note</div><textarea id="las-note" rows="2"></textarea></div>
-    <div class="mfoot">
-      <button class="btn btn-ghost" onclick="closeM('m-lastra')">Annulla</button>
-      <button class="btn btn-primary" onclick="saveLastra()">Salva lastra</button>
-    </div>
+    <div class="mfoot"><button class="btn btn-ghost" onclick="closeM('m-lastra')">Annulla</button><button class="btn btn-primary" onclick="saveLastra()">Salva lastra</button></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-     MODAL MATERIALE
-═══════════════════════════════════ -->
+<!-- MODAL MATERIALE -->
 <div class="mback" id="m-materiale">
   <div class="modal">
     <h3 id="m-mat-title">Nuovo materiale</h3>
     <input type="hidden" id="mat-id">
     <div class="g2">
-      <div class="fg"><div class="fl">Nome materiale *</div><input id="mat-nome" placeholder="es. Ghiandone grezzo"></div>
-      <div class="fg"><div class="fl">Categoria</div>
-        <select id="mat-cat">
-          <option value="granito_sardo">Granito Sardo</option>
-          <option value="marmo_sardo">Marmo Sardo</option>
-          <option value="basalto">Basalto</option>
-          <option value="materiale_estero">Materiale Estero</option>
-          <option value="altro">Altro</option>
-        </select>
-      </div>
+      <div class="fg"><div class="fl">Nome materiale</div><input id="mat-nome" placeholder="es. Ghiandone grezzo"></div>
+      <div class="fg"><div class="fl">Categoria</div><select id="mat-cat"><option value="granito_sardo">Granito Sardo</option><option value="marmo_sardo">Marmo Sardo</option><option value="basalto">Basalto</option><option value="materiale_estero">Materiale Estero</option><option value="altro">Altro</option></select></div>
     </div>
     <div class="g3">
-      <div class="fg"><div class="fl">Spessore (cm) *</div><input type="number" id="mat-sp" step="0.5"></div>
-      <div class="fg"><div class="fl">Finitura</div>
-        <select id="mat-fin"><option value="grezzo">Grezzo</option><option value="lucido">Lucido</option><option value="levigato">Levigato</option><option value="fiammato">Fiammato</option><option value="granigliato">Granigliato</option></select>
-      </div>
+      <div class="fg"><div class="fl">Spessore (cm)</div><input type="number" id="mat-sp" step="0.5"></div>
+      <div class="fg"><div class="fl">Finitura</div><select id="mat-fin"><option value="grezzo">Grezzo</option><option value="lucido">Lucido</option><option value="levigato">Levigato</option><option value="fiammato">Fiammato</option><option value="granigliato">Granigliato</option></select></div>
       <div class="fg"><div class="fl">Fornitore</div><input id="mat-forn" placeholder="es. Campolonghi"></div>
     </div>
-    <div class="fg"><div class="fl">Prezzo acquisto €/m² *</div><input type="number" id="mat-prezzo" step="0.01" oninput="prevMatCalc()"></div>
-    <div class="calc-box" id="mat-calc" style="margin-top:10px">
-      <div class="calc-row"><span class="calc-note">Con margine 25% → prezzo cliente</span><span class="calc-val" id="mat-prezzo-out">—</span></div>
-    </div>
-    <div class="mfoot">
-      <button class="btn btn-ghost" onclick="closeM('m-materiale')">Annulla</button>
-      <button class="btn btn-primary" onclick="saveMateriale()">Salva materiale</button>
-    </div>
+    <div class="fg"><div class="fl">Prezzo acquisto euro/m2</div><input type="number" id="mat-prezzo" step="0.01" oninput="prevMatCalc()"></div>
+    <div class="calc-box" style="margin-top:10px"><div class="calc-row"><span class="calc-note">Con margine 25% - prezzo cliente</span><span class="calc-val" id="mat-prezzo-out">—</span></div></div>
+    <div class="mfoot"><button class="btn btn-ghost" onclick="closeM('m-materiale')">Annulla</button><button class="btn btn-primary" onclick="saveMateriale()">Salva materiale</button></div>
   </div>
 </div>
 
-
 <script>
-// ═══════════════════════════════════
-// SUPABASE
-// ═══════════════════════════════════
-const SB_URL = 'https://rytepcntbpxrtrdhqplp.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dGVwY250YnB4cnRyZGhxcGxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTQ4OTgsImV4cCI6MjA5NTY3MDg5OH0.p16KF7oUErDsoOWcLKh2h-DfWR8y72OIyGi4lcMb3_Y';
-const sb = supabase.createClient(SB_URL, SB_KEY);
+var SUPABASE_URL = 'https://rytepcntbpxrtrdhqplp.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dGVwY250YnB4cnRyZGhxcGxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTQ4OTgsImV4cCI6MjA5NTY3MDg5OH0.p16KF7oUErDsoOWcLKh2h-DfWR8y72OIyGi4lcMb3_Y';
+var sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ═══════════════════════════════════
-// STATO GLOBALE
-// ═══════════════════════════════════
-let CLIENTI=[], PREVENTIVI=[], COMMESSE=[], LASTRE=[], MATERIALI=[];
-let PEZZI_CORRENTI = []; // pezzi del preventivo in editing
-let PEZZO_SEL = null;    // pezzo selezionato per disegno sagoma
+var CLIENTI=[], PREVENTIVI=[], COMMESSE=[], LASTRE=[], MATERIALI=[];
+var PEZZI_CORRENTI=[];
 
-// ═══════════════════════════════════
-// FORMULA PREZZI
-// ═══════════════════════════════════
-const costiF = () => parseFloat(document.getElementById('p-costi').value)/100 || 0.43;
-const margineD = () => parseFloat(document.getElementById('p-margine').value)/100 || 0.25;
-function calcPrezzo(costo, margPerc) {
-  const m = margPerc/100;
-  const d = 1 - costiF() - m;
-  return d <= 0 ? 0 : costo/d;
-}
-function aggFormula() {
-  const ex = calcPrezzo(100, parseFloat(document.getElementById('p-margine').value)||25);
-  document.getElementById('formula-ex').textContent = fE(ex)+'/m²';
-}
+function costiF(){ return parseFloat(document.getElementById('p-costi').value)/100||0.43; }
+function calcPrezzo(costo, marg){ var d=1-costiF()-marg/100; return d<=0?0:costo/d; }
 
-// ═══════════════════════════════════
-// UTILITY
-// ═══════════════════════════════════
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).substr(2,5); }
 function oggi(){ return new Date().toISOString().split('T')[0]; }
-function fE(n){ if(!n&&n!==0) return '—'; return '€'+parseFloat(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fE(n){ if(!n&&n!==0) return '—'; return '\u20AC'+parseFloat(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2}); }
 function fD(d){ if(!d) return '—'; return new Date(d).toLocaleDateString('it-IT'); }
 function iniz(a,b){ return ((a||'')[0]||'').toUpperCase()+((b||'')[0]||'').toUpperCase(); }
-function nomeCli(id){ const c=CLIENTI.find(x=>x.id===id); return c?c.nome+' '+c.cognome:'—'; }
+function nomeCli(id){ var c=CLIENTI.find(function(x){return x.id===id;}); return c?c.nome+' '+c.cognome:'—'; }
 
 function badgePrev(s){
-  const m={bozza:['bg-gray','Bozza'],inviato:['bg-blue','Inviato'],accettato:['bg-green','Accettato'],rifiutato:['bg-red','Rifiutato']};
-  const [c,l]=m[s]||['bg-gray',s]; return `<span class="badge ${c}">${l}</span>`;
+  var m={bozza:['bg-gray','Bozza'],inviato:['bg-blue','Inviato'],accettato:['bg-green','Accettato'],rifiutato:['bg-red','Rifiutato']};
+  var r=m[s]||['bg-gray',s]; return '<span class="badge '+r[0]+'">'+r[1]+'</span>';
 }
 function badgeFase(f){
-  const m={confermata:['bg-teal','Confermata'],materiale_ordinato:['bg-blue','Mat. ord.'],in_lavorazione:['bg-gold','Lavorazione'],consegnata:['bg-green','Consegnata'],fatturata:['bg-gray','Fatturata']};
-  const [c,l]=m[f]||['bg-gray',f]; return `<span class="badge ${c}">${l}</span>`;
+  var m={confermata:['bg-teal','Confermata'],materiale_ordinato:['bg-blue','Mat. ord.'],in_lavorazione:['bg-gold','Lavorazione'],consegnata:['bg-green','Consegnata'],fatturata:['bg-gray','Fatturata']};
+  var r=m[f]||['bg-gray',f]; return '<span class="badge '+r[0]+'">'+r[1]+'</span>';
 }
 function badgeStato(s){
-  const m={disponibile:['bg-green','● Disponibile'],prenotata:['bg-gold','● Prenotata'],impegnata:['bg-blue','● Impegnata'],consumata:['bg-gray','● Consumata']};
-  const [c,l]=m[s]||['bg-gray',s]; return `<span class="badge ${c}">${l}</span>`;
+  var m={disponibile:['bg-green','Disponibile'],prenotata:['bg-gold','Prenotata'],impegnata:['bg-blue','Impegnata'],consumata:['bg-gray','Consumata']};
+  var r=m[s]||['bg-gray',s]; return '<span class="badge '+r[0]+'">'+r[1]+'</span>';
 }
 
-// ═══════════════════════════════════
-// NAV / MODAL / TABS
-// ═══════════════════════════════════
 function navTo(p){
-  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.tnb').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(function(x){x.classList.remove('active');});
+  document.querySelectorAll('.tnb').forEach(function(x){x.classList.remove('active');});
   document.getElementById('page-'+p).classList.add('active');
   document.getElementById('tnb-'+p).classList.add('active');
   if(p==='dashboard') renderDash();
 }
 function openM(id){ document.getElementById(id).classList.add('open'); }
 function closeM(id){ document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.mback').forEach(b=>b.addEventListener('click',e=>{if(e.target===b)b.classList.remove('open');}));
+document.querySelectorAll('.mback').forEach(function(b){
+  b.addEventListener('click',function(e){if(e.target===b) b.classList.remove('open');});
+});
 
-function switchTab(ctx, name){
-  const base = ctx==='prev' ? 'prev-tab-' : ctx+'-tab-';
-  document.querySelectorAll(`[id^="${base}"]`).forEach(p=>p.classList.remove('active'));
-  document.getElementById(base+name).classList.add('active');
-  // aggiorna tab buttons
-  const modal = document.getElementById('m-'+ctx);
-  if(modal){
-    modal.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    const idx = ['anagrafica','rilievo','calcolo'].indexOf(name);
-    if(idx>=0){ const tabs=modal.querySelectorAll('.tab'); if(tabs[idx]) tabs[idx].classList.add('active'); }
-  }
+function switchTab(name){
+  ['anagrafica','rilievo','calcolo'].forEach(function(t){
+    document.getElementById('tab-'+t).classList.remove('active');
+    document.getElementById('tab-btn-'+t).classList.remove('active');
+  });
+  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('tab-btn-'+name).classList.add('active');
   if(name==='calcolo') calcolaPreventivo();
 }
 
-function toast(msg, type='ok'){
-  const t=document.getElementById('toast');
+function toast(msg,type){
+  type=type||'ok';
+  var t=document.getElementById('toast');
   t.textContent=msg; t.className='toast '+type+' show';
-  setTimeout(()=>t.classList.remove('show'),3000);
+  setTimeout(function(){t.classList.remove('show');},3000);
 }
 
-// ═══════════════════════════════════
-// LOAD DATA
-// ═══════════════════════════════════
+function aggFormula(){
+  var marg=parseFloat(document.getElementById('p-margine').value)||25;
+  document.getElementById('formula-ex').textContent=fE(calcPrezzo(100,marg))+'/m\u00B2';
+}
+
 async function loadAll(){
   try{
-    const [c,p,co,l,m]=await Promise.all([
+    var res=await Promise.all([
       sb.from('clienti').select('*').order('created_at',{ascending:false}),
       sb.from('preventivi').select('*').order('created_at',{ascending:false}),
       sb.from('commesse_v2').select('*').order('created_at',{ascending:false}),
       sb.from('lastre').select('*').order('created_at',{ascending:false}),
       sb.from('materiali').select('*').order('nome')
     ]);
-    CLIENTI=c.data||[]; PREVENTIVI=p.data||[]; COMMESSE=co.data||[];
-    LASTRE=l.data||[]; MATERIALI=m.data||[];
+    CLIENTI=res[0].data||[]; PREVENTIVI=res[1].data||[]; COMMESSE=res[2].data||[];
+    LASTRE=res[3].data||[]; MATERIALI=res[4].data||[];
     document.getElementById('db-dot').className='db-dot ok';
     document.getElementById('db-lbl').textContent='DB online';
     renderAll();
@@ -693,90 +457,88 @@ async function loadAll(){
     document.getElementById('db-dot').className='db-dot err';
     document.getElementById('db-lbl').textContent='Errore DB';
     toast('Errore connessione database','err');
+    console.error(e);
   }
 }
+
 function renderAll(){ renderDash(); renderClienti(); renderPreventivi(); renderCommesse(); renderLastre(); renderMateriali(); fillSelects(); }
 
-// ═══════════════════════════════════
-// FILL SELECTS
-// ═══════════════════════════════════
 function fillSelects(){
-  // clienti nei preventivi
-  const sc=document.getElementById('prev-cliente');
+  var sc=document.getElementById('prev-cliente');
   sc.innerHTML='<option value="">Seleziona cliente...</option>';
-  CLIENTI.forEach(c=>sc.innerHTML+=`<option value="${c.id}">${c.nome} ${c.cognome}</option>`);
-  // materiali nei preventivi
-  const sm=document.getElementById('prev-mat');
+  CLIENTI.forEach(function(c){ sc.innerHTML+='<option value="'+c.id+'">'+c.nome+' '+c.cognome+'</option>'; });
+  var sm=document.getElementById('prev-mat');
   sm.innerHTML='<option value="">Seleziona...</option>';
-  [...new Set(MATERIALI.map(m=>m.nome))].sort().forEach(n=>sm.innerHTML+=`<option value="${n}">${n}</option>`);
-  // materiali nel magazzino
-  const slm=document.getElementById('las-mat');
+  var nomi=[...new Set(MATERIALI.map(function(m){return m.nome;}))].sort();
+  nomi.forEach(function(n){ sm.innerHTML+='<option value="'+n+'">'+n+'</option>'; });
+  var slm=document.getElementById('las-mat');
   slm.innerHTML='<option value="">Seleziona...</option>';
-  [...new Set(MATERIALI.map(m=>m.nome))].sort().forEach(n=>slm.innerHTML+=`<option value="${n}">${n}</option>`);
-  // categorie filtro materiali
-  const fc=document.getElementById('flt-cat-mat');
-  const cats=[...new Set(MATERIALI.map(m=>m.categoria).filter(Boolean))];
+  nomi.forEach(function(n){ slm.innerHTML+='<option value="'+n+'">'+n+'</option>'; });
+  var fc=document.getElementById('flt-cat-mat');
+  var cats=[...new Set(MATERIALI.map(function(m){return m.categoria;}).filter(Boolean))];
   fc.innerHTML='<option value="">Tutte le categorie</option>';
-  cats.forEach(c=>fc.innerHTML+=`<option value="${c}">${c.replace(/_/g,' ')}</option>`);
+  cats.forEach(function(c){ fc.innerHTML+='<option value="'+c+'">'+c.replace(/_/g,' ')+'</option>'; });
 }
 
-// ═══════════════════════════════════
-// DASHBOARD
-// ═══════════════════════════════════
 function renderDash(){
-  const d=new Date();
+  var d=new Date();
   document.getElementById('dash-data').textContent=d.toLocaleDateString('it-IT',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  document.getElementById('d-prev').textContent=PREVENTIVI.filter(p=>p.stato==='bozza'||p.stato==='inviato').length;
-  document.getElementById('d-comm').textContent=COMMESSE.filter(c=>c.fase!=='fatturata').length;
-  document.getElementById('d-inc').textContent=fE(COMMESSE.filter(c=>c.fase!=='fatturata').reduce((s,c)=>s+(c.importo||0),0));
+  document.getElementById('d-prev').textContent=PREVENTIVI.filter(function(p){return p.stato==='bozza'||p.stato==='inviato';}).length;
+  document.getElementById('d-comm').textContent=COMMESSE.filter(function(c){return c.fase!=='fatturata';}).length;
+  document.getElementById('d-inc').textContent=fE(COMMESSE.filter(function(c){return c.fase!=='fatturata';}).reduce(function(s,c){return s+(c.importo||0);},0));
   document.getElementById('d-cli').textContent=CLIENTI.length;
-  const elP=document.getElementById('d-prev-list');
-  const rP=PREVENTIVI.slice(0,5);
-  elP.innerHTML=rP.length?rP.map(p=>`<div class="lc"><div class="lc-av">${iniz(...nomeCli(p.cliente_id).split(' '))}</div><div class="lc-body"><div class="lc-name">${nomeCli(p.cliente_id)}</div><div class="lc-sub">${p.descrizione||'—'} ${badgePrev(p.stato)}</div></div><div class="lc-right"><div class="lc-amt">${fE(p.importo_totale)}</div><div class="lc-date">${fD(p.data)}</div></div></div>`).join(''):'<div class="empty"><p>Nessun preventivo</p></div>';
-  const elC=document.getElementById('d-comm-list');
-  const rC=COMMESSE.filter(c=>c.fase==='in_lavorazione').slice(0,5);
-  elC.innerHTML=rC.length?rC.map(c=>`<div class="lc"><div class="lc-av">${iniz(...nomeCli(c.cliente_id).split(' '))}</div><div class="lc-body"><div class="lc-name">${nomeCli(c.cliente_id)}</div><div class="lc-sub">${c.descrizione||'—'}</div></div><div class="lc-right">${fE(c.importo)}</div></div>`).join(''):'<div class="empty"><p>Nessuna commessa in lavorazione</p></div>';
+  var elP=document.getElementById('d-prev-list');
+  var rP=PREVENTIVI.slice(0,5);
+  if(rP.length){
+    elP.innerHTML=rP.map(function(p){
+      var nc=nomeCli(p.cliente_id); var pts=nc.split(' ');
+      return '<div class="lc"><div class="lc-av">'+iniz(pts[0],pts[1])+'</div><div class="lc-body"><div class="lc-name">'+nc+'</div><div class="lc-sub">'+(p.descrizione||'—')+' '+badgePrev(p.stato)+'</div></div><div style="font-family:\'DM Mono\',monospace;font-size:13px;font-weight:500">'+fE(p.importo_totale)+'</div></div>';
+    }).join('');
+  }else{ elP.innerHTML='<div class="empty"><p>Nessun preventivo</p></div>'; }
+  var elC=document.getElementById('d-comm-list');
+  var rC=COMMESSE.filter(function(c){return c.fase==='in_lavorazione';}).slice(0,5);
+  if(rC.length){
+    elC.innerHTML=rC.map(function(c){
+      var nc=nomeCli(c.cliente_id); var pts=nc.split(' ');
+      return '<div class="lc"><div class="lc-av">'+iniz(pts[0],pts[1])+'</div><div class="lc-body"><div class="lc-name">'+nc+'</div><div class="lc-sub">'+(c.descrizione||'—')+'</div></div><div style="font-family:\'DM Mono\',monospace;font-size:13px;font-weight:500">'+fE(c.importo)+'</div></div>';
+    }).join('');
+  }else{ elC.innerHTML='<div class="empty"><p>Nessuna commessa in lavorazione</p></div>'; }
 }
 
-// ═══════════════════════════════════
-// CLIENTI
-// ═══════════════════════════════════
 function renderClienti(lista){
-  const l=lista||CLIENTI;
-  const el=document.getElementById('clienti-list');
+  var l=lista||CLIENTI;
+  var el=document.getElementById('clienti-list');
   if(!l.length){el.innerHTML='<div class="empty"><div class="empty-icon">👥</div><p>Nessun cliente ancora</p></div>';return;}
-  el.innerHTML=`<table><thead><tr><th>Cliente</th><th>Tipo</th><th>Canale</th><th>Telefono</th><th>Preventivi</th><th>Commesse</th><th></th></tr></thead><tbody>${l.map(c=>`<tr>
-    <td><strong>${c.nome} ${c.cognome}</strong>${c.indirizzo?`<br><span style="font-size:11px;color:var(--stone4)">${c.indirizzo}</span>`:''}</td>
-    <td><span class="badge bg-gray">${c.tipo||'—'}</span></td>
-    <td><span class="badge bg-teal">${c.canale||'—'}</span></td>
-    <td class="tnum">${c.tel||'—'}</td>
-    <td class="tnum">${PREVENTIVI.filter(p=>p.cliente_id===c.id).length}</td>
-    <td class="tnum">${COMMESSE.filter(x=>x.cliente_id===c.id).length}</td>
-    <td><button class="btn btn-sm btn-ghost" onclick="openCliente('${c.id}')">✏️</button> <button class="btn btn-sm btn-danger" onclick="delCliente('${c.id}')">🗑</button></td>
-  </tr>`).join('')}</tbody></table>`;
+  el.innerHTML='<table><thead><tr><th>Cliente</th><th>Tipo</th><th>Canale</th><th>Telefono</th><th>Prev.</th><th>Comm.</th><th></th></tr></thead><tbody>'+
+    l.map(function(c){
+      return '<tr><td><strong>'+c.nome+' '+c.cognome+'</strong>'+(c.indirizzo?'<br><span style="font-size:11px;color:var(--stone4)">'+c.indirizzo+'</span>':'')+'</td><td><span class="badge bg-gray">'+(c.tipo||'—')+'</span></td><td><span class="badge bg-teal">'+(c.canale||'—')+'</span></td><td class="tnum">'+(c.tel||'—')+'</td><td class="tnum">'+PREVENTIVI.filter(function(p){return p.cliente_id===c.id;}).length+'</td><td class="tnum">'+COMMESSE.filter(function(x){return x.cliente_id===c.id;}).length+'</td><td><button class="btn btn-sm btn-ghost" onclick="openCliente(\''+c.id+'\')">&#9999;&#65039;</button> <button class="btn btn-sm btn-danger" onclick="delCliente(\''+c.id+'\')">&#128465;</button></td></tr>';
+    }).join('')+'</tbody></table>';
 }
 function filtClienti(){
-  const q=document.getElementById('src-cli').value.toLowerCase();
-  const t=document.getElementById('flt-tipo-cli').value;
-  const k=document.getElementById('flt-canale-cli').value;
-  renderClienti(CLIENTI.filter(c=>(c.nome+' '+c.cognome+' '+(c.tel||'')).toLowerCase().includes(q)&&(!t||c.tipo===t)&&(!k||c.canale===k)));
+  var q=document.getElementById('src-cli').value.toLowerCase();
+  var t=document.getElementById('flt-tipo-cli').value;
+  var k=document.getElementById('flt-can-cli').value;
+  renderClienti(CLIENTI.filter(function(c){return (c.nome+' '+c.cognome+' '+(c.tel||'')).toLowerCase().includes(q)&&(!t||c.tipo===t)&&(!k||c.canale===k);}));
 }
 function openCliente(id){
   document.getElementById('m-cli-title').textContent=id?'Modifica cliente':'Nuovo cliente';
-  ['cli-id','cli-nome','cli-cognome','cli-tel','cli-email','cli-indirizzo','cli-note'].forEach(f=>document.getElementById(f).value='');
+  ['cli-id','cli-nome','cli-cognome','cli-tel','cli-email','cli-indirizzo','cli-note'].forEach(function(f){document.getElementById(f).value='';});
   document.getElementById('cli-tipo').value='privato';
   document.getElementById('cli-canale').value='passaparola';
-  if(id){const c=CLIENTI.find(x=>x.id===id);if(c){document.getElementById('cli-id').value=c.id;document.getElementById('cli-nome').value=c.nome||'';document.getElementById('cli-cognome').value=c.cognome||'';document.getElementById('cli-tel').value=c.tel||'';document.getElementById('cli-email').value=c.email||'';document.getElementById('cli-tipo').value=c.tipo||'privato';document.getElementById('cli-canale').value=c.canale||'passaparola';document.getElementById('cli-indirizzo').value=c.indirizzo||'';document.getElementById('cli-note').value=c.note||'';}}
+  if(id){
+    var c=CLIENTI.find(function(x){return x.id===id;});
+    if(c){document.getElementById('cli-id').value=c.id;document.getElementById('cli-nome').value=c.nome||'';document.getElementById('cli-cognome').value=c.cognome||'';document.getElementById('cli-tel').value=c.tel||'';document.getElementById('cli-email').value=c.email||'';document.getElementById('cli-tipo').value=c.tipo||'privato';document.getElementById('cli-canale').value=c.canale||'passaparola';document.getElementById('cli-indirizzo').value=c.indirizzo||'';document.getElementById('cli-note').value=c.note||'';}
+  }
   openM('m-cliente');
 }
 async function saveCliente(){
-  const nome=document.getElementById('cli-nome').value.trim();
-  const cognome=document.getElementById('cli-cognome').value.trim();
+  var nome=document.getElementById('cli-nome').value.trim();
+  var cognome=document.getElementById('cli-cognome').value.trim();
   if(!nome&&!cognome){toast('Inserisci nome o cognome','err');return;}
-  const id=document.getElementById('cli-id').value||uid();
-  const {error}=await sb.from('clienti').upsert({id,nome,cognome,tel:document.getElementById('cli-tel').value.trim(),email:document.getElementById('cli-email').value.trim(),tipo:document.getElementById('cli-tipo').value,canale:document.getElementById('cli-canale').value,indirizzo:document.getElementById('cli-indirizzo').value.trim(),note:document.getElementById('cli-note').value.trim()});
-  if(error){toast('Errore: '+error.message,'err');return;}
-  toast('Cliente salvato ✓'); closeM('m-cliente'); await loadAll();
+  var id=document.getElementById('cli-id').value||uid();
+  var r=await sb.from('clienti').upsert({id:id,nome:nome,cognome:cognome,tel:document.getElementById('cli-tel').value.trim(),email:document.getElementById('cli-email').value.trim(),tipo:document.getElementById('cli-tipo').value,canale:document.getElementById('cli-canale').value,indirizzo:document.getElementById('cli-indirizzo').value.trim(),note:document.getElementById('cli-note').value.trim()});
+  if(r.error){toast('Errore: '+r.error.message,'err');return;}
+  toast('Cliente salvato'); closeM('m-cliente'); await loadAll();
 }
 async function delCliente(id){
   if(!confirm('Eliminare questo cliente?')) return;
@@ -784,63 +546,46 @@ async function delCliente(id){
   toast('Cliente eliminato'); await loadAll();
 }
 
-// ═══════════════════════════════════
-// PREVENTIVI — LISTA
-// ═══════════════════════════════════
 function renderPreventivi(lista){
-  const l=lista||PREVENTIVI;
-  const el=document.getElementById('preventivi-list');
+  var l=lista||PREVENTIVI;
+  var el=document.getElementById('preventivi-list');
   if(!l.length){el.innerHTML='<div class="empty"><div class="empty-icon">📋</div><p>Nessun preventivo ancora</p></div>';return;}
-  el.innerHTML=l.map(p=>`<div class="card" style="padding:14px 16px">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <div class="lc-av">${iniz(...nomeCli(p.cliente_id).split(' '))}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-weight:500;font-size:13px">${nomeCli(p.cliente_id)}</div>
-        <div style="font-size:11px;color:var(--stone4);font-family:'DM Mono',monospace">${p.descrizione||'—'} · ${fD(p.data)}</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <span style="font-family:'DM Mono',monospace;font-weight:500">${fE(p.importo_totale)}</span>
-        ${badgePrev(p.stato)}
-      </div>
-      <div class="btn-row">
-        ${p.stato==='bozza'?`<button class="btn btn-sm btn-ghost" onclick="cambiaStatoPrev('${p.id}','inviato')">📤 Invia</button>`:''}
-        ${p.stato==='inviato'?`<button class="btn btn-sm btn-green" onclick="cambiaStatoPrev('${p.id}','accettato')">✓ Accetta</button><button class="btn btn-sm btn-danger" onclick="cambiaStatoPrev('${p.id}','rifiutato')">✗ Rifiuta</button>`:''}
-        ${p.stato==='accettato'?`<button class="btn btn-sm btn-teal" onclick="convertiCommessa('${p.id}')">→ Commessa</button>`:''}
-        ${p.stato==='rifiutato'?`<button class="btn btn-sm btn-ghost" onclick="cambiaStatoPrev('${p.id}','bozza')">↩ Riapri</button>`:''}
-        <button class="btn btn-sm btn-ghost" onclick="openPreventivo('${p.id}')">✏️</button>
-        <button class="btn btn-sm btn-danger" onclick="delPreventivo('${p.id}')">🗑</button>
-      </div>
-    </div>
-  </div>`).join('');
+  el.innerHTML=l.map(function(p){
+    var nc=nomeCli(p.cliente_id); var pts=nc.split(' ');
+    var btns='';
+    if(p.stato==='bozza') btns+='<button class="btn btn-sm" onclick="cambiaStato(\''+p.id+'\',\'inviato\')">📤 Invia</button>';
+    if(p.stato==='inviato') btns+='<button class="btn btn-sm btn-green" onclick="cambiaStato(\''+p.id+'\',\'accettato\')">✓ Accetta</button><button class="btn btn-sm btn-danger" onclick="cambiaStato(\''+p.id+'\',\'rifiutato\')">✗ Rifiuta</button>';
+    if(p.stato==='accettato') btns+='<button class="btn btn-sm btn-teal" onclick="convertiComm(\''+p.id+'\')">→ Commessa</button>';
+    if(p.stato==='rifiutato') btns+='<button class="btn btn-sm btn-ghost" onclick="cambiaStato(\''+p.id+'\',\'bozza\')">↩ Riapri</button>';
+    btns+='<button class="btn btn-sm btn-ghost" onclick="openPreventivo(\''+p.id+'\')">✏️</button>';
+    btns+='<button class="btn btn-sm btn-danger" onclick="delPreventivo(\''+p.id+'\')">🗑</button>';
+    return '<div class="card" style="padding:12px 14px"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><div class="lc-av">'+iniz(pts[0],pts[1])+'</div><div style="flex:1;min-width:0"><div style="font-weight:500;font-size:13px">'+nc+'</div><div style="font-size:11px;color:var(--stone4);font-family:\'DM Mono\',monospace">'+(p.descrizione||'—')+' · '+fD(p.data)+'</div></div><span style="font-family:\'DM Mono\',monospace;font-weight:500">'+fE(p.importo_totale)+'</span>'+badgePrev(p.stato)+'<div class="btn-row">'+btns+'</div></div></div>';
+  }).join('');
 }
 function filtPreventivi(){
-  const q=document.getElementById('src-prev').value.toLowerCase();
-  const s=document.getElementById('flt-stato-prev').value;
-  renderPreventivi(PREVENTIVI.filter(p=>(nomeCli(p.cliente_id)+' '+(p.descrizione||'')).toLowerCase().includes(q)&&(!s||p.stato===s)));
+  var q=document.getElementById('src-prev').value.toLowerCase();
+  var s=document.getElementById('flt-stato-prev').value;
+  renderPreventivi(PREVENTIVI.filter(function(p){return (nomeCli(p.cliente_id)+' '+(p.descrizione||'')).toLowerCase().includes(q)&&(!s||p.stato===s);}));
 }
-async function cambiaStatoPrev(id, stato){
-  await sb.from('preventivi').update({stato, data_stato: oggi()}).eq('id',id);
-  toast('Stato aggiornato: '+stato); await loadAll();
+async function cambiaStato(id,stato){
+  await sb.from('preventivi').update({stato:stato,data_stato:oggi()}).eq('id',id);
+  toast('Stato: '+stato); await loadAll();
 }
 async function delPreventivo(id){
   if(!confirm('Eliminare questo preventivo?')) return;
   await sb.from('preventivi').delete().eq('id',id);
   toast('Preventivo eliminato'); await loadAll();
 }
-async function convertiCommessa(prevId){
-  const p=PREVENTIVI.find(x=>x.id===prevId);
+async function convertiComm(prevId){
+  var p=PREVENTIVI.find(function(x){return x.id===prevId;});
   if(!p) return;
-  if(!confirm(`Convertire il preventivo di ${nomeCli(p.cliente_id)} in commessa?`)) return;
-  const id=uid();
-  const pezzi=p.pezzi?JSON.parse(p.pezzi):[];
-  const {error}=await sb.from('commesse_v2').upsert({id,cliente_id:p.cliente_id,preventivo_id:p.id,descrizione:p.descrizione,materiale_nome:p.materiale_nome,spessore_cm:p.spessore_cm,importo:p.importo_totale||0,fase:'confermata',data_confermata:oggi(),pagamenti:'[]',log:JSON.stringify([{data:oggi(),msg:'Commessa creata da preventivo #'+p.id.slice(-6)}])});
-  if(error){toast('Errore: '+error.message,'err');return;}
-  toast('✓ Commessa creata — vai su Commesse'); await loadAll();
+  if(!confirm('Convertire in commessa?')) return;
+  var id=uid();
+  var r=await sb.from('commesse_v2').upsert({id:id,cliente_id:p.cliente_id,preventivo_id:p.id,descrizione:p.descrizione,materiale_nome:p.materiale_nome,spessore_cm:p.spessore_cm,importo:p.importo_totale||0,fase:'confermata',data_confermata:oggi(),pagamenti:'[]',log:JSON.stringify([{data:oggi(),msg:'Creata da preventivo'}])});
+  if(r.error){toast('Errore: '+r.error.message,'err');return;}
+  toast('Commessa creata'); await loadAll();
 }
 
-// ═══════════════════════════════════
-// PREVENTIVO — EDITOR
-// ═══════════════════════════════════
 function openPreventivo(id){
   fillSelects();
   PEZZI_CORRENTI=[];
@@ -856,9 +601,10 @@ function openPreventivo(id){
   document.getElementById('prev-stato').value='bozza';
   document.getElementById('prev-data').value=oggi();
   document.getElementById('prev-note').value='';
-  switchTab('prev','anagrafica');
+  document.getElementById('prev-riepilogo').innerHTML='';
+  switchTab('anagrafica');
   if(id){
-    const p=PREVENTIVI.find(x=>x.id===id);
+    var p=PREVENTIVI.find(function(x){return x.id===id;});
     if(p){
       document.getElementById('prev-id').value=p.id;
       document.getElementById('prev-cliente').value=p.cliente_id||'';
@@ -868,8 +614,11 @@ function openPreventivo(id){
       document.getElementById('prev-stato').value=p.stato||'bozza';
       document.getElementById('prev-data').value=p.data||oggi();
       document.getElementById('prev-note').value=p.note||'';
-      if(p.pezzi){ try{ PEZZI_CORRENTI=JSON.parse(p.pezzi); }catch(e){ PEZZI_CORRENTI=[]; } }
-      if(p.materiale_nome){ document.getElementById('prev-mat').value=p.materiale_nome; onPrevMat(p.spessore_cm, p.fornitore); }
+      if(p.pezzi){try{PEZZI_CORRENTI=JSON.parse(p.pezzi);}catch(e){PEZZI_CORRENTI=[];}}
+      if(p.materiale_nome){
+        document.getElementById('prev-mat').value=p.materiale_nome;
+        onPrevMat(p.spessore_cm,p.fornitore);
+      }
     }
   }
   if(!PEZZI_CORRENTI.length) addPezzo();
@@ -877,260 +626,208 @@ function openPreventivo(id){
   openM('m-preventivo');
 }
 
-function onPrevMat(spSel, fornSel){
-  const nome=document.getElementById('prev-mat').value;
-  const vars=MATERIALI.filter(m=>m.nome===nome);
-  const sps=[...new Set(vars.map(m=>m.spessore))].sort((a,b)=>a-b);
-  const selSp=document.getElementById('prev-sp');
+function onPrevMat(spSel,fornSel){
+  var nome=document.getElementById('prev-mat').value;
+  var vars=MATERIALI.filter(function(m){return m.nome===nome;});
+  var sps=[...new Set(vars.map(function(m){return m.spessore;}))].sort(function(a,b){return a-b;});
+  var selSp=document.getElementById('prev-sp');
   selSp.innerHTML='<option value="">—</option>';
-  sps.forEach(s=>selSp.innerHTML+=`<option value="${s}">${s} cm</option>`);
+  sps.forEach(function(s){selSp.innerHTML+='<option value="'+s+'">'+(s)+' cm</option>';});
   if(spSel) selSp.value=spSel;
   onPrevSp(fornSel);
 }
 function onPrevSp(fornSel){
-  const nome=document.getElementById('prev-mat').value;
-  const sp=parseFloat(document.getElementById('prev-sp').value);
-  const vars=MATERIALI.filter(m=>m.nome===nome&&m.spessore==sp);
-  const selF=document.getElementById('prev-forn');
+  var nome=document.getElementById('prev-mat').value;
+  var sp=parseFloat(document.getElementById('prev-sp').value);
+  var vars=MATERIALI.filter(function(m){return m.nome===nome&&m.spessore==sp;});
+  var selF=document.getElementById('prev-forn');
   selF.innerHTML='<option value="">—</option>';
-  vars.forEach(m=>selF.innerHTML+=`<option value="${m.fornitore}">${m.fornitore} — €${m.prezzo}/m²</option>`);
+  vars.forEach(function(m){selF.innerHTML+='<option value="'+m.fornitore+'">'+m.fornitore+' — '+fE(m.prezzo)+'/m\u00B2</option>';});
   if(fornSel) selF.value=fornSel;
   calcolaPreventivo();
 }
 
-// ═══════════════════════════════════
-// PEZZI E SAGOME
-// ═══════════════════════════════════
-const FORME={
-  rettangolo:{label:'Rettangolo',misure:['Lunghezza (cm)','Larghezza (cm)'],lati:['Frontale (L)','Dx (La)','Posteriore (L)','Sx (La)'],calcMq:(m)=>m[0]*m[1]/10000,calcLati:(m)=>[[m[0]],[m[1]],[m[0]],[m[1]]],disegna:disegnaRett},
-  l:{label:'Forma a L',misure:['A (cm)','B (cm)','C (cm)','D (cm)'],lati:['L1','L2','L3','L4','L5','L6'],calcMq:(m)=>((m[0]*m[1])-(m[2]*m[3]))/10000,calcLati:(m)=>[[m[0]],[m[1]-m[3]],[m[0]-m[2]],[m[3]],[m[2]],[m[1]]],disegna:disegnaL},
-  u:{label:'Forma a U',misure:['A (cm)','B (cm)','C (cm)','D (cm)','E (cm)'],lati:['L1','L2','L3','L4','L5','L6','L7','L8'],calcMq:(m)=>(m[0]*m[1]-(m[2]*m[3])-(m[4]*m[3]))/10000,calcLati:(m)=>[[m[0]],[m[1]],[m[0]],[m[3]],[m[2]],[m[1]-m[3]-m[3]],[m[4]],[m[3]]],disegna:disegnaU},
-  t:{label:'Forma a T',misure:['A (cm)','B (cm)','C (cm)','D (cm)'],lati:['L1','L2','L3','L4','L5','L6','L7','L8'],calcMq:(m)=>(m[0]*m[3]+m[2]*m[1])/10000,calcLati:(m)=>{const dx=(m[0]-m[2])/2;return [[m[0]],[m[3]],[dx],[m[1]],[m[2]],[m[1]],[dx],[m[3]]];},disegna:disegnaT},
-  trapezio:{label:'Trapezio',misure:['Base (cm)','Altezza (cm)','Offset sx (cm)'],lati:['Base','Dx','Testa','Sx'],calcMq:(m)=>m[0]*m[1]/10000,calcLati:(m)=>[[m[0]],[Math.sqrt(m[1]*m[1]+(m[0]-m[2])*(m[0]-m[2]))],[m[0]],[Math.sqrt(m[1]*m[1]+m[2]*m[2])]],disegna:disegnaTrap},
-  libera:{label:'Forma libera',misure:['Lato 1','Lato 2','Lato 3','Lato 4'],lati:['L1','L2','L3','L4'],calcMq:(m)=>0,calcLati:(m)=>[[m[0]],[m[1]],[m[2]],[m[3]]],disegna:()=>{}}
+var FORME={
+  rettangolo:{label:'Rettangolo',misure:['Lunghezza (cm)','Larghezza (cm)'],latiLabel:['Frontale','Destra','Posteriore','Sinistra'],calcMq:function(m){return m[0]*m[1]/10000;},calcLati:function(m){return [m[0],m[1],m[0],m[1]];}},
+  l:{label:'Forma a L',misure:['A (cm)','B (cm)','C (cm)','D (cm)'],latiLabel:['L1','L2','L3','L4','L5','L6'],calcMq:function(m){return (m[0]*m[1]-m[2]*m[3])/10000;},calcLati:function(m){return [m[0],m[1]-m[3],m[0]-m[2],m[3],m[2],m[1]];}},
+  u:{label:'Forma a U',misure:['A (cm)','B (cm)','C (cm)','D (cm)'],latiLabel:['L1','L2','L3','L4','L5','L6','L7','L8'],calcMq:function(m){return (m[0]*m[1]-(m[0]-2*m[2])*m[3])/10000;},calcLati:function(m){return [m[0],m[3],m[2],m[1]-m[3],m[0]-2*m[2],m[1]-m[3],m[2],m[3]];}},
+  t:{label:'Forma a T',misure:['A (cm)','B (cm)','C (cm)','D (cm)'],latiLabel:['L1','L2','L3','L4','L5','L6','L7','L8'],calcMq:function(m){return (m[0]*m[3]+m[2]*m[1])/10000;},calcLati:function(m){var dx=(m[0]-m[2])/2;return [m[0],m[3],dx,m[1],m[2],m[1],dx,m[3]];}},
+  trapezio:{label:'Trapezio',misure:['Base (cm)','Altezza (cm)','Offset Sx (cm)'],latiLabel:['Base','Destra','Testa','Sinistra'],calcMq:function(m){return m[0]*m[1]/10000;},calcLati:function(m){return [m[0],Math.sqrt(m[1]*m[1]+(m[0]-m[2])*(m[0]-m[2])),m[0],Math.sqrt(m[1]*m[1]+m[2]*m[2])];}},
+  libera:{label:'Forma libera',misure:['Lato 1 (cm)','Lato 2 (cm)','Lato 3 (cm)','Lato 4 (cm)'],latiLabel:['L1','L2','L3','L4'],calcMq:function(m){return 0;},calcLati:function(m){return [m[0],m[1],m[2],m[3]];}}
 };
 
 function addPezzo(){
-  const p={id:uid(),qta:1,forma:'rettangolo',misure:[0,0,0,0,0],lati:[],note:''};
-  // inizializza lati
-  aggiornaLatiPezzo(p);
+  var p={id:uid(),qta:1,forma:'rettangolo',misure:[0,0,0,0],lati:[],note:''};
+  aggLatiPezzo(p);
   PEZZI_CORRENTI.push(p);
   renderPezzi();
 }
-function aggiornaLatiPezzo(p){
-  const f=FORME[p.forma];
-  const ml=f.calcLati(p.misure);
-  p.lati=ml.map((m,i)=>({idx:i,label:f.lati[i]||'L'+(i+1),ml:m[0]||0,bordo:p.lati[i]?.bordo||'nessuno',goccia:p.lati[i]?.goccia||false}));
+function aggLatiPezzo(p){
+  var f=FORME[p.forma];
+  var ml=f.calcLati(p.misure);
+  p.lati=ml.map(function(v,i){return {label:f.latiLabel[i]||('L'+(i+1)),ml:v||0,bordo:p.lati[i]?p.lati[i].bordo:'nessuno',goccia:p.lati[i]?p.lati[i].goccia:false};});
 }
 function renderPezzi(){
-  const el=document.getElementById('pezzi-container');
-  if(!PEZZI_CORRENTI.length){el.innerHTML='<div class="empty"><p>Nessun pezzo — clicca "+ Aggiungi pezzo"</p></div>';return;}
-  el.innerHTML=PEZZI_CORRENTI.map((p,idx)=>renderPezzoCard(p,idx)).join('');
+  var el=document.getElementById('pezzi-container');
+  if(!PEZZI_CORRENTI.length){el.innerHTML='<div class="empty"><p>Nessun pezzo — clicca + Aggiungi pezzo</p></div>';return;}
+  el.innerHTML=PEZZI_CORRENTI.map(function(p,idx){return renderPezzoCard(p,idx);}).join('');
 }
 function renderPezzoCard(p,idx){
-  const f=FORME[p.forma];
-  const mq=p.misure[0]&&p.misure[1]?f.calcMq(p.misure):0;
-  return `<div class="pezzo-card" id="pc-${p.id}">
-    <div class="pezzo-header">
-      <div class="pezzo-num">Pezzo ${idx+1}</div>
-      <div class="btn-row">
-        <label style="font-size:12px;color:var(--stone4)">Qta:</label>
-        <input type="number" value="${p.qta}" min="1" style="width:55px" onchange="setPezzo('${p.id}','qta',this.value)">
-        <button class="btn btn-sm btn-danger" onclick="delPezzo('${p.id}')">🗑</button>
-      </div>
-    </div>
-    <!-- SCELTA FORMA -->
-    <div style="margin-bottom:10px">
-      <div class="fl">Forma</div>
-      <div class="sagoma-forme">${Object.keys(FORME).map(k=>`<button class="sf-btn ${p.forma===k?'active':''}" onclick="setForma('${p.id}','${k}')">${FORME[k].label}</button>`).join('')}</div>
-    </div>
-    <!-- MISURE -->
-    <div class="fl">Misure (cm)</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
-      ${f.misure.map((lbl,i)=>`<div style="flex:1;min-width:80px"><div class="fl">${lbl}</div><input type="number" value="${p.misure[i]||''}" placeholder="0" oninput="setMisura('${p.id}',${i},this.value)" style="width:100%"></div>`).join('')}
-    </div>
-    <!-- LATI LAVORAZIONI -->
-    <div class="lato-panel">
-      <h4>Lavorazioni per lato — ${mq>0?'m² pezzo: '+mq.toFixed(3):'inserisci le misure'}</h4>
-      ${p.lati.map((l,i)=>`<div class="lato-row">
-        <div class="lato-num">${i+1}</div>
-        <div>
-          <div style="font-size:12px;font-weight:500">${l.label}</div>
-          <div class="lato-ml">${l.ml>0?l.ml.toFixed(1)+' cm':'—'}</div>
-        </div>
-        <select onchange="setLato('${p.id}',${i},'bordo',this.value)" style="font-size:12px">
-          <option value="nessuno" ${l.bordo==='nessuno'?'selected':''}>Nessuno</option>
-          <option value="filo_lucido" ${l.bordo==='filo_lucido'?'selected':''}>Filo lucido</option>
-          <option value="bisello" ${l.bordo==='bisello'?'selected':''}>Bisello</option>
-          <option value="toro" ${l.bordo==='toro'?'selected':''}>Toro</option>
-          <option value="mezza_toro" ${l.bordo==='mezza_toro'?'selected':''}>Mezza toro</option>
-          <option value="profilo_custom" ${l.bordo==='profilo_custom'?'selected':''}>Profilo custom</option>
-        </select>
-        <label style="font-size:12px;display:flex;align-items:center;gap:4px;cursor:pointer">
-          <input type="checkbox" ${l.goccia?'checked':''} onchange="setLato('${p.id}',${i},'goccia',this.checked)"> Goccia
-        </label>
-      </div>`).join('')}
-    </div>
-    <div class="fg" style="margin-top:10px"><div class="fl">Note pezzo</div><input value="${p.note||''}" placeholder="es. foro lavello Ø90 al centro" onchange="setPezzo('${p.id}','note',this.value)"></div>
-  </div>`;
+  var f=FORME[p.forma];
+  var mq=f.calcMq(p.misure);
+  var html='<div class="pezzo-card" id="pc-'+p.id+'">';
+  html+='<div class="pezzo-hdr"><div class="pezzo-num">Pezzo '+(idx+1)+'</div><div class="btn-row"><label style="font-size:12px;color:var(--stone4)">Qty:</label><input type="number" value="'+p.qta+'" min="1" style="width:55px;display:inline-block" onchange="setPezzo(\''+p.id+'\',\'qta\',this.value)"><button class="btn btn-sm btn-danger" onclick="delPezzo(\''+p.id+'\')">Elimina</button></div></div>';
+  html+='<div class="fl">Forma</div><div class="forme-row">';
+  Object.keys(FORME).forEach(function(k){html+='<button class="sf-btn'+(p.forma===k?' active':'')+'" onclick="setForma(\''+p.id+'\',\''+k+'\')">'+FORME[k].label+'</button>';});
+  html+='</div>';
+  html+='<div class="fl">Misure (cm)</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">';
+  f.misure.forEach(function(lbl,i){html+='<div style="flex:1;min-width:80px"><div class="fl">'+lbl+'</div><input type="number" value="'+(p.misure[i]||'')+'" placeholder="0" style="width:100%" oninput="setMisura(\''+p.id+'\','+i+',this.value)"></div>';});
+  html+='</div>';
+  html+='<div class="lato-panel"><h4>Lavorazioni per lato'+(mq>0?' — m\u00B2 pezzo: '+mq.toFixed(3):'')+'</h4>';
+  p.lati.forEach(function(l,i){
+    html+='<div class="lato-row"><div class="lato-n">'+(i+1)+'</div>';
+    html+='<div><div style="font-size:12px;font-weight:500">'+l.label+'</div><div class="lato-ml">'+(l.ml>0?l.ml.toFixed(1)+' cm':'—')+'</div></div>';
+    html+='<select onchange="setLato(\''+p.id+'\','+i+',\'bordo\',this.value)" style="font-size:12px"><option value="nessuno"'+(l.bordo==='nessuno'?' selected':'')+'>Nessuno</option><option value="filo_lucido"'+(l.bordo==='filo_lucido'?' selected':'')+'>Filo lucido</option><option value="bisello"'+(l.bordo==='bisello'?' selected':'')+'>Bisello</option><option value="toro"'+(l.bordo==='toro'?' selected':'')+'>Toro</option><option value="mezza_toro"'+(l.bordo==='mezza_toro'?' selected':'')+'>Mezza toro</option><option value="profilo_custom"'+(l.bordo==='profilo_custom'?' selected':'')+'>Profilo custom</option></select>';
+    html+='<label style="font-size:12px;display:flex;align-items:center;gap:4px;cursor:pointer;white-space:nowrap"><input type="checkbox"'+(l.goccia?' checked':'')+' onchange="setLato(\''+p.id+'\','+i+',\'goccia\',this.checked)"> Goccia</label>';
+    html+='</div>';
+  });
+  html+='</div>';
+  html+='<div class="fg" style="margin-top:10px"><div class="fl">Note pezzo</div><input value="'+(p.note||'')+'" placeholder="es. foro lavello diametro 90" onchange="setPezzo(\''+p.id+'\',\'note\',this.value)"></div>';
+  html+='</div>';
+  return html;
 }
 function setForma(pid,forma){
-  const p=PEZZI_CORRENTI.find(x=>x.id===pid); if(!p) return;
-  p.forma=forma; p.misure=[0,0,0,0,0]; aggiornaLatiPezzo(p); renderPezzi();
+  var p=PEZZI_CORRENTI.find(function(x){return x.id===pid;});
+  if(!p) return;
+  p.forma=forma; p.misure=[0,0,0,0]; aggLatiPezzo(p); renderPezzi();
 }
 function setMisura(pid,idx,val){
-  const p=PEZZI_CORRENTI.find(x=>x.id===pid); if(!p) return;
-  p.misure[idx]=parseFloat(val)||0; aggiornaLatiPezzo(p);
-  // aggiorna solo il lato panel senza re-render completo
-  const card=document.getElementById('pc-'+pid);
+  var p=PEZZI_CORRENTI.find(function(x){return x.id===pid;});
+  if(!p) return;
+  p.misure[idx]=parseFloat(val)||0; aggLatiPezzo(p);
+  var card=document.getElementById('pc-'+pid);
   if(card){
-    const f=FORME[p.forma];
-    const mq=f.calcMq(p.misure);
-    const lp=card.querySelector('.lato-panel h4');
-    if(lp) lp.textContent='Lavorazioni per lato — '+(mq>0?'m² pezzo: '+mq.toFixed(3):'inserisci le misure');
-    p.lati.forEach((l,i)=>{
-      const rows=card.querySelectorAll('.lato-row');
-      if(rows[i]){const ml=rows[i].querySelector('.lato-ml');if(ml)ml.textContent=l.ml>0?l.ml.toFixed(1)+' cm':'—';}
+    var f=FORME[p.forma]; var mq=f.calcMq(p.misure);
+    var h4=card.querySelector('.lato-panel h4');
+    if(h4) h4.textContent='Lavorazioni per lato'+(mq>0?' — m\u00B2 pezzo: '+mq.toFixed(3):'');
+    p.lati.forEach(function(l,i){
+      var rows=card.querySelectorAll('.lato-row');
+      if(rows[i]){var ml=rows[i].querySelector('.lato-ml');if(ml)ml.textContent=l.ml>0?l.ml.toFixed(1)+' cm':'—';}
     });
   }
   calcolaPreventivo();
 }
 function setLato(pid,idx,key,val){
-  const p=PEZZI_CORRENTI.find(x=>x.id===pid); if(!p||!p.lati[idx]) return;
+  var p=PEZZI_CORRENTI.find(function(x){return x.id===pid;});
+  if(!p||!p.lati[idx]) return;
   p.lati[idx][key]=val; calcolaPreventivo();
 }
 function setPezzo(pid,key,val){
-  const p=PEZZI_CORRENTI.find(x=>x.id===pid); if(!p) return;
+  var p=PEZZI_CORRENTI.find(function(x){return x.id===pid;});
+  if(!p) return;
   p[key]=key==='qta'?parseInt(val)||1:val; calcolaPreventivo();
 }
 function delPezzo(pid){
-  PEZZI_CORRENTI=PEZZI_CORRENTI.filter(x=>x.id!==pid); renderPezzi(); calcolaPreventivo();
+  PEZZI_CORRENTI=PEZZI_CORRENTI.filter(function(x){return x.id!==pid;}); renderPezzi(); calcolaPreventivo();
 }
 
-// ═══════════════════════════════════
-// CALCOLO PREVENTIVO
-// ═══════════════════════════════════
 function calcolaPreventivo(){
-  const nomeMat=document.getElementById('prev-mat')?.value;
-  const sp=parseFloat(document.getElementById('prev-sp')?.value)||0;
-  const forn=document.getElementById('prev-forn')?.value;
-  const margine=parseFloat(document.getElementById('prev-margine')?.value)||25;
-  const scarto=parseFloat(document.getElementById('prev-scarto')?.value)||12;
-  const mat=MATERIALI.find(m=>m.nome===nomeMat&&m.spessore==sp&&m.fornitore===forn);
-  const el=document.getElementById('prev-riepilogo-box');
-  if(!el) return;
-
-  // calcola totali da pezzi
-  let mqTotNetti=0, mqTotLordi=0;
-  const mlPerBordo={};
-  let gocciaML=0;
-  PEZZI_CORRENTI.forEach(p=>{
-    const f=FORME[p.forma];
-    const mqP=f.calcMq(p.misure);
-    mqTotNetti+=mqP*(p.qta||1);
-    mqTotLordi+=mqP*(p.qta||1)*(1+scarto/100);
-    p.lati.forEach(l=>{
-      if(l.bordo&&l.bordo!=='nessuno'){
-        const mlL=(l.ml/100)*(p.qta||1);
-        mlPerBordo[l.bordo]=(mlPerBordo[l.bordo]||0)+mlL;
-      }
-      if(l.goccia) gocciaML+=(l.ml/100)*(p.qta||1);
+  var nomeMat=document.getElementById('prev-mat')?document.getElementById('prev-mat').value:'';
+  var sp=parseFloat(document.getElementById('prev-sp')?document.getElementById('prev-sp').value:0)||0;
+  var forn=document.getElementById('prev-forn')?document.getElementById('prev-forn').value:'';
+  var marg=parseFloat(document.getElementById('prev-margine')?document.getElementById('prev-margine').value:25)||25;
+  var scarto=parseFloat(document.getElementById('prev-scarto')?document.getElementById('prev-scarto').value:12)||12;
+  var mat=MATERIALI.find(function(m){return m.nome===nomeMat&&m.spessore==sp&&m.fornitore===forn;});
+  var mqN=0, mqL=0, mlBordi={}, mlGoccia=0;
+  PEZZI_CORRENTI.forEach(function(p){
+    var f=FORME[p.forma]; var mqP=f.calcMq(p.misure); var q=p.qta||1;
+    mqN+=mqP*q; mqL+=mqP*q*(1+scarto/100);
+    p.lati.forEach(function(l){
+      if(l.bordo&&l.bordo!=='nessuno'){var ml=(l.ml/100)*q; mlBordi[l.bordo]=(mlBordi[l.bordo]||0)+ml;}
+      if(l.goccia) mlGoccia+=(l.ml/100)*q;
     });
   });
-
-  const costoAcq=mat?mat.prezzo:0;
-  const prezzoMq=mat?calcPrezzo(costoAcq,margine):0;
-  const totMat=prezzoMq*mqTotLordi;
-
-  // build riepilogo HTML
-  let html=`<div class="prev-riepilogo">
-    <div class="calc-row"><span>Materiale</span><span class="calc-val">${nomeMat||'—'} ${sp?sp+'cm':''}</span></div>
-    <div class="calc-row"><span class="calc-note">Fornitore</span><span class="calc-val">${forn||'—'}</span></div>
-    ${costoAcq?`<div class="calc-row"><span class="calc-note">Costo acquisto</span><span class="calc-val">€${costoAcq.toFixed(2)}/m²</span></div>`:''}
-    ${prezzoMq?`<div class="calc-row"><span class="calc-note">Prezzo cliente (margine ${margine}%)</span><span class="calc-val">€${prezzoMq.toFixed(2)}/m²</span></div>`:''}
-    <div class="calc-row sep"><span>m² netti</span><span class="calc-val">${mqTotNetti.toFixed(3)} m²</span></div>
-    <div class="calc-row"><span>m² con scarto ${scarto}%</span><span class="calc-val">${mqTotLordi.toFixed(3)} m²</span></div>
-    ${Object.entries(mlPerBordo).map(([b,ml])=>`<div class="calc-row"><span>${b.replace(/_/g,' ')}</span><span class="calc-val">${ml.toFixed(2)} ml</span></div>`).join('')}
-    ${gocciaML>0?`<div class="calc-row"><span>Gocciolatoio</span><span class="calc-val">${gocciaML.toFixed(2)} ml</span></div>`:''}
-    <div class="calc-row tot"><span>Totale materiale</span><span class="calc-val">${fE(totMat)}</span></div>
-  </div>`;
+  var costoAcq=mat?mat.prezzo:0;
+  var pMq=mat?calcPrezzo(costoAcq,marg):0;
+  var totMat=pMq*mqL;
+  var el=document.getElementById('prev-riepilogo');
+  if(!el) return {totMat:totMat};
+  var html='<div class="prev-riepilogo">';
+  html+='<div class="pr-row"><span>Materiale</span><span class="pr-val">'+(nomeMat||'Non selezionato')+(sp?' '+sp+'cm':'')+'</span></div>';
+  if(costoAcq) html+='<div class="pr-row"><span class="pr-sub">Costo acquisto</span><span class="pr-val">'+fE(costoAcq)+'/m\u00B2</span></div>';
+  if(pMq) html+='<div class="pr-row"><span class="pr-sub">Prezzo cliente (marg. '+marg+'%)</span><span class="pr-val">'+fE(pMq)+'/m\u00B2</span></div>';
+  html+='<div class="pr-row sep"><span>m\u00B2 netti</span><span class="pr-val">'+mqN.toFixed(3)+' m\u00B2</span></div>';
+  html+='<div class="pr-row"><span>m\u00B2 con scarto '+scarto+'%</span><span class="pr-val">'+mqL.toFixed(3)+' m\u00B2</span></div>';
+  Object.keys(mlBordi).forEach(function(b){html+='<div class="pr-row"><span>'+b.replace(/_/g,' ')+'</span><span class="pr-val">'+mlBordi[b].toFixed(2)+' ml</span></div>';});
+  if(mlGoccia>0) html+='<div class="pr-row"><span>Gocciolatoio</span><span class="pr-val">'+mlGoccia.toFixed(2)+' ml</span></div>';
+  html+='<div class="pr-row sep tot"><span>Totale materiale</span><span class="pr-val">'+fE(totMat)+'</span></div>';
+  html+='</div>';
   el.innerHTML=html;
-  return {mqTotNetti, mqTotLordi, totMat, mlPerBordo, gocciaML};
+  return {totMat:totMat,mqN:mqN,mqL:mqL};
 }
 
 async function savePreventivo(){
-  const cliId=document.getElementById('prev-cliente').value;
-  const descr=document.getElementById('prev-descr').value.trim();
+  var cliId=document.getElementById('prev-cliente').value;
+  var descr=document.getElementById('prev-descr').value.trim();
   if(!cliId){toast('Seleziona un cliente','err');return;}
   if(!descr){toast('Inserisci una descrizione','err');return;}
-  const nomeMat=document.getElementById('prev-mat').value;
-  const sp=parseFloat(document.getElementById('prev-sp').value)||null;
-  const forn=document.getElementById('prev-forn').value;
-  const margine=parseFloat(document.getElementById('prev-margine').value)||25;
-  const scarto=parseFloat(document.getElementById('prev-scarto').value)||12;
-  const mat=MATERIALI.find(m=>m.nome===nomeMat&&m.spessore==sp&&m.fornitore===forn);
-  const totals=calcolaPreventivo();
-  const importoTot=totals?totals.totMat:0;
-  const id=document.getElementById('prev-id').value||uid();
-  const data={
-    id, cliente_id:cliId, descrizione:descr,
-    materiale_nome:nomeMat, spessore_cm:sp, fornitore:forn,
-    margine_perc:margine, scarto_perc:scarto,
+  var nomeMat=document.getElementById('prev-mat').value;
+  var sp=parseFloat(document.getElementById('prev-sp').value)||null;
+  var forn=document.getElementById('prev-forn').value;
+  var marg=parseFloat(document.getElementById('prev-margine').value)||25;
+  var scarto=parseFloat(document.getElementById('prev-scarto').value)||12;
+  var mat=MATERIALI.find(function(m){return m.nome===nomeMat&&m.spessore==sp&&m.fornitore===forn;});
+  var totals=calcolaPreventivo();
+  var id=document.getElementById('prev-id').value||uid();
+  var r=await sb.from('preventivi').upsert({
+    id:id,cliente_id:cliId,descrizione:descr,
+    materiale_nome:nomeMat,spessore_cm:sp,fornitore:forn,
+    margine_perc:marg,scarto_perc:scarto,
     costo_acquisto_mq:mat?mat.prezzo:null,
-    importo_totale:importoTot||null,
+    importo_totale:totals?totals.totMat:null,
     stato:document.getElementById('prev-stato').value,
     data:document.getElementById('prev-data').value,
     data_stato:oggi(),
     note:document.getElementById('prev-note').value.trim(),
     pezzi:JSON.stringify(PEZZI_CORRENTI)
-  };
-  const {error}=await sb.from('preventivi').upsert(data);
-  if(error){toast('Errore: '+error.message,'err');return;}
-  toast('Preventivo salvato ✓'); closeM('m-preventivo'); await loadAll();
+  });
+  if(r.error){toast('Errore: '+r.error.message,'err');return;}
+  toast('Preventivo salvato'); closeM('m-preventivo'); await loadAll();
 }
 
-// ═══════════════════════════════════
-// COMMESSE
-// ═══════════════════════════════════
-const FASI=['confermata','materiale_ordinato','in_lavorazione','consegnata','fatturata'];
-const FASI_L={confermata:'Confermata',materiale_ordinato:'Mat. ord.',in_lavorazione:'In lavorazione',consegnata:'Consegnata',fatturata:'Fatturata'};
+var FASI=['confermata','materiale_ordinato','in_lavorazione','consegnata','fatturata'];
+var FASI_L={confermata:'Confermata',materiale_ordinato:'Mat. ord.',in_lavorazione:'In lavorazione',consegnata:'Consegnata',fatturata:'Fatturata'};
 
 function renderCommesse(lista){
-  const l=lista||COMMESSE;
-  const el=document.getElementById('commesse-list');
-  if(!l.length){el.innerHTML='<div class="empty"><div class="empty-icon">🔨</div><p>Nessuna commessa — le commesse nascono da preventivi accettati</p></div>';return;}
-  el.innerHTML=l.map(c=>{
-    const fi=FASI.indexOf(c.fase);
-    return `<div class="card">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">
-        <div class="lc-av">${iniz(...nomeCli(c.cliente_id).split(' '))}</div>
-        <div style="flex:1"><div style="font-weight:500">${nomeCli(c.cliente_id)}</div><div style="font-size:11px;color:var(--stone4)">${c.descrizione||'—'}</div></div>
-        <div style="font-family:'DM Mono',monospace;font-weight:500">${fE(c.importo)}</div>
-        <div class="btn-row">
-          ${fi<FASI.length-1?`<button class="btn btn-sm btn-primary" onclick="avanzaComm('${c.id}')">Avanza →</button>`:''}
-          ${fi>0?`<button class="btn btn-sm btn-ghost" onclick="tornaComm('${c.id}')">← Torna</button>`:''}
-          <button class="btn btn-sm btn-danger" onclick="delComm('${c.id}')">🗑</button>
-        </div>
-      </div>
-      <div class="tracker">${FASI.map((f,i)=>`<div class="ts ${i<fi?'done':i===fi?'cur':''}">${FASI_L[f]}</div>`).join('')}</div>
-    </div>`;
+  var l=lista||COMMESSE;
+  var el=document.getElementById('commesse-list');
+  if(!l.length){el.innerHTML='<div class="empty"><div class="empty-icon">🔨</div><p>Nessuna commessa — nascono da preventivi accettati</p></div>';return;}
+  el.innerHTML=l.map(function(c){
+    var nc=nomeCli(c.cliente_id); var pts=nc.split(' ');
+    var fi=FASI.indexOf(c.fase);
+    var tracker='<div class="tracker">'+FASI.map(function(f,i){return '<div class="ts'+(i<fi?' done':i===fi?' cur':'')+'">'+(FASI_L[f]||f)+'</div>';}).join('')+'</div>';
+    var btns='';
+    if(fi<FASI.length-1) btns+='<button class="btn btn-sm btn-primary" onclick="avanzaComm(\''+c.id+'\')">Avanza</button>';
+    if(fi>0) btns+='<button class="btn btn-sm btn-ghost" onclick="tornaComm(\''+c.id+'\')">Torna</button>';
+    btns+='<button class="btn btn-sm btn-danger" onclick="delComm(\''+c.id+'\')">Elimina</button>';
+    return '<div class="card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap"><div class="lc-av">'+iniz(pts[0],pts[1])+'</div><div style="flex:1"><div style="font-weight:500">'+nc+'</div><div style="font-size:11px;color:var(--stone4)">'+(c.descrizione||'—')+'</div></div><span style="font-family:\'DM Mono\',monospace;font-weight:500">'+fE(c.importo)+'</span><div class="btn-row">'+btns+'</div></div>'+tracker+'</div>';
   }).join('');
 }
 function filtCommesse(){
-  const q=document.getElementById('src-comm').value.toLowerCase();
-  const f=document.getElementById('flt-fase-comm').value;
-  renderCommesse(COMMESSE.filter(c=>(nomeCli(c.cliente_id)+' '+(c.descrizione||'')).toLowerCase().includes(q)&&(!f||c.fase===f)));
+  var q=document.getElementById('src-comm').value.toLowerCase();
+  var f=document.getElementById('flt-fase-comm').value;
+  renderCommesse(COMMESSE.filter(function(c){return (nomeCli(c.cliente_id)+' '+(c.descrizione||'')).toLowerCase().includes(q)&&(!f||c.fase===f);}));
 }
 async function avanzaComm(id){
-  const c=COMMESSE.find(x=>x.id===id); if(!c) return;
-  const i=FASI.indexOf(c.fase); if(i>=FASI.length-1) return;
-  const nf=FASI[i+1];
-  await sb.from('commesse_v2').update({fase:nf,['data_'+nf]:oggi()}).eq('id',id);
+  var c=COMMESSE.find(function(x){return x.id===id;}); if(!c) return;
+  var i=FASI.indexOf(c.fase); if(i>=FASI.length-1) return;
+  var nf=FASI[i+1]; var upd={}; upd.fase=nf; upd['data_'+nf]=oggi();
+  await sb.from('commesse_v2').update(upd).eq('id',id);
   toast('Fase: '+FASI_L[nf]); await loadAll();
 }
 async function tornaComm(id){
-  const c=COMMESSE.find(x=>x.id===id); if(!c) return;
-  const i=FASI.indexOf(c.fase); if(i<=0) return;
+  var c=COMMESSE.find(function(x){return x.id===id;}); if(!c) return;
+  var i=FASI.indexOf(c.fase); if(i<=0) return;
   await sb.from('commesse_v2').update({fase:FASI[i-1]}).eq('id',id);
   toast('Fase: '+FASI_L[FASI[i-1]]); await loadAll();
 }
@@ -1140,6 +837,101 @@ async function delComm(id){
   toast('Commessa eliminata'); await loadAll();
 }
 
-// ═══════════════════════════════════
-// MAGAZZINO
-// ═══════�
+function renderLastre(lista){
+  var l=lista||LASTRE;
+  var el=document.getElementById('magazzino-list');
+  if(!l.length){el.innerHTML='<div class="empty"><div class="empty-icon">🪨</div><p>Nessuna lastra in magazzino</p></div>';return;}
+  el.innerHTML='<table><thead><tr><th>Codice</th><th>Materiale</th><th>Dimensioni</th><th>Lotto</th><th>Posizione</th><th>Stato</th><th></th></tr></thead><tbody>'+
+    l.map(function(la){
+      return '<tr><td class="tnum"><strong>'+(la.cod||la.id)+'</strong>'+(la.madre?'<br><span style="font-size:10px;color:var(--stone5)">figlia di '+la.madre+'</span>':'')+'</td><td>'+(la.mat||'—')+'<br><span style="font-size:11px;color:var(--stone4)">'+(la.sp||'—')+' cm · '+(la.fin||'—')+'</span></td><td class="tnum">'+(la.l||'—')+' x '+(la.la||'—')+' cm'+(la.mq?'<br><span style="font-size:11px;color:var(--stone4)">'+parseFloat(la.mq).toFixed(2)+' m\u00B2</span>':'')+'</td><td class="tnum">'+(la.lotto||'—')+'</td><td>'+(la.pos||'—')+'</td><td>'+badgeStato(la.stato||'disponibile')+'</td><td><button class="btn btn-sm btn-ghost" onclick="openLastra(\''+(la.id||la.cod)+'\')">✏️</button> <button class="btn btn-sm btn-danger" onclick="delLastra(\''+(la.id||la.cod)+'\')">🗑</button></td></tr>';
+    }).join('')+'</tbody></table>';
+}
+function filtLastre(){
+  var q=document.getElementById('src-mag').value.toLowerCase();
+  var s=document.getElementById('flt-stato-mag').value;
+  renderLastre(LASTRE.filter(function(l){return ((l.cod||l.id)+' '+(l.mat||'')+' '+(l.lotto||'')).toLowerCase().includes(q)&&(!s||(l.stato||'disponibile')===s);}));
+}
+function calcMqLas(){
+  var l=parseFloat(document.getElementById('las-l').value)||0;
+  var la=parseFloat(document.getElementById('las-la').value)||0;
+  document.getElementById('las-mq').value=l&&la?(l*la/10000).toFixed(2)+' m\u00B2':'';
+}
+function openLastra(id){
+  fillSelects();
+  document.getElementById('m-las-title').textContent=id?'Modifica lastra':'Nuova lastra';
+  ['las-id','las-cod','las-l','las-la','las-sp','las-mq','las-lotto','las-pos','las-madre','las-note'].forEach(function(f){document.getElementById(f).value='';});
+  document.getElementById('las-mat').value=''; document.getElementById('las-fin').value='grezzo'; document.getElementById('las-stato').value='disponibile';
+  if(id){
+    var la=LASTRE.find(function(x){return (x.id||x.cod)===id;});
+    if(la){document.getElementById('las-id').value=la.id||la.cod;document.getElementById('las-cod').value=la.cod||la.id;document.getElementById('las-mat').value=la.mat||'';document.getElementById('las-l').value=la.l||'';document.getElementById('las-la').value=la.la||'';document.getElementById('las-sp').value=la.sp||'';document.getElementById('las-mq').value=la.mq?la.mq+' m\u00B2':'';document.getElementById('las-fin').value=la.fin||'grezzo';document.getElementById('las-lotto').value=la.lotto||'';document.getElementById('las-pos').value=la.pos||'';document.getElementById('las-stato').value=la.stato||'disponibile';document.getElementById('las-madre').value=la.madre||'';document.getElementById('las-note').value=la.note||'';}
+  }
+  openM('m-lastra');
+}
+async function saveLastra(){
+  var cod=document.getElementById('las-cod').value.trim();
+  if(!cod){toast('Inserisci il codice lastra','err');return;}
+  var l=parseFloat(document.getElementById('las-l').value)||0;
+  var la=parseFloat(document.getElementById('las-la').value)||0;
+  var r=await sb.from('lastre').upsert({id:cod,cod:cod,mat:document.getElementById('las-mat').value,l:l,la:la,sp:parseFloat(document.getElementById('las-sp').value)||null,mq:l&&la?parseFloat((l*la/10000).toFixed(4)):null,fin:document.getElementById('las-fin').value,lotto:document.getElementById('las-lotto').value.trim(),pos:document.getElementById('las-pos').value.trim(),stato:document.getElementById('las-stato').value,madre:document.getElementById('las-madre').value.trim()||null,note:document.getElementById('las-note').value.trim()});
+  if(r.error){toast('Errore: '+r.error.message,'err');return;}
+  toast('Lastra salvata'); closeM('m-lastra'); await loadAll();
+}
+async function delLastra(id){
+  if(!confirm('Eliminare questa lastra?')) return;
+  await sb.from('lastre').delete().eq('id',id);
+  toast('Lastra eliminata'); await loadAll();
+}
+
+function renderMateriali(lista){
+  var l=lista||MATERIALI;
+  var el=document.getElementById('materiali-list');
+  if(!l.length){el.innerHTML='<div class="empty"><div class="empty-icon">📦</div><p>Nessun materiale nel catalogo</p></div>';return;}
+  el.innerHTML='<table><thead><tr><th>Materiale</th><th>Categoria</th><th>Spessore</th><th>Finitura</th><th>Fornitore</th><th>Costo/m2</th><th>Prezzo cli. 25%</th><th></th></tr></thead><tbody>'+
+    l.map(function(m){
+      var pc=calcPrezzo(m.prezzo,25);
+      return '<tr><td><strong>'+m.nome+'</strong></td><td><span class="badge bg-gray">'+((m.categoria||'—').replace(/_/g,' '))+'</span></td><td class="tnum">'+(m.spessore||'—')+' cm</td><td>'+(m.finitura||'—')+'</td><td>'+(m.fornitore||'—')+'</td><td class="tnum"><strong>'+fE(m.prezzo)+'</strong></td><td class="tnum" style="color:var(--gold);font-weight:500">'+fE(pc)+'</td><td><button class="btn btn-sm btn-ghost" onclick="openMateriale(\''+m.id+'\')">✏️</button> <button class="btn btn-sm btn-danger" onclick="delMateriale(\''+m.id+'\')">🗑</button></td></tr>';
+    }).join('')+'</tbody></table>';
+}
+function filtMateriali(){
+  var q=document.getElementById('src-mat').value.toLowerCase();
+  var c=document.getElementById('flt-cat-mat').value;
+  renderMateriali(MATERIALI.filter(function(m){return (m.nome+' '+(m.fornitore||'')).toLowerCase().includes(q)&&(!c||m.categoria===c);}));
+}
+function prevMatCalc(){
+  var costo=parseFloat(document.getElementById('mat-prezzo').value)||0;
+  document.getElementById('mat-prezzo-out').textContent=costo?fE(calcPrezzo(costo,25))+'/m\u00B2':'—';
+}
+function openMateriale(id){
+  document.getElementById('m-mat-title').textContent=id?'Modifica materiale':'Nuovo materiale';
+  ['mat-id','mat-nome','mat-sp','mat-forn','mat-prezzo'].forEach(function(f){document.getElementById(f).value='';});
+  document.getElementById('mat-cat').value='granito_sardo'; document.getElementById('mat-fin').value='grezzo'; document.getElementById('mat-prezzo-out').textContent='—';
+  if(id){
+    var m=MATERIALI.find(function(x){return x.id===id;});
+    if(m){document.getElementById('mat-id').value=m.id;document.getElementById('mat-nome').value=m.nome||'';document.getElementById('mat-cat').value=m.categoria||'granito_sardo';document.getElementById('mat-sp').value=m.spessore||'';document.getElementById('mat-fin').value=m.finitura||'grezzo';document.getElementById('mat-forn').value=m.fornitore||'';document.getElementById('mat-prezzo').value=m.prezzo||'';prevMatCalc();}
+  }
+  openM('m-materiale');
+}
+async function saveMateriale(){
+  var nome=document.getElementById('mat-nome').value.trim();
+  var prezzo=parseFloat(document.getElementById('mat-prezzo').value);
+  if(!nome){toast('Inserisci il nome','err');return;}
+  if(!prezzo){toast('Inserisci il prezzo di acquisto','err');return;}
+  var id=document.getElementById('mat-id').value||uid();
+  var r=await sb.from('materiali').upsert({id:id,nome:nome,categoria:document.getElementById('mat-cat').value,spessore:parseFloat(document.getElementById('mat-sp').value)||null,finitura:document.getElementById('mat-fin').value,fornitore:document.getElementById('mat-forn').value.trim(),prezzo:prezzo});
+  if(r.error){toast('Errore: '+r.error.message,'err');return;}
+  toast('Materiale salvato'); closeM('m-materiale'); await loadAll();
+}
+async function delMateriale(id){
+  if(!confirm('Eliminare questo materiale?')) return;
+  await sb.from('materiali').delete().eq('id',id);
+  toast('Materiale eliminato'); await loadAll();
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  aggFormula();
+  document.getElementById('p-margine').addEventListener('input', aggFormula);
+  loadAll();
+});
+</script>
+</body>
+</html>
